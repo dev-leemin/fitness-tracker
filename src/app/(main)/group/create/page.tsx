@@ -40,38 +40,38 @@ export default function CreateGroupPage() {
 
   return (
     <div className="max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">그룹 만들기</h1>
+      <h1 className="text-2xl font-bold text-white mb-6">그룹 만들기</h1>
 
-      <form onSubmit={handleSubmit} className="card space-y-4">
+      <form onSubmit={handleSubmit} className="glow-card space-y-5">
         {error && (
-          <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-lg">
+          <div className="bg-[#FF006E]/10 border border-[#FF006E]/20 text-[#FF006E] text-sm px-4 py-3 rounded-xl">
             {error}
           </div>
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
             그룹 이름
           </label>
           <input
             type="text"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="input"
-            placeholder="예: 운��� 인증방"
+            className="input-glass"
+            placeholder="예: 운동 인증방"
             required
             maxLength={100}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
             설명 (선택)
           </label>
           <textarea
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
-            className="input resize-none"
+            className="input-glass resize-none"
             placeholder="그룹 설명을 입력하세요"
             rows={3}
             maxLength={500}
@@ -79,24 +79,40 @@ export default function CreateGroupPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            주간 운동 목표 (회)
+          <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
+            주간 운동 목표
           </label>
-          <select
-            value={form.weeklyGoal}
-            onChange={(e) => setForm({ ...form, weeklyGoal: e.target.value })}
-            className="input"
-          >
+          <div className="flex gap-2">
             {[1, 2, 3, 4, 5, 6, 7].map((n) => (
-              <option key={n} value={n}>
-                주 {n}회
-              </option>
+              <button
+                key={n}
+                type="button"
+                onClick={() => setForm({ ...form, weeklyGoal: String(n) })}
+                className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  form.weeklyGoal === String(n)
+                    ? "bg-[#00FF87]/[0.08] border border-[#00FF87]/40 text-[#00FF87]"
+                    : "border border-white/[0.06] text-white/40 hover:bg-white/[0.03]"
+                }`}
+              >
+                {n}
+              </button>
             ))}
-          </select>
+          </div>
+          <p className="text-xs text-white/25 mt-2">주 {form.weeklyGoal}회 목표</p>
         </div>
 
-        <button type="submit" className="btn-primary w-full" disabled={loading}>
-          {loading ? "생성 중..." : "그룹 생성"}
+        <button type="submit" className="btn-glow w-full" disabled={loading}>
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              생성 중...
+            </span>
+          ) : (
+            "그룹 생성"
+          )}
         </button>
       </form>
     </div>

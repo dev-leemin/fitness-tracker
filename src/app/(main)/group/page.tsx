@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface Group {
   id: string;
@@ -45,69 +46,77 @@ export default function GroupListPage() {
   };
 
   if (loading) {
-    return <div className="card animate-pulse"><div className="h-40 bg-gray-100 rounded-lg" /></div>;
+    return <div className="glass-card animate-pulse"><div className="h-40 bg-white/[0.02] rounded-lg" /></div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">내 그룹</h1>
-        <Link href="/group/create" className="btn-primary">
-          그룹 만들기
+        <h1 className="text-2xl font-bold text-white">내 그룹</h1>
+        <Link href="/group/create" className="btn-glow !py-2 !px-4 text-sm">
+          + 그룹 만들기
         </Link>
       </div>
 
       {/* 초대 코드로 참여 */}
-      <form onSubmit={handleJoin} className="card">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          초대 코드�� 참여
+      <form onSubmit={handleJoin} className="glass-card">
+        <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
+          초대 코드로 참여
         </label>
         <div className="flex gap-2">
           <input
             type="text"
             value={joinCode}
             onChange={(e) => setJoinCode(e.target.value)}
-            className="input flex-1"
+            className="input-glass flex-1"
             placeholder="초대 코드 입력"
             maxLength={20}
           />
-          <button type="submit" className="btn-primary whitespace-nowrap">
+          <button type="submit" className="btn-glow whitespace-nowrap !py-2">
             참여
           </button>
         </div>
         {joinError && (
-          <p className="text-sm text-red-500 mt-2">{joinError}</p>
+          <p className="text-sm text-[#FF006E] mt-2">{joinError}</p>
         )}
       </form>
 
       {/* 그룹 목록 */}
       {groups.length === 0 ? (
-        <div className="card text-center py-8">
-          <p className="text-gray-400 text-lg mb-2">👥</p>
-          <p className="text-gray-500">참여 중인 그룹이 없습니다</p>
-          <p className="text-sm text-gray-400 mt-1">
-            그��을 만들거�� 초대 코드로 참여하세요
+        <div className="glass-card text-center py-12">
+          <div className="w-16 h-16 mx-auto rounded-full bg-white/[0.03] flex items-center justify-center mb-4">
+            <span className="text-2xl text-white/20">⬡</span>
+          </div>
+          <p className="text-white/50">참여 중인 그룹이 없습니다</p>
+          <p className="text-sm text-white/25 mt-1">
+            그룹을 만들거나 초대 코드로 참여하세요
           </p>
         </div>
       ) : (
         <div className="space-y-3">
-          {groups.map((group) => (
-            <Link
+          {groups.map((group, i) => (
+            <motion.div
               key={group.id}
-              href={`/group/${group.id}`}
-              className="card flex items-center gap-4 hover:shadow-md transition-shadow"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
             >
-              <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center text-xl">
-                👥
-              </div>
-              <div className="flex-1">
-                <p className="font-semibold text-gray-900">{group.name}</p>
-                <p className="text-sm text-gray-500">
-                  {group._count.members}명 · 주 {group.weeklyGoal}회 목표
-                </p>
-              </div>
-              <span className="text-gray-400">→</span>
-            </Link>
+              <Link
+                href={`/group/${group.id}`}
+                className="glass-card flex items-center gap-4 group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00FF87]/10 to-[#00D4FF]/10 border border-[#00FF87]/20 flex items-center justify-center text-lg group-hover:border-[#00FF87]/40 transition-colors">
+                  ⬡
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-white">{group.name}</p>
+                  <p className="text-sm text-white/40">
+                    {group._count.members}명 · 주 {group.weeklyGoal}회 목표
+                  </p>
+                </div>
+                <span className="text-white/20 group-hover:text-white/50 transition-colors">→</span>
+              </Link>
+            </motion.div>
           ))}
         </div>
       )}

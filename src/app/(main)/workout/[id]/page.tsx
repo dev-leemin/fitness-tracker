@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { INTENSITY_LABELS } from "@/lib/constants";
+import { motion } from "framer-motion";
 
 interface WorkoutDetail {
   id: string;
@@ -47,82 +48,91 @@ export default function WorkoutDetailPage() {
   };
 
   if (loading) {
-    return <div className="card animate-pulse"><div className="h-60 bg-gray-100 rounded-lg" /></div>;
+    return <div className="glass-card animate-pulse"><div className="h-60 bg-white/[0.02] rounded-lg" /></div>;
   }
 
   if (!workout) {
-    return <div className="card text-center py-8 text-gray-500">운동 기록을 찾을 수 없습니다.</div>;
+    return <div className="glass-card text-center py-8 text-white/40">운동 기록을 찾을 수 없습니다.</div>;
   }
 
   const intensityInfo = INTENSITY_LABELS.find((l) => l.value === workout.intensity);
 
   return (
-    <div className="max-w-lg mx-auto space-y-6">
+    <div className="max-w-lg mx-auto space-y-5">
       {/* 헤더 */}
-      <div className="card">
+      <motion.div
+        className="glow-card"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-3xl">
+          <div className="w-16 h-16 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-3xl">
             {workout.exerciseType.icon}
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">
+            <h1 className="text-xl font-bold text-white">
               {workout.exerciseType.name}
             </h1>
-            <p className="text-gray-500">
+            <p className="text-white/40 text-sm">
               {format(new Date(workout.date), "yyyy년 M월 d일 (E)", { locale: ko })}
             </p>
           </div>
           {workout.isVerified && (
-            <span className="badge bg-green-100 text-green-700 ml-auto">인증완료</span>
+            <span className="badge-glow ml-auto">인증완료</span>
           )}
         </div>
-      </div>
+      </motion.div>
 
       {/* 상세 정보 */}
-      <div className="card">
+      <motion.div
+        className="glass-card"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.05 }}
+      >
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-gray-500">운동 시간</p>
-            <p className="text-lg font-semibold">{workout.durationMin}분</p>
+            <p className="text-xs text-white/30 uppercase tracking-wider">운동 시간</p>
+            <p className="text-lg font-semibold text-white mt-1">{workout.durationMin}분</p>
           </div>
           {workout.distanceKm && (
             <div>
-              <p className="text-sm text-gray-500">거리</p>
-              <p className="text-lg font-semibold">{workout.distanceKm}km</p>
+              <p className="text-xs text-white/30 uppercase tracking-wider">거리</p>
+              <p className="text-lg font-semibold text-white mt-1">{workout.distanceKm}km</p>
             </div>
           )}
           {workout.calories && (
             <div>
-              <p className="text-sm text-gray-500">칼로리</p>
-              <p className="text-lg font-semibold">{workout.calories}kcal</p>
+              <p className="text-xs text-white/30 uppercase tracking-wider">칼로리</p>
+              <p className="text-lg font-semibold text-white mt-1">{workout.calories}kcal</p>
             </div>
           )}
           {intensityInfo && (
             <div>
-              <p className="text-sm text-gray-500">운동 강도</p>
-              <p className="text-lg font-semibold">
+              <p className="text-xs text-white/30 uppercase tracking-wider">운동 강도</p>
+              <p className="text-lg font-semibold text-white mt-1">
                 {intensityInfo.emoji} {intensityInfo.label}
               </p>
             </div>
           )}
         </div>
-      </div>
+      </motion.div>
 
       {/* 메모 */}
       {workout.memo && (
-        <div className="card">
-          <p className="text-sm text-gray-500 mb-1">메모</p>
-          <p className="text-gray-900 whitespace-pre-wrap">{workout.memo}</p>
+        <div className="glass-card">
+          <p className="text-xs text-white/30 uppercase tracking-wider mb-2">메모</p>
+          <p className="text-white/70 whitespace-pre-wrap text-sm leading-relaxed">{workout.memo}</p>
         </div>
       )}
 
       {/* 사진 */}
       {workout.photos.length > 0 && (
-        <div className="card">
-          <p className="text-sm text-gray-500 mb-3">인증 사진</p>
+        <div className="glass-card">
+          <p className="text-xs text-white/30 uppercase tracking-wider mb-3">인증 사진</p>
           <div className="grid grid-cols-2 gap-2">
             {workout.photos.map((photo) => (
-              <div key={photo.id} className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+              <div key={photo.id} className="aspect-square rounded-xl overflow-hidden border border-white/[0.08]">
                 <img
                   src={`/uploads/${photo.filePath}`}
                   alt={photo.fileName}

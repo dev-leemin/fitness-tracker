@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
+import { motion } from "framer-motion";
 
 interface Post {
   id: string;
@@ -30,8 +31,8 @@ export default function PostsPage() {
     return (
       <div className="space-y-3">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="card animate-pulse">
-            <div className="h-24 bg-gray-100 rounded-lg" />
+          <div key={i} className="glass-card animate-pulse">
+            <div className="h-24 bg-white/[0.02] rounded-lg" />
           </div>
         ))}
       </div>
@@ -41,40 +42,48 @@ export default function PostsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">운동 일지</h1>
-        <Link href="/posts/new" className="btn-primary">
-          글쓰기
+        <h1 className="text-2xl font-bold text-white">운동 일지</h1>
+        <Link href="/posts/new" className="btn-glow !py-2 !px-4 text-sm">
+          + 글쓰기
         </Link>
       </div>
 
       {posts.length === 0 ? (
-        <div className="card text-center py-12">
-          <p className="text-4xl mb-3">📝</p>
-          <p className="text-gray-500 mb-4">아직 작성된 일지가 없습니다</p>
-          <Link href="/posts/new" className="btn-primary inline-block">
+        <div className="glass-card text-center py-16">
+          <div className="w-20 h-20 mx-auto rounded-full bg-white/[0.03] flex items-center justify-center mb-4">
+            <span className="text-3xl text-white/20">▣</span>
+          </div>
+          <p className="text-white/50 mb-4">아직 작성된 일지가 없습니다</p>
+          <Link href="/posts/new" className="btn-glow inline-flex">
             첫 일지를 작성해보세요
           </Link>
         </div>
       ) : (
         <div className="space-y-3">
-          {posts.map((post) => (
-            <Link
+          {posts.map((post, i) => (
+            <motion.div
               key={post.id}
-              href={`/posts/${post.id}`}
-              className="card block hover:shadow-md transition-shadow"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
             >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-6 h-6 bg-primary-light rounded-full flex items-center justify-center text-xs font-medium text-primary">
-                  {post.user.nickname[0]}
+              <Link
+                href={`/posts/${post.id}`}
+                className="glass-card block group"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-6 h-6 bg-gradient-to-br from-[#00FF87]/20 to-[#00D4FF]/20 rounded-full flex items-center justify-center text-[10px] font-bold text-[#00FF87]">
+                    {post.user.nickname[0]}
+                  </div>
+                  <span className="text-sm text-white/50">{post.user.nickname}</span>
+                  <span className="text-xs text-white/25 ml-auto">
+                    {format(new Date(post.createdAt), "M.d (E)", { locale: ko })}
+                  </span>
                 </div>
-                <span className="text-sm text-gray-600">{post.user.nickname}</span>
-                <span className="text-xs text-gray-400 ml-auto">
-                  {format(new Date(post.createdAt), "M.d (E)", { locale: ko })}
-                </span>
-              </div>
-              <h3 className="font-semibold text-gray-900">{post.title}</h3>
-              <p className="text-sm text-gray-500 mt-1 line-clamp-2">{post.content}</p>
-            </Link>
+                <h3 className="font-semibold text-white group-hover:text-[#00FF87] transition-colors">{post.title}</h3>
+                <p className="text-sm text-white/35 mt-1 line-clamp-2">{post.content}</p>
+              </Link>
+            </motion.div>
           ))}
         </div>
       )}

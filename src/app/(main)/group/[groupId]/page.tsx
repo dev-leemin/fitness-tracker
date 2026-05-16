@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+import { motion } from "framer-motion";
 
 interface MemberStatus {
   userId: string;
@@ -46,11 +47,11 @@ export default function GroupDetailPage() {
   };
 
   if (loading) {
-    return <div className="card animate-pulse"><div className="h-60 bg-gray-100 rounded-lg" /></div>;
+    return <div className="glass-card animate-pulse"><div className="h-60 bg-white/[0.02] rounded-lg" /></div>;
   }
 
   if (!group) {
-    return <div className="card text-center py-8 text-gray-500">그룹을 찾을 수 없습니다.</div>;
+    return <div className="glass-card text-center py-8 text-white/40">그룹을 찾을 수 없습니다.</div>;
   }
 
   const dayLabels = ["월", "화", "수", "목", "금", "토", "일"];
@@ -58,55 +59,63 @@ export default function GroupDetailPage() {
   return (
     <div className="space-y-6">
       {/* 그룹 헤더 */}
-      <div className="card">
+      <div className="glow-card">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">{group.name}</h1>
+            <h1 className="text-xl font-bold text-white">{group.name}</h1>
             {group.description && (
-              <p className="text-sm text-gray-500 mt-1">{group.description}</p>
+              <p className="text-sm text-white/40 mt-1">{group.description}</p>
             )}
-            <p className="text-sm text-gray-400 mt-2">
+            <p className="text-sm text-white/25 mt-2">
               주 {group.weeklyGoal}회 목표 · {group.weeklyStatus.length}명
             </p>
           </div>
           <button
             onClick={copyInviteCode}
-            className="btn-secondary text-sm"
+            className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-all ${
+              copied
+                ? "bg-[#00FF87]/10 text-[#00FF87] border border-[#00FF87]/30"
+                : "bg-white/[0.04] text-white/50 border border-white/[0.08] hover:border-white/[0.15]"
+            }`}
           >
-            {copied ? "복사됨!" : `���대코드: ${group.inviteCode}`}
+            {copied ? "복사됨!" : `초대코드: ${group.inviteCode}`}
           </button>
         </div>
       </div>
 
       {/* 이번 주 현황 테이블 */}
-      <div className="card">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">이번 주 현황</h2>
-        <div className="overflow-x-auto">
+      <motion.div
+        className="glass-card"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <h2 className="text-base font-semibold text-white mb-4">이번 주 현황</h2>
+        <div className="overflow-x-auto -mx-5 px-5">
           <table className="w-full">
             <thead>
               <tr>
-                <th className="text-left text-sm font-medium text-gray-500 pb-3 pr-4">
+                <th className="text-left text-xs font-medium text-white/30 pb-3 pr-4 uppercase tracking-wider">
                   멤버
                 </th>
                 {dayLabels.map((d) => (
-                  <th key={d} className="text-center text-sm font-medium text-gray-500 pb-3 w-10">
+                  <th key={d} className="text-center text-xs font-medium text-white/30 pb-3 w-10">
                     {d}
                   </th>
                 ))}
-                <th className="text-center text-sm font-medium text-gray-500 pb-3 pl-4">
+                <th className="text-center text-xs font-medium text-white/30 pb-3 pl-4">
                   합계
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-white/[0.04]">
               {group.weeklyStatus.map((member) => (
                 <tr key={member.userId}>
                   <td className="py-3 pr-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-primary-light rounded-full flex items-center justify-center text-xs font-medium text-primary">
+                      <div className="w-7 h-7 bg-gradient-to-br from-[#00FF87]/20 to-[#00D4FF]/20 rounded-full flex items-center justify-center text-[10px] font-bold text-[#00FF87]">
                         {member.nickname[0]}
                       </div>
-                      <span className="text-sm font-medium text-gray-900 whitespace-nowrap">
+                      <span className="text-sm font-medium text-white/80 whitespace-nowrap">
                         {member.nickname}
                       </span>
                     </div>
@@ -120,21 +129,21 @@ export default function GroupDetailPage() {
                     return (
                       <td key={dayIndex} className="text-center py-3">
                         {worked ? (
-                          <span className="text-lg" title={workout?.name}>
+                          <span className="text-base" title={workout?.name}>
                             {workout?.icon || "✓"}
                           </span>
                         ) : (
-                          <span className="text-gray-300">·</span>
+                          <span className="text-white/10">·</span>
                         )}
                       </td>
                     );
                   })}
                   <td className="text-center py-3 pl-4">
                     <span
-                      className={`badge ${
+                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                         member.workoutCount >= group.weeklyGoal
-                          ? "bg-green-100 text-green-700"
-                          : "bg-gray-100 text-gray-600"
+                          ? "bg-[#00FF87]/10 text-[#00FF87] border border-[#00FF87]/20"
+                          : "bg-white/[0.04] text-white/40 border border-white/[0.06]"
                       }`}
                     >
                       {member.workoutCount}/{group.weeklyGoal}
@@ -145,23 +154,25 @@ export default function GroupDetailPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      </motion.div>
 
       {/* 멤버 목록 */}
-      <div className="card">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">멤버</h2>
+      <div className="glass-card">
+        <h2 className="text-base font-semibold text-white mb-4">멤버</h2>
         <div className="space-y-3">
           {group.weeklyStatus.map((member) => (
             <div key={member.userId} className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-primary-light rounded-full flex items-center justify-center text-sm font-medium text-primary">
+              <div className="w-9 h-9 bg-gradient-to-br from-[#00FF87]/15 to-[#00D4FF]/15 rounded-full flex items-center justify-center text-xs font-bold text-[#00FF87] border border-[#00FF87]/20">
                 {member.nickname[0]}
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">{member.nickname}</p>
-                <p className="text-xs text-gray-500">{member.name}</p>
+                <p className="text-sm font-medium text-white/80">{member.nickname}</p>
+                <p className="text-xs text-white/30">{member.name}</p>
               </div>
               {member.role === "OWNER" && (
-                <span className="badge bg-amber-100 text-amber-700">방장</span>
+                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#FF8C00]/10 text-[#FF8C00] border border-[#FF8C00]/20">
+                  방장
+                </span>
               )}
             </div>
           ))}

@@ -35,24 +35,24 @@ export default function NewPostPage() {
 
   return (
     <div className="max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">운동 일지 작성</h1>
+      <h1 className="text-2xl font-bold text-white mb-6">운동 일지 작성</h1>
 
-      <form onSubmit={handleSubmit} className="card space-y-4">
+      <form onSubmit={handleSubmit} className="glow-card space-y-5">
         {error && (
-          <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-lg">
+          <div className="bg-[#FF006E]/10 border border-[#FF006E]/20 text-[#FF006E] text-sm px-4 py-3 rounded-xl">
             {error}
           </div>
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
             제목
           </label>
           <input
             type="text"
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
-            className="input"
+            className="input-glass"
             placeholder="오늘 운동 후기"
             required
             maxLength={200}
@@ -60,33 +60,47 @@ export default function NewPostPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
             내용
           </label>
           <textarea
             value={form.content}
             onChange={(e) => setForm({ ...form, content: e.target.value })}
-            className="input min-h-[200px] resize-none"
+            className="input-glass min-h-[200px] resize-none"
             placeholder="오늘의 운동을 기록해보세요..."
             required
           />
         </div>
 
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            id="isPublic"
-            checked={form.isPublic}
-            onChange={(e) => setForm({ ...form, isPublic: e.target.checked })}
-            className="w-4 h-4 rounded text-primary"
-          />
-          <label htmlFor="isPublic" className="text-sm text-gray-700">
-            그룹 멤버에게 공개
-          </label>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setForm({ ...form, isPublic: !form.isPublic })}
+            className={`relative w-10 h-5 rounded-full transition-colors ${
+              form.isPublic ? "bg-[#00FF87]/40" : "bg-white/10"
+            }`}
+          >
+            <div className={`absolute top-0.5 w-4 h-4 rounded-full transition-all ${
+              form.isPublic ? "left-5.5 bg-[#00FF87]" : "left-0.5 bg-white/50"
+            }`} />
+          </button>
+          <span className="text-sm text-white/50">
+            {form.isPublic ? "그룹 멤버에게 공개" : "비공개"}
+          </span>
         </div>
 
-        <button type="submit" className="btn-primary w-full" disabled={loading}>
-          {loading ? "저장 중..." : "일지 저장"}
+        <button type="submit" className="btn-glow w-full" disabled={loading}>
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              저장 중...
+            </span>
+          ) : (
+            "일지 저장"
+          )}
         </button>
       </form>
     </div>
