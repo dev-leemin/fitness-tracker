@@ -10,16 +10,10 @@ export default function MainLayout({
 }) {
   return (
     <SessionProvider>
-      {/* Background ambient glow */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-60 -right-60 w-[500px] h-[500px] rounded-full bg-[#6366F1]/[0.02] blur-[150px]" />
-        <div className="absolute -bottom-60 -left-60 w-[400px] h-[400px] rounded-full bg-[#EC4899]/[0.015] blur-[150px]" />
-      </div>
-
       <Header />
       <Sidebar />
-      <main className="relative pt-14 pb-20 lg:pb-6 lg:pl-60">
-        <div className="max-w-4xl mx-auto px-4 py-5 sm:px-6">
+      <main className="relative pt-14 pb-20 lg:pb-6 lg:pl-56">
+        <div className="max-w-3xl mx-auto px-4 py-5 sm:px-6">
           {children}
         </div>
       </main>

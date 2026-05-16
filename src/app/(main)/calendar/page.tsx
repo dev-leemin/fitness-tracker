@@ -50,61 +50,61 @@ export default function CalendarPage() {
   const totalDuration = calendarData.reduce((sum, d) => sum + d.durationMin, 0);
 
   return (
-    <div className="space-y-6">
-      {/* 월 네비게이션 */}
+    <div className="space-y-5">
+      {/* Month nav */}
       <div className="flex items-center justify-between">
         <button
           onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
-          className="w-10 h-10 rounded-xl border border-white/[0.08] flex items-center justify-center text-white/50 hover:bg-white/[0.04] hover:text-white transition-all"
+          className="w-9 h-9 rounded-lg border border-white/[0.06] flex items-center justify-center text-white/40 hover:bg-white/[0.04] hover:text-white/70 transition-all"
         >
-          &#8592;
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
-        <h1 className="text-xl font-bold text-white">
+        <h1 className="text-lg font-semibold text-white">
           {format(currentMonth, "yyyy년 M월", { locale: ko })}
         </h1>
         <button
           onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
-          className="w-10 h-10 rounded-xl border border-white/[0.08] flex items-center justify-center text-white/50 hover:bg-white/[0.04] hover:text-white transition-all"
+          className="w-9 h-9 rounded-lg border border-white/[0.06] flex items-center justify-center text-white/40 hover:bg-white/[0.04] hover:text-white/70 transition-all"
         >
-          &#8594;
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
         </button>
       </div>
 
-      {/* 월간 요약 */}
+      {/* Summary */}
       <div className="grid grid-cols-2 gap-3">
         <motion.div
-          className="glass-card text-center"
-          initial={{ opacity: 0, y: 10 }}
+          className="bento-card !p-4 text-center"
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
         >
           <p className="text-2xl font-bold text-[#6366F1]">{workoutCount}</p>
-          <p className="text-xs text-white/40 mt-1">이번 달 운동</p>
+          <p className="text-[10px] text-white/30 mt-1">이�� 달 운동</p>
         </motion.div>
         <motion.div
-          className="glass-card text-center"
-          initial={{ opacity: 0, y: 10 }}
+          className="bento-card !p-4 text-center"
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
+          transition={{ delay: 0.04 }}
         >
-          <p className="text-2xl font-bold text-[#818CF8]">
+          <p className="text-2xl font-bold text-[#06B6D4]">
             {Math.floor(totalDuration / 60)}h {totalDuration % 60}m
           </p>
-          <p className="text-xs text-white/40 mt-1">총 운동 시간</p>
+          <p className="text-[10px] text-white/30 mt-1">총 운동 시간</p>
         </motion.div>
       </div>
 
-      {/* 캘린더 그리드 */}
-      <div className="glow-card">
-        {/* 요일 헤더 */}
-        <div className="grid grid-cols-7 mb-3">
+      {/* Calendar Grid */}
+      <div className="bento-card !p-5">
+        {/* Day headers */}
+        <div className="grid grid-cols-7 mb-2">
           {["월", "화", "수", "목", "금", "토", "일"].map((d) => (
-            <div key={d} className="text-center text-xs font-medium text-white/30 py-2">
+            <div key={d} className="text-center text-[10px] font-medium text-white/25 py-1.5">
               {d}
             </div>
           ))}
         </div>
 
-        {/* 날짜 그리드 */}
+        {/* Day grid */}
         <div className="grid grid-cols-7 gap-1">
           {Array.from({ length: emptyDays }).map((_, i) => (
             <div key={`empty-${i}`} className="aspect-square" />
@@ -119,22 +119,22 @@ export default function CalendarPage() {
                 {workout ? (
                   <Link
                     href={`/workout/${workout.workoutId}`}
-                    className={`w-full h-full rounded-lg flex flex-col items-center justify-center transition-all hover:scale-105 bg-[#6366F1]/[0.08] border ${
-                      isToday ? "border-[#6366F1]/50 shadow-[0_0_10px_rgba(0,255,135,0.15)]" : "border-[#6366F1]/20"
+                    className={`w-full h-full rounded-lg flex flex-col items-center justify-center transition-all hover:scale-105 bg-[#6366F1]/[0.06] border ${
+                      isToday ? "border-[#6366F1]/40 shadow-[0_0_8px_rgba(99,102,241,0.15)]" : "border-[#6366F1]/15"
                     }`}
                   >
-                    <span className="text-base">{workout.icon}</span>
-                    <span className="text-[9px] text-[#6366F1]/70">
+                    <span className="text-sm">{workout.icon}</span>
+                    <span className="text-[8px] text-[#6366F1]/70 mt-0.5">
                       {format(day, "d")}
                     </span>
                   </Link>
                 ) : (
                   <Link
                     href={`/workout/new?date=${format(day, "yyyy-MM-dd")}`}
-                    className={`w-full h-full rounded-lg flex items-center justify-center text-sm transition-all hover:bg-white/[0.04] ${
+                    className={`w-full h-full rounded-lg flex items-center justify-center text-[12px] transition-all hover:bg-white/[0.03] ${
                       isToday
-                        ? "ring-1 ring-[#6366F1]/50 text-[#6366F1] font-bold"
-                        : "text-white/25"
+                        ? "ring-1 ring-[#6366F1]/40 text-white/70 font-semibold"
+                        : "text-white/20"
                     }`}
                   >
                     {format(day, "d")}
@@ -147,7 +147,7 @@ export default function CalendarPage() {
       </div>
 
       {loading && (
-        <div className="text-center text-white/30 text-sm">불러오는 중...</div>
+        <div className="text-center text-white/20 text-[12px]">불러오는 중...</div>
       )}
     </div>
   );

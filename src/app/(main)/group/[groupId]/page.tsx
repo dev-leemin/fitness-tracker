@@ -60,22 +60,22 @@ export default function GroupDetailPage() {
   };
 
   if (loading) {
-    return <div className="glass-card animate-pulse"><div className="h-60 bg-white/[0.02] rounded-lg" /></div>;
+    return <div className="space-y-3"><div className="skeleton h-24" /><div className="skeleton h-48" /></div>;
   }
 
   if (!group) {
-    return <div className="glass-card text-center py-8 text-white/40">그룹을 찾을 수 없습니다.</div>;
+    return <div className="bento-card text-center py-10 text-white/30 text-sm">그룹을 찾을 수 없습니다.</div>;
   }
 
   const dayLabels = ["월", "화", "수", "목", "금", "토", "일"];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* 그룹 헤더 */}
-      <div className="glow-card">
+      <div className="bento-card">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-xl font-bold text-white">{group.name}</h1>
+            <h1 className="text-lg font-semibold text-white">{group.name}</h1>
             {group.description && (
               <p className="text-sm text-white/40 mt-1">{group.description}</p>
             )}
@@ -109,11 +109,11 @@ export default function GroupDetailPage() {
 
       {/* 이번 주 현황 테이블 */}
       <motion.div
-        className="glass-card"
-        initial={{ opacity: 0, y: 10 }}
+        className="bento-card"
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h2 className="text-base font-semibold text-white mb-4">이번 주 현황</h2>
+        <h2 className="text-[13px] font-medium text-white/70 mb-4">이번 주 현황</h2>
         <div className="overflow-x-auto -mx-5 px-5">
           <table className="w-full">
             <thead>
@@ -136,7 +136,7 @@ export default function GroupDetailPage() {
                 <tr key={member.userId}>
                   <td className="py-3 pr-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-gradient-to-br from-[#6366F1]/20 to-[#818CF8]/20 rounded-full flex items-center justify-center text-[10px] font-bold text-[#6366F1]">
+                      <div className="w-6 h-6 bg-white/[0.04] border border-white/[0.06] rounded-md flex items-center justify-center text-[9px] font-bold text-white/40">
                         {member.nickname[0]}
                       </div>
                       <span className="text-sm font-medium text-white/80 whitespace-nowrap">
@@ -181,12 +181,12 @@ export default function GroupDetailPage() {
       </motion.div>
 
       {/* 멤버 목록 */}
-      <div className="glass-card">
-        <h2 className="text-base font-semibold text-white mb-4">멤버</h2>
+      <div className="bento-card">
+        <h2 className="text-[13px] font-medium text-white/70 mb-4">멤버</h2>
         <div className="space-y-3">
           {group.weeklyStatus.map((member) => (
             <div key={member.userId} className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-to-br from-[#6366F1]/15 to-[#818CF8]/15 rounded-full flex items-center justify-center text-xs font-bold text-[#6366F1] border border-[#6366F1]/20">
+              <div className="w-8 h-8 bg-white/[0.04] border border-white/[0.06] rounded-lg flex items-center justify-center text-[10px] font-bold text-white/40">
                 {member.nickname[0]}
               </div>
               <div className="flex-1">

@@ -67,6 +67,7 @@ export default function GroupListPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-semibold text-white">그룹</h1>
+
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowJoinInput(!showJoinInput)}
@@ -105,7 +106,7 @@ export default function GroupListPage() {
           <button
             type="submit"
             disabled={joinLoading || !joinCode.trim()}
-            className="h-10 px-4 rounded-xl bg-[#6366F1] text-[12px] font-semibold text-black hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-40"
+            className="h-10 px-4 rounded-xl bg-[#6366F1] text-[12px] font-semibold text-white hover:bg-[#5558E8] transition-colors cursor-pointer disabled:opacity-40"
           >
             {joinLoading ? "..." : "참여"}
           </button>

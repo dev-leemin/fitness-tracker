@@ -42,19 +42,20 @@ export default function PostsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">운동 일지</h1>
-        <Link href="/posts/new" className="btn-glow !py-2 !px-4 text-sm">
-          + 글쓰기
+        <h1 className="text-lg font-semibold text-white">운동 일지</h1>
+        <Link href="/posts/new" className="btn-primary !py-2 !px-3.5 text-[12px]">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          글쓰기
         </Link>
       </div>
 
       {posts.length === 0 ? (
-        <div className="glass-card text-center py-16">
-          <div className="w-20 h-20 mx-auto rounded-full bg-white/[0.03] flex items-center justify-center mb-4">
-            <span className="text-3xl text-white/20">▣</span>
+        <div className="bento-card text-center py-14">
+          <div className="w-12 h-12 mx-auto rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center mb-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" className="opacity-20"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838.838-2.872a2 2 0 0 1 .506-.855z"/></svg>
           </div>
-          <p className="text-white/50 mb-4">아직 작성된 일지가 없습니다</p>
-          <Link href="/posts/new" className="btn-glow inline-flex">
+          <p className="text-white/35 text-sm mb-3">아직 작성된 일지가 없습니다</p>
+          <Link href="/posts/new" className="btn-primary inline-flex">
             첫 일지를 작성해보세요
           </Link>
         </div>
@@ -69,19 +70,19 @@ export default function PostsPage() {
             >
               <Link
                 href={`/posts/${post.id}`}
-                className="glass-card block group"
+                className="bento-card bento-card-interactive block group"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-6 h-6 bg-gradient-to-br from-[#6366F1]/20 to-[#818CF8]/20 rounded-full flex items-center justify-center text-[10px] font-bold text-[#6366F1]">
+                  <div className="w-5 h-5 bg-white/[0.04] border border-white/[0.06] rounded-md flex items-center justify-center text-[9px] font-bold text-white/40">
                     {post.user.nickname[0]}
                   </div>
-                  <span className="text-sm text-white/50">{post.user.nickname}</span>
-                  <span className="text-xs text-white/25 ml-auto">
+                  <span className="text-[12px] text-white/40">{post.user.nickname}</span>
+                  <span className="text-[10px] text-white/20 ml-auto">
                     {format(new Date(post.createdAt), "M.d (E)", { locale: ko })}
                   </span>
                 </div>
-                <h3 className="font-semibold text-white group-hover:text-[#6366F1] transition-colors">{post.title}</h3>
-                <p className="text-sm text-white/35 mt-1 line-clamp-2">{post.content}</p>
+                <h3 className="text-[13px] font-medium text-white/80 group-hover:text-white transition-colors">{post.title}</h3>
+                <p className="text-[12px] text-white/30 mt-1 line-clamp-2">{post.content}</p>
               </Link>
             </motion.div>
           ))}

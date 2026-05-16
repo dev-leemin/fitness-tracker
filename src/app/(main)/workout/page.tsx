@@ -41,94 +41,89 @@ export default function WorkoutListPage() {
   }, [page]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">운동 기록</h1>
-        <Link href="/workout/new" className="btn-glow !py-2 !px-4 text-sm">
-          + 기록하기
+        <h1 className="text-lg font-semibold text-white">운동 기록</h1>
+        <Link href="/workout/new" className="btn-primary !py-2 !px-3.5 text-[12px]">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          기록하기
         </Link>
       </div>
 
       {loading ? (
-        <div className="space-y-3">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="glass-card animate-pulse">
-              <div className="h-16 bg-white/[0.03] rounded-lg" />
-            </div>
+        <div className="space-y-2">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="skeleton h-16" />
           ))}
         </div>
       ) : workouts.length === 0 ? (
-        <div className="glass-card text-center py-16">
-          <div className="w-20 h-20 mx-auto rounded-full bg-white/[0.03] flex items-center justify-center mb-4">
-            <span className="text-3xl">💪</span>
+        <div className="bento-card text-center py-16">
+          <div className="w-14 h-14 mx-auto rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center mb-3">
+            <span className="text-2xl">💪</span>
           </div>
-          <p className="text-white/50 mb-4">아직 운동 기록이 없습니다</p>
-          <Link href="/workout/new" className="btn-glow inline-flex">
+          <p className="text-white/35 text-sm mb-4">아직 운동 기록이 없습니다</p>
+          <Link href="/workout/new" className="btn-primary inline-flex">
             첫 운동을 기록해보세요
           </Link>
         </div>
       ) : (
         <>
-          <div className="space-y-3">
+          <div className="space-y-1.5">
             {workouts.map((workout, index) => (
               <motion.div
                 key={workout.id}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
+                transition={{ delay: index * 0.03 }}
               >
                 <Link
                   href={`/workout/${workout.id}`}
-                  className="glass-card flex items-center gap-4 group"
+                  className="bento-card bento-card-interactive flex items-center gap-3.5 !p-3.5 group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-xl group-hover:border-[#6366F1]/30 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-lg group-hover:border-white/[0.1] transition-colors shrink-0">
                     {workout.exerciseType.icon}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="font-semibold text-white">
+                      <p className="text-[13px] font-medium text-white/80">
                         {workout.exerciseType.name}
                       </p>
                       {workout.isVerified && (
                         <span className="badge-glow">인증</span>
                       )}
                     </div>
-                    <p className="text-sm text-white/40">
-                      {format(new Date(workout.date), "M월 d일 (E)", { locale: ko })} ·{" "}
-                      {workout.durationMin}분
+                    <p className="text-[11px] text-white/30 mt-0.5">
+                      {format(new Date(workout.date), "M월 d일 (E)", { locale: ko })} · {workout.durationMin}분
                       {workout.distanceKm && ` · ${workout.distanceKm}km`}
                     </p>
-                    {workout.memo && (
-                      <p className="text-sm text-white/25 truncate mt-0.5">
-                        {workout.memo}
-                      </p>
-                    )}
                   </div>
-                  {workout.photos.length > 0 && (
-                    <span className="text-white/30 text-sm">📷 {workout.photos.length}</span>
-                  )}
+                  <div className="flex items-center gap-2 shrink-0">
+                    {workout.photos.length > 0 && (
+                      <span className="text-[10px] text-white/20">📷 {workout.photos.length}</span>
+                    )}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/10 group-hover:text-white/25 transition-colors" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
+                  </div>
                 </Link>
               </motion.div>
             ))}
           </div>
 
-          {/* 페이지네이션 */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-3 pt-2">
               <button
                 onClick={() => setPage(Math.max(1, page - 1))}
                 disabled={page === 1}
-                className="btn-ghost !py-2 !px-4 text-sm disabled:opacity-30"
+                className="btn-ghost !py-2 !px-3.5 text-[12px] disabled:opacity-20"
               >
                 ← 이전
               </button>
-              <span className="text-sm text-white/40">
+              <span className="text-[12px] text-white/30">
                 {page} / {totalPages}
               </span>
               <button
                 onClick={() => setPage(Math.min(totalPages, page + 1))}
                 disabled={page === totalPages}
-                className="btn-ghost !py-2 !px-4 text-sm disabled:opacity-30"
+                className="btn-ghost !py-2 !px-3.5 text-[12px] disabled:opacity-20"
               >
                 다음 →
               </button>

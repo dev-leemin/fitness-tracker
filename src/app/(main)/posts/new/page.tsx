@@ -35,17 +35,17 @@ export default function NewPostPage() {
 
   return (
     <div className="max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold text-white mb-6">운동 일지 작성</h1>
+      <h1 className="text-lg font-semibold text-white mb-5">운동 일지 작성</h1>
 
-      <form onSubmit={handleSubmit} className="glow-card space-y-5">
+      <form onSubmit={handleSubmit} className="bento-card space-y-5">
         {error && (
-          <div className="bg-[#EF4444]/10 border border-[#EF4444]/20 text-[#EF4444] text-sm px-4 py-3 rounded-xl">
+          <div className="bg-[#EF4444]/[0.05] border border-[#EF4444]/12 text-[#EF4444] text-[12px] px-4 py-2.5 rounded-xl">
             {error}
           </div>
         )}
 
         <div>
-          <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
+          <label className="block text-[10px] font-medium text-white/30 mb-1.5 uppercase tracking-wider">
             제목
           </label>
           <input
@@ -60,7 +60,7 @@ export default function NewPostPage() {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
+          <label className="block text-[10px] font-medium text-white/30 mb-1.5 uppercase tracking-wider">
             내용
           </label>
           <textarea
@@ -89,7 +89,7 @@ export default function NewPostPage() {
           </span>
         </div>
 
-        <button type="submit" className="btn-glow w-full" disabled={loading}>
+        <button type="submit" className="btn-primary w-full" disabled={loading}>
           {loading ? (
             <span className="flex items-center justify-center gap-2">
               <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">

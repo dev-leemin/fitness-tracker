@@ -99,18 +99,18 @@ export default function NewWorkoutPage() {
 
   return (
     <div className="max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold text-white mb-6">운동 기록</h1>
+      <h1 className="text-lg font-semibold text-white mb-5">운동 기록</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <div className="bg-[#EF4444]/10 border border-[#EF4444]/20 text-[#EF4444] text-sm px-4 py-3 rounded-xl">
+          <div className="bg-[#EF4444]/[0.06] border border-[#EF4444]/15 text-[#EF4444] text-[13px] px-4 py-3 rounded-xl">
             {error}
           </div>
         )}
 
-        {/* 운동 종류 선택 */}
-        <div className="glow-card">
-          <label className="block text-xs font-medium text-white/50 mb-3 uppercase tracking-wider">
+        {/* 운동 종류 */}
+        <div className="bento-card">
+          <label className="block text-[11px] font-medium text-white/35 mb-3 uppercase tracking-wider">
             운동 종류
           </label>
           <div className="grid grid-cols-4 gap-2">
@@ -121,15 +121,15 @@ export default function NewWorkoutPage() {
                 onClick={() =>
                   setForm({ ...form, exerciseTypeId: String(type.id) })
                 }
-                className={`flex flex-col items-center p-3 rounded-xl border transition-all ${
+                className={`flex flex-col items-center p-2.5 rounded-xl border transition-all ${
                   form.exerciseTypeId === String(type.id)
-                    ? "border-[#6366F1]/50 bg-[#6366F1]/[0.06] shadow-[0_0_15px_rgba(0,255,135,0.1)]"
-                    : "border-white/[0.06] hover:border-white/[0.15] hover:bg-white/[0.02]"
+                    ? "border-[#6366F1]/40 bg-[#6366F1]/[0.06]"
+                    : "border-white/[0.04] hover:border-white/[0.1] hover:bg-white/[0.02]"
                 }`}
               >
-                <span className="text-2xl">{type.icon}</span>
+                <span className="text-xl">{type.icon}</span>
                 <span className={`text-[10px] mt-1 ${
-                  form.exerciseTypeId === String(type.id) ? "text-[#6366F1]" : "text-white/50"
+                  form.exerciseTypeId === String(type.id) ? "text-[#6366F1]" : "text-white/40"
                 }`}>{type.name}</span>
               </button>
             ))}
@@ -137,9 +137,9 @@ export default function NewWorkoutPage() {
         </div>
 
         {/* 날짜 & 시간 */}
-        <div className="glass-card space-y-4">
+        <div className="bento-card space-y-4">
           <div>
-            <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
+            <label className="block text-[11px] font-medium text-white/35 mb-2 uppercase tracking-wider">
               날짜
             </label>
             <input
@@ -153,7 +153,7 @@ export default function NewWorkoutPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
+            <label className="block text-[11px] font-medium text-white/35 mb-2 uppercase tracking-wider">
               운동 시간 (분)
             </label>
             <input
@@ -172,7 +172,7 @@ export default function NewWorkoutPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
             >
-              <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
+              <label className="block text-[11px] font-medium text-white/35 mb-2 uppercase tracking-wider">
                 거리 (km)
               </label>
               <input
@@ -184,14 +184,11 @@ export default function NewWorkoutPage() {
                 placeholder="3.0"
                 min="0"
               />
-              <p className="text-xs text-white/30 mt-1">
-                유산소 운동은 3km 이상 권장
-              </p>
             </motion.div>
           )}
 
           <div>
-            <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
+            <label className="block text-[11px] font-medium text-white/35 mb-2 uppercase tracking-wider">
               칼로리 (선택)
             </label>
             <input
@@ -206,8 +203,8 @@ export default function NewWorkoutPage() {
         </div>
 
         {/* 운동 강도 */}
-        <div className="glass-card">
-          <label className="block text-xs font-medium text-white/50 mb-3 uppercase tracking-wider">
+        <div className="bento-card">
+          <label className="block text-[11px] font-medium text-white/35 mb-3 uppercase tracking-wider">
             운동 강도
           </label>
           <div className="flex justify-between gap-1">
@@ -218,15 +215,15 @@ export default function NewWorkoutPage() {
                 onClick={() =>
                   setForm({ ...form, intensity: String(level.value) })
                 }
-                className={`flex flex-col items-center p-2.5 rounded-xl flex-1 transition-all ${
+                className={`flex flex-col items-center p-2 rounded-xl flex-1 transition-all ${
                   form.intensity === String(level.value)
-                    ? "bg-[#6366F1]/[0.08] border border-[#6366F1]/30"
-                    : "border border-transparent hover:bg-white/[0.03]"
+                    ? "bg-[#6366F1]/[0.06] border border-[#6366F1]/25"
+                    : "border border-transparent hover:bg-white/[0.02]"
                 }`}
               >
-                <span className="text-xl">{level.emoji}</span>
-                <span className={`text-[10px] mt-1 ${
-                  form.intensity === String(level.value) ? "text-[#6366F1]" : "text-white/40"
+                <span className="text-lg">{level.emoji}</span>
+                <span className={`text-[9px] mt-0.5 ${
+                  form.intensity === String(level.value) ? "text-[#6366F1]" : "text-white/30"
                 }`}>
                   {level.label}
                 </span>
@@ -236,29 +233,29 @@ export default function NewWorkoutPage() {
         </div>
 
         {/* 메모 */}
-        <div className="glass-card">
-          <label className="block text-xs font-medium text-white/50 mb-2 uppercase tracking-wider">
+        <div className="bento-card">
+          <label className="block text-[11px] font-medium text-white/35 mb-2 uppercase tracking-wider">
             메모
           </label>
           <textarea
             value={form.memo}
             onChange={(e) => setForm({ ...form, memo: e.target.value })}
-            className="input-glass min-h-[80px] resize-none"
+            className="input-glass min-h-[72px] resize-none"
             placeholder="오늘 운동 어땠나요?"
             rows={3}
           />
         </div>
 
-        {/* 사진 업로드 */}
-        <div className="glass-card">
-          <label className="block text-xs font-medium text-white/50 mb-3 uppercase tracking-wider">
+        {/* 사진 */}
+        <div className="bento-card">
+          <label className="block text-[11px] font-medium text-white/35 mb-3 uppercase tracking-wider">
             인증 사진
           </label>
 
           {previews.length > 0 && (
             <div className="grid grid-cols-3 gap-2 mb-3">
               {previews.map((src, i) => (
-                <div key={i} className="relative aspect-square rounded-xl overflow-hidden border border-white/[0.08]">
+                <div key={i} className="relative aspect-square rounded-xl overflow-hidden border border-white/[0.06]">
                   <img
                     src={src}
                     alt={`preview-${i}`}
@@ -267,7 +264,7 @@ export default function NewWorkoutPage() {
                   <button
                     type="button"
                     onClick={() => removeFile(i)}
-                    className="absolute top-1.5 right-1.5 w-6 h-6 bg-black/70 backdrop-blur-sm text-white rounded-full text-xs flex items-center justify-center border border-white/10"
+                    className="absolute top-1.5 right-1.5 w-5 h-5 bg-black/70 text-white rounded-full text-[10px] flex items-center justify-center border border-white/10"
                   >
                     ✕
                   </button>
@@ -277,9 +274,9 @@ export default function NewWorkoutPage() {
           )}
 
           {files.length < 5 && (
-            <label className="flex flex-col items-center justify-center h-24 border border-dashed border-white/[0.12] rounded-xl cursor-pointer hover:border-[#6366F1]/40 hover:bg-[#6366F1]/[0.02] transition-all">
-              <span className="text-2xl text-white/20">📷</span>
-              <span className="text-xs text-white/30 mt-1">
+            <label className="flex flex-col items-center justify-center h-20 border border-dashed border-white/[0.08] rounded-xl cursor-pointer hover:border-[#6366F1]/30 hover:bg-[#6366F1]/[0.02] transition-all">
+              <span className="text-lg text-white/15">📷</span>
+              <span className="text-[10px] text-white/25 mt-1">
                 사진 추가 ({files.length}/5)
               </span>
               <input
@@ -296,7 +293,7 @@ export default function NewWorkoutPage() {
         {/* 제출 */}
         <button
           type="submit"
-          className="btn-glow w-full text-base py-3.5"
+          className="btn-primary w-full !py-3 text-[14px]"
           disabled={loading || !form.exerciseTypeId}
         >
           {loading ? (
