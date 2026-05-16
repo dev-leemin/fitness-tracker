@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --font-sans: var(--font-noto-sans-kr), "Noto Sans KR", sans-serif;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #dbeafe;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Card component */
+.card {
+  @apply bg-white rounded-2xl border border-gray-200 shadow-sm p-5 sm:p-6;
+}
+
+/* Stat card */
+.stat-card {
+  @apply bg-white rounded-xl border border-gray-100 p-4 shadow-sm;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-primary text-white px-4 py-2.5 rounded-xl font-medium
+    hover:bg-primary-dark transition-colors duration-200
+    disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply bg-gray-100 text-gray-700 px-4 py-2.5 rounded-xl font-medium
+    hover:bg-gray-200 transition-colors duration-200;
+}
+
+.btn-danger {
+  @apply bg-red-50 text-red-600 px-4 py-2.5 rounded-xl font-medium
+    hover:bg-red-100 transition-colors duration-200;
+}
+
+/* Input styles */
+.input {
+  @apply w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white
+    focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary
+    transition-all duration-200 placeholder:text-gray-400;
+}
+
+/* Badge */
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+/* Nav link */
+.nav-link {
+  @apply flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600
+    hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200;
+}
+
+.nav-link-active {
+  @apply bg-primary-light text-primary font-medium;
 }
