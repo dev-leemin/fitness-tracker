@@ -46,6 +46,19 @@ export default function GroupDetailPage() {
     }
   };
 
+  const shareInviteLink = () => {
+    if (group) {
+      const link = `${window.location.origin}/group/join?code=${group.inviteCode}`;
+      if (navigator.share) {
+        navigator.share({ title: `${group.name} 그룹 초대`, text: `FitLog에서 "${group.name}" 그룹에 참여하세요!`, url: link });
+      } else {
+        navigator.clipboard.writeText(link);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    }
+  };
+
   if (loading) {
     return <div className="glass-card animate-pulse"><div className="h-60 bg-white/[0.02] rounded-lg" /></div>;
   }
@@ -70,16 +83,27 @@ export default function GroupDetailPage() {
               주 {group.weeklyGoal}회 목표 · {group.weeklyStatus.length}명
             </p>
           </div>
-          <button
-            onClick={copyInviteCode}
-            className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-all ${
-              copied
-                ? "bg-[#00FF87]/10 text-[#00FF87] border border-[#00FF87]/30"
-                : "bg-white/[0.04] text-white/50 border border-white/[0.08] hover:border-white/[0.15]"
-            }`}
-          >
-            {copied ? "복사됨!" : `초대코드: ${group.inviteCode}`}
-          </button>
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={copyInviteCode}
+              className={`text-[11px] font-medium px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                copied
+                  ? "bg-[#00FF87]/10 text-[#00FF87] border border-[#00FF87]/30"
+                  : "bg-white/[0.04] text-white/50 border border-white/[0.08] hover:border-white/[0.15]"
+              }`}
+            >
+              {copied ? "복사됨!" : group.inviteCode}
+            </button>
+            <button
+              onClick={shareInviteLink}
+              className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] hover:border-white/[0.15] flex items-center justify-center text-white/40 hover:text-white/60 transition-all cursor-pointer"
+              title="초대 링크 공유"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
