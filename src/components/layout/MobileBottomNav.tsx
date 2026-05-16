@@ -4,19 +4,27 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { href: "/dashboard", label: "홈", icon: "◆" },
-  { href: "/workout", label: "운동", icon: "▲" },
-  { href: "/workout/new", label: "", icon: "+", isAction: true },
-  { href: "/calendar", label: "캘린더", icon: "◉" },
-  { href: "/group", label: "그룹", icon: "⬡" },
+  { href: "/dashboard", label: "홈", icon: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  )},
+  { href: "/workout", label: "운동", icon: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6.5 6.5h11M6.5 17.5h11M2 12h2m16 0h2M6 12H4.5a2.5 2.5 0 0 1 0-5H6m0 10h-.5a2.5 2.5 0 0 0 0 5H6m12-10h.5a2.5 2.5 0 0 0 0-5H18m0 10h.5a2.5 2.5 0 0 1 0 5H18"/></svg>
+  )},
+  { href: "/workout/new", label: "", icon: null, isAction: true },
+  { href: "/calendar", label: "캘린더", icon: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+  )},
+  { href: "/group", label: "그룹", icon: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+  )},
 ];
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#07070d]/90 border-t border-white/[0.06]">
-      <div className="flex items-center justify-around h-16 px-2">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 backdrop-blur-2xl bg-[#050508]/90 border-t border-white/[0.04]">
+      <div className="flex items-center justify-around h-[60px] px-1">
         {navItems.map((item) => {
           const isActive = item.isAction
             ? pathname === item.href
@@ -27,10 +35,10 @@ export default function MobileBottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center justify-center -mt-5"
+                className="flex items-center justify-center -mt-4 cursor-pointer"
               >
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#00FF87] to-[#00D4FF] flex items-center justify-center shadow-[0_0_20px_rgba(0,255,135,0.3)]">
-                  <span className="text-xl font-bold text-black">+</span>
+                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#00FF87] to-[#00c96b] flex items-center justify-center shadow-[0_0_16px_rgba(0,255,135,0.2)]">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </div>
               </Link>
             );
@@ -40,12 +48,12 @@ export default function MobileBottomNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center justify-center gap-1 py-1 px-3 rounded-lg transition-all ${
-                isActive ? "text-[#00FF87]" : "text-white/40"
+              className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 cursor-pointer transition-all ${
+                isActive ? "text-[#00FF87]" : "text-white/30"
               }`}
             >
-              <span className="text-base">{item.icon}</span>
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className={isActive ? "text-[#00FF87]" : "text-white/30"}>{item.icon}</span>
+              <span className="text-[9px] font-medium">{item.label}</span>
             </Link>
           );
         })}
