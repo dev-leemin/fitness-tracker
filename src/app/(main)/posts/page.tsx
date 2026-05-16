@@ -72,7 +72,7 @@ export default function PostsPage() {
                 className="glass-card block group"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-6 h-6 bg-gradient-to-br from-[#00FF87]/20 to-[#00D4FF]/20 rounded-full flex items-center justify-center text-[10px] font-bold text-[#00FF87]">
+                  <div className="w-6 h-6 bg-gradient-to-br from-[#6366F1]/20 to-[#818CF8]/20 rounded-full flex items-center justify-center text-[10px] font-bold text-[#6366F1]">
                     {post.user.nickname[0]}
                   </div>
                   <span className="text-sm text-white/50">{post.user.nickname}</span>
@@ -80,7 +80,7 @@ export default function PostsPage() {
                     {format(new Date(post.createdAt), "M.d (E)", { locale: ko })}
                   </span>
                 </div>
-                <h3 className="font-semibold text-white group-hover:text-[#00FF87] transition-colors">{post.title}</h3>
+                <h3 className="font-semibold text-white group-hover:text-[#6366F1] transition-colors">{post.title}</h3>
                 <p className="text-sm text-white/35 mt-1 line-clamp-2">{post.content}</p>
               </Link>
             </motion.div>

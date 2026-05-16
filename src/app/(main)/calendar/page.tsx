@@ -77,7 +77,7 @@ export default function CalendarPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-2xl font-bold text-[#00FF87]">{workoutCount}</p>
+          <p className="text-2xl font-bold text-[#6366F1]">{workoutCount}</p>
           <p className="text-xs text-white/40 mt-1">이번 달 운동</p>
         </motion.div>
         <motion.div
@@ -86,7 +86,7 @@ export default function CalendarPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
         >
-          <p className="text-2xl font-bold text-[#00D4FF]">
+          <p className="text-2xl font-bold text-[#818CF8]">
             {Math.floor(totalDuration / 60)}h {totalDuration % 60}m
           </p>
           <p className="text-xs text-white/40 mt-1">총 운동 시간</p>
@@ -119,12 +119,12 @@ export default function CalendarPage() {
                 {workout ? (
                   <Link
                     href={`/workout/${workout.workoutId}`}
-                    className={`w-full h-full rounded-lg flex flex-col items-center justify-center transition-all hover:scale-105 bg-[#00FF87]/[0.08] border ${
-                      isToday ? "border-[#00FF87]/50 shadow-[0_0_10px_rgba(0,255,135,0.15)]" : "border-[#00FF87]/20"
+                    className={`w-full h-full rounded-lg flex flex-col items-center justify-center transition-all hover:scale-105 bg-[#6366F1]/[0.08] border ${
+                      isToday ? "border-[#6366F1]/50 shadow-[0_0_10px_rgba(0,255,135,0.15)]" : "border-[#6366F1]/20"
                     }`}
                   >
                     <span className="text-base">{workout.icon}</span>
-                    <span className="text-[9px] text-[#00FF87]/70">
+                    <span className="text-[9px] text-[#6366F1]/70">
                       {format(day, "d")}
                     </span>
                   </Link>
@@ -133,7 +133,7 @@ export default function CalendarPage() {
                     href={`/workout/new?date=${format(day, "yyyy-MM-dd")}`}
                     className={`w-full h-full rounded-lg flex items-center justify-center text-sm transition-all hover:bg-white/[0.04] ${
                       isToday
-                        ? "ring-1 ring-[#00FF87]/50 text-[#00FF87] font-bold"
+                        ? "ring-1 ring-[#6366F1]/50 text-[#6366F1] font-bold"
                         : "text-white/25"
                     }`}
                   >

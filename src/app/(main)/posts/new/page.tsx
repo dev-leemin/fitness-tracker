@@ -39,7 +39,7 @@ export default function NewPostPage() {
 
       <form onSubmit={handleSubmit} className="glow-card space-y-5">
         {error && (
-          <div className="bg-[#FF006E]/10 border border-[#FF006E]/20 text-[#FF006E] text-sm px-4 py-3 rounded-xl">
+          <div className="bg-[#EF4444]/10 border border-[#EF4444]/20 text-[#EF4444] text-sm px-4 py-3 rounded-xl">
             {error}
           </div>
         )}
@@ -77,11 +77,11 @@ export default function NewPostPage() {
             type="button"
             onClick={() => setForm({ ...form, isPublic: !form.isPublic })}
             className={`relative w-10 h-5 rounded-full transition-colors ${
-              form.isPublic ? "bg-[#00FF87]/40" : "bg-white/10"
+              form.isPublic ? "bg-[#6366F1]/40" : "bg-white/10"
             }`}
           >
             <div className={`absolute top-0.5 w-4 h-4 rounded-full transition-all ${
-              form.isPublic ? "left-5.5 bg-[#00FF87]" : "left-0.5 bg-white/50"
+              form.isPublic ? "left-5.5 bg-[#6366F1]" : "left-0.5 bg-white/50"
             }`} />
           </button>
           <span className="text-sm text-white/50">

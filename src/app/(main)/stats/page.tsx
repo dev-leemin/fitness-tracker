@@ -30,7 +30,7 @@ interface StatsData {
   longestStreak: number;
 }
 
-const COLORS = ["#00FF87", "#00D4FF", "#A855F7", "#FF8C00", "#FF006E", "#14b8a6", "#6366f1"];
+const COLORS = ["#6366F1", "#818CF8", "#A855F7", "#F59E0B", "#EF4444", "#14b8a6", "#6366f1"];
 
 export default function StatsPage() {
   const [stats, setStats] = useState<StatsData | null>(null);
@@ -72,10 +72,10 @@ export default function StatsPage() {
       {/* 요약 카드 */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { value: stats.totalWorkouts, label: "총 운동 횟수", color: "#00FF87", suffix: "회" },
-          { value: Math.floor(stats.totalDuration / 60), label: "총 운동 시간", color: "#00D4FF", suffix: "h" },
+          { value: stats.totalWorkouts, label: "총 운동 횟수", color: "#6366F1", suffix: "회" },
+          { value: Math.floor(stats.totalDuration / 60), label: "총 운동 시간", color: "#818CF8", suffix: "h" },
           { value: stats.totalDistance.toFixed(1), label: "총 거리", color: "#A855F7", suffix: "km" },
-          { value: stats.currentStreak, label: "연속 달성", color: "#FF8C00", suffix: "주" },
+          { value: stats.currentStreak, label: "연속 달성", color: "#F59E0B", suffix: "주" },
         ].map((item, i) => (
           <motion.div
             key={item.label}
@@ -101,8 +101,8 @@ export default function StatsPage() {
             <XAxis dataKey="week" tick={{ fontSize: 11, fill: "rgba(255,255,255,0.4)" }} axisLine={false} tickLine={false} />
             <YAxis tick={{ fontSize: 11, fill: "rgba(255,255,255,0.4)" }} axisLine={false} tickLine={false} />
             <Tooltip contentStyle={customTooltipStyle} />
-            <ReferenceLine y={3} stroke="#FF8C00" strokeDasharray="5 5" strokeOpacity={0.5} />
-            <Bar dataKey="count" fill="#00FF87" radius={[6, 6, 0, 0]} fillOpacity={0.8} />
+            <ReferenceLine y={3} stroke="#F59E0B" strokeDasharray="5 5" strokeOpacity={0.5} />
+            <Bar dataKey="count" fill="#6366F1" radius={[6, 6, 0, 0]} fillOpacity={0.8} />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -119,10 +119,10 @@ export default function StatsPage() {
             <Line
               type="monotone"
               dataKey="totalDuration"
-              stroke="#00D4FF"
+              stroke="#818CF8"
               strokeWidth={2.5}
-              dot={{ fill: "#00D4FF", r: 4, strokeWidth: 0 }}
-              activeDot={{ r: 6, fill: "#00D4FF", stroke: "rgba(0,212,255,0.3)", strokeWidth: 4 }}
+              dot={{ fill: "#818CF8", r: 4, strokeWidth: 0 }}
+              activeDot={{ r: 6, fill: "#818CF8", stroke: "rgba(0,212,255,0.3)", strokeWidth: 4 }}
             />
           </LineChart>
         </ResponsiveContainer>
@@ -174,8 +174,8 @@ export default function StatsPage() {
       <div className="glass-card">
         <h2 className="text-base font-semibold text-white mb-4">연속 기록</h2>
         <div className="grid grid-cols-2 gap-4">
-          <div className="text-center p-5 rounded-xl bg-[#FF8C00]/[0.06] border border-[#FF8C00]/20">
-            <p className="text-3xl font-bold text-[#FF8C00]">{stats.currentStreak}</p>
+          <div className="text-center p-5 rounded-xl bg-[#F59E0B]/[0.06] border border-[#F59E0B]/20">
+            <p className="text-3xl font-bold text-[#F59E0B]">{stats.currentStreak}</p>
             <p className="text-xs text-white/40 mt-1">현재 연속 (주)</p>
           </div>
           <div className="text-center p-5 rounded-xl bg-[#A855F7]/[0.06] border border-[#A855F7]/20">

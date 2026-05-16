@@ -9,11 +9,13 @@ export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-14 z-40 backdrop-blur-2xl bg-[#050508]/80 border-b border-white/[0.04]">
+    <header className="fixed top-0 left-0 right-0 h-14 z-40 backdrop-blur-2xl bg-[#0c0a14]/80 border-b border-white/[0.04]">
       <div className="flex items-center justify-between h-full px-4 lg:px-6">
         <Link href="/dashboard" className="flex items-center gap-2.5 cursor-pointer">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#00FF87] to-[#00c96b] flex items-center justify-center">
-            <span className="text-xs font-black text-black">F</span>
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] flex items-center justify-center">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
           </div>
           <span className="text-sm font-bold text-white/90">FitLog</span>
         </Link>
@@ -24,8 +26,8 @@ export default function Header() {
               onClick={() => setShowMenu(!showMenu)}
               className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-white/[0.03] transition-all cursor-pointer"
             >
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#00FF87]/15 to-[#00D4FF]/15 border border-white/[0.06] flex items-center justify-center">
-                <span className="text-[10px] font-bold text-[#00FF87]/80">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#6366F1]/20 to-[#8B5CF6]/20 border border-white/[0.06] flex items-center justify-center">
+                <span className="text-[10px] font-bold text-[#A5B4FC]">
                   {session.user.nickname?.[0] || session.user.name?.[0]}
                 </span>
               </div>
@@ -40,7 +42,7 @@ export default function Header() {
                   className="fixed inset-0 z-10"
                   onClick={() => setShowMenu(false)}
                 />
-                <div className="absolute right-0 mt-1.5 w-44 backdrop-blur-2xl bg-[#0f0f18]/95 rounded-xl border border-white/[0.06] shadow-2xl z-20 py-1 overflow-hidden">
+                <div className="absolute right-0 mt-1.5 w-44 backdrop-blur-2xl bg-[#13111c]/95 rounded-xl border border-white/[0.06] shadow-2xl z-20 py-1 overflow-hidden">
                   <Link
                     href="/profile"
                     className="block px-3.5 py-2 text-[13px] text-white/55 hover:text-white hover:bg-white/[0.03] transition-colors cursor-pointer"
@@ -58,7 +60,7 @@ export default function Header() {
                   <hr className="my-1 border-white/[0.04]" />
                   <button
                     onClick={() => signOut({ callbackUrl: "/login" })}
-                    className="block w-full text-left px-3.5 py-2 text-[13px] text-[#FF006E]/80 hover:bg-[#FF006E]/5 transition-colors cursor-pointer"
+                    className="block w-full text-left px-3.5 py-2 text-[13px] text-[#EF4444]/80 hover:bg-[#EF4444]/5 transition-colors cursor-pointer"
                   >
                     로그아웃
                   </button>

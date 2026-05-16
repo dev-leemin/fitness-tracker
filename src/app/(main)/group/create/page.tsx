@@ -44,7 +44,7 @@ export default function CreateGroupPage() {
 
       <form onSubmit={handleSubmit} className="glow-card space-y-5">
         {error && (
-          <div className="bg-[#FF006E]/10 border border-[#FF006E]/20 text-[#FF006E] text-sm px-4 py-3 rounded-xl">
+          <div className="bg-[#EF4444]/10 border border-[#EF4444]/20 text-[#EF4444] text-sm px-4 py-3 rounded-xl">
             {error}
           </div>
         )}
@@ -90,7 +90,7 @@ export default function CreateGroupPage() {
                 onClick={() => setForm({ ...form, weeklyGoal: String(n) })}
                 className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all ${
                   form.weeklyGoal === String(n)
-                    ? "bg-[#00FF87]/[0.08] border border-[#00FF87]/40 text-[#00FF87]"
+                    ? "bg-[#6366F1]/[0.08] border border-[#6366F1]/40 text-[#6366F1]"
                     : "border border-white/[0.06] text-white/40 hover:bg-white/[0.03]"
                 }`}
               >

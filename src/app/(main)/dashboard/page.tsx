@@ -131,7 +131,7 @@ export default function DashboardPage() {
               <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="6" />
               <motion.circle
                 cx="36" cy="36" r="30" fill="none"
-                stroke="#00FF87" strokeWidth="6" strokeLinecap="round"
+                stroke="#6366F1" strokeWidth="6" strokeLinecap="round"
                 strokeDasharray={2 * Math.PI * 30}
                 initial={{ strokeDashoffset: 2 * Math.PI * 30 }}
                 animate={{ strokeDashoffset: 2 * Math.PI * 30 - (weeklyPercentage / 100) * 2 * Math.PI * 30 }}
@@ -157,7 +157,7 @@ export default function DashboardPage() {
                 return (
                   <div key={i} className={`w-[18px] h-[18px] rounded flex items-center justify-center text-[8px] font-bold ${
                     worked
-                      ? "bg-[#00FF87]/12 text-[#00FF87] border border-[#00FF87]/20"
+                      ? "bg-[#6366F1]/12 text-[#6366F1] border border-[#6366F1]/20"
                       : "bg-white/[0.02] text-white/10 border border-white/[0.03]"
                   }`}>
                     {worked ? "✓" : "·"}
@@ -173,11 +173,11 @@ export default function DashboardPage() {
           <motion.div
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
-            className="h-full rounded-2xl p-5 bg-gradient-to-br from-[#00FF87]/[0.04] to-[#00D4FF]/[0.03] border border-[#00FF87]/8 flex flex-col justify-center hover:border-[#00FF87]/20 transition-all cursor-pointer"
+            className="h-full rounded-2xl p-5 bg-gradient-to-br from-[#6366F1]/[0.04] to-[#818CF8]/[0.03] border border-[#6366F1]/8 flex flex-col justify-center hover:border-[#6366F1]/20 transition-all cursor-pointer"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00FF87] to-[#00c96b] flex items-center justify-center shadow-[0_0_12px_rgba(0,255,135,0.15)]">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] flex items-center justify-center shadow-[0_0_12px_rgba(0,255,135,0.15)]">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               </div>
               <div>
                 <p className="font-semibold text-white text-[13px]">운동 기록하기</p>
@@ -232,8 +232,8 @@ export default function DashboardPage() {
                     href={`/workout/${workout.workoutId}`}
                     className={`w-full h-full rounded-md flex items-center justify-center text-[10px] font-medium transition-all cursor-pointer ${
                       isToday
-                        ? "bg-[#00FF87]/20 text-[#00FF87] ring-1 ring-[#00FF87]/40"
-                        : "bg-[#00FF87]/8 text-[#00FF87]/70 hover:bg-[#00FF87]/15"
+                        ? "bg-[#6366F1]/20 text-[#6366F1] ring-1 ring-[#6366F1]/40"
+                        : "bg-[#6366F1]/8 text-[#6366F1]/70 hover:bg-[#6366F1]/15"
                     }`}
                     title={workout.exerciseType}
                   >
@@ -256,11 +256,11 @@ export default function DashboardPage() {
         {/* Calendar footer */}
         <div className="flex items-center gap-4 mt-3 pt-3 border-t border-white/[0.03]">
           <div className="flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-sm bg-[#00FF87]/15 border border-[#00FF87]/25" />
+            <div className="w-2 h-2 rounded-sm bg-[#6366F1]/15 border border-[#6366F1]/25" />
             <span className="text-[10px] text-white/25">운동한 날</span>
           </div>
           <span className="text-[11px] text-white/35 ml-auto">
-            이번 달 <span className="text-[#00FF87] font-semibold">{calendarData.length}</span>회
+            이번 달 <span className="text-[#6366F1] font-semibold">{calendarData.length}</span>회
           </span>
         </div>
       </div>
@@ -270,14 +270,14 @@ export default function DashboardPage() {
         <div className="glass-card !p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-[11px] text-white/30 uppercase tracking-widest font-medium">그룹 이번 주</h2>
-            <Link href="/group" className="text-[10px] text-[#00D4FF]/60 hover:text-[#00D4FF] transition-colors cursor-pointer">
+            <Link href="/group" className="text-[10px] text-[#818CF8]/60 hover:text-[#818CF8] transition-colors cursor-pointer">
               전체보기
             </Link>
           </div>
           <div className="space-y-2">
             {groupMembers.map((member, i) => (
               <div key={i} className="flex items-center gap-3">
-                <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#00FF87]/8 to-[#00D4FF]/8 border border-white/[0.04] flex items-center justify-center text-[9px] font-bold text-[#00FF87]/70">
+                <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#6366F1]/8 to-[#818CF8]/8 border border-white/[0.04] flex items-center justify-center text-[9px] font-bold text-[#6366F1]/70">
                   {member.nickname[0]}
                 </div>
                 <span className="text-[12px] text-white/50 flex-1">{member.nickname}</span>
@@ -287,7 +287,7 @@ export default function DashboardPage() {
                       key={j}
                       className={`w-[6px] h-[6px] rounded-full ${
                         j < member.workoutCount
-                          ? "bg-[#00FF87]/50"
+                          ? "bg-[#6366F1]/50"
                           : "bg-white/[0.05]"
                       }`}
                     />
@@ -305,7 +305,7 @@ export default function DashboardPage() {
         <div>
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-[11px] text-white/30 uppercase tracking-widest font-medium">최근 기록</h2>
-            <Link href="/workout" className="text-[10px] text-[#00D4FF]/60 hover:text-[#00D4FF] transition-colors cursor-pointer">
+            <Link href="/workout" className="text-[10px] text-[#818CF8]/60 hover:text-[#818CF8] transition-colors cursor-pointer">
               전체보기
             </Link>
           </div>
@@ -345,7 +345,7 @@ export default function DashboardPage() {
             <span className="text-2xl">💪</span>
           </div>
           <p className="text-white/35 text-sm">아직 운동 기록이 없습니다</p>
-          <Link href="/workout/new" className="inline-block mt-3 text-[12px] text-[#00FF87] hover:underline cursor-pointer">
+          <Link href="/workout/new" className="inline-block mt-3 text-[12px] text-[#6366F1] hover:underline cursor-pointer">
             첫 운동을 기록해보세요 →
           </Link>
         </div>

@@ -37,13 +37,13 @@ export default function ProfilePage() {
 
       <div className="glow-card space-y-5">
         {message && (
-          <div className="bg-[#00FF87]/10 border border-[#00FF87]/20 text-[#00FF87] text-sm px-4 py-3 rounded-xl">
+          <div className="bg-[#6366F1]/10 border border-[#6366F1]/20 text-[#6366F1] text-sm px-4 py-3 rounded-xl">
             {message}
           </div>
         )}
 
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#00FF87]/20 to-[#00D4FF]/20 rounded-full flex items-center justify-center text-xl font-bold text-[#00FF87] border border-[#00FF87]/20">
+          <div className="w-16 h-16 bg-gradient-to-br from-[#6366F1]/20 to-[#818CF8]/20 rounded-full flex items-center justify-center text-xl font-bold text-[#6366F1] border border-[#6366F1]/20">
             {session?.user?.nickname?.[0] || "?"}
           </div>
           <div>

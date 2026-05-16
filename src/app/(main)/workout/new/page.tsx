@@ -103,7 +103,7 @@ export default function NewWorkoutPage() {
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {error && (
-          <div className="bg-[#FF006E]/10 border border-[#FF006E]/20 text-[#FF006E] text-sm px-4 py-3 rounded-xl">
+          <div className="bg-[#EF4444]/10 border border-[#EF4444]/20 text-[#EF4444] text-sm px-4 py-3 rounded-xl">
             {error}
           </div>
         )}
@@ -123,13 +123,13 @@ export default function NewWorkoutPage() {
                 }
                 className={`flex flex-col items-center p-3 rounded-xl border transition-all ${
                   form.exerciseTypeId === String(type.id)
-                    ? "border-[#00FF87]/50 bg-[#00FF87]/[0.06] shadow-[0_0_15px_rgba(0,255,135,0.1)]"
+                    ? "border-[#6366F1]/50 bg-[#6366F1]/[0.06] shadow-[0_0_15px_rgba(0,255,135,0.1)]"
                     : "border-white/[0.06] hover:border-white/[0.15] hover:bg-white/[0.02]"
                 }`}
               >
                 <span className="text-2xl">{type.icon}</span>
                 <span className={`text-[10px] mt-1 ${
-                  form.exerciseTypeId === String(type.id) ? "text-[#00FF87]" : "text-white/50"
+                  form.exerciseTypeId === String(type.id) ? "text-[#6366F1]" : "text-white/50"
                 }`}>{type.name}</span>
               </button>
             ))}
@@ -220,13 +220,13 @@ export default function NewWorkoutPage() {
                 }
                 className={`flex flex-col items-center p-2.5 rounded-xl flex-1 transition-all ${
                   form.intensity === String(level.value)
-                    ? "bg-[#00FF87]/[0.08] border border-[#00FF87]/30"
+                    ? "bg-[#6366F1]/[0.08] border border-[#6366F1]/30"
                     : "border border-transparent hover:bg-white/[0.03]"
                 }`}
               >
                 <span className="text-xl">{level.emoji}</span>
                 <span className={`text-[10px] mt-1 ${
-                  form.intensity === String(level.value) ? "text-[#00FF87]" : "text-white/40"
+                  form.intensity === String(level.value) ? "text-[#6366F1]" : "text-white/40"
                 }`}>
                   {level.label}
                 </span>
@@ -277,7 +277,7 @@ export default function NewWorkoutPage() {
           )}
 
           {files.length < 5 && (
-            <label className="flex flex-col items-center justify-center h-24 border border-dashed border-white/[0.12] rounded-xl cursor-pointer hover:border-[#00FF87]/40 hover:bg-[#00FF87]/[0.02] transition-all">
+            <label className="flex flex-col items-center justify-center h-24 border border-dashed border-white/[0.12] rounded-xl cursor-pointer hover:border-[#6366F1]/40 hover:bg-[#6366F1]/[0.02] transition-all">
               <span className="text-2xl text-white/20">📷</span>
               <span className="text-xs text-white/30 mt-1">
                 사진 추가 ({files.length}/5)

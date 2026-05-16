@@ -12,8 +12,8 @@ export default function MainLayout({
     <SessionProvider>
       {/* Background ambient glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-60 -right-60 w-[500px] h-[500px] rounded-full bg-[#00FF87]/[0.015] blur-[150px]" />
-        <div className="absolute -bottom-60 -left-60 w-[400px] h-[400px] rounded-full bg-[#00D4FF]/[0.015] blur-[150px]" />
+        <div className="absolute -top-60 -right-60 w-[500px] h-[500px] rounded-full bg-[#6366F1]/[0.02] blur-[150px]" />
+        <div className="absolute -bottom-60 -left-60 w-[400px] h-[400px] rounded-full bg-[#EC4899]/[0.015] blur-[150px]" />
       </div>
 
       <Header />

@@ -28,7 +28,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden lg:flex lg:flex-col lg:w-60 lg:fixed lg:inset-y-0 lg:z-20 lg:border-r lg:border-white/[0.04] lg:bg-[#0a0a12]/80 lg:backdrop-blur-2xl lg:pt-16">
+    <aside className="hidden lg:flex lg:flex-col lg:w-60 lg:fixed lg:inset-y-0 lg:z-20 lg:border-r lg:border-white/[0.04] lg:bg-[#0c0a14]/80 lg:backdrop-blur-2xl lg:pt-16">
       <nav className="flex-1 px-3 py-6 space-y-0.5">
         {navItems.map((item) => {
           const isActive = pathname.startsWith(item.href);
@@ -38,16 +38,16 @@ export default function Sidebar() {
               href={item.href}
               className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-200 ${
                 isActive
-                  ? "bg-[#00FF87]/[0.08] text-[#00FF87]"
+                  ? "bg-[#6366F1]/[0.1] text-[#A5B4FC]"
                   : "text-white/45 hover:text-white/80 hover:bg-white/[0.04]"
               }`}
             >
-              <span className={`transition-colors ${isActive ? "text-[#00FF87]" : "text-white/35 group-hover:text-white/60"}`}>
+              <span className={`transition-colors ${isActive ? "text-[#818CF8]" : "text-white/35 group-hover:text-white/60"}`}>
                 {item.icon}
               </span>
               <span className="text-[13px] font-medium">{item.label}</span>
               {isActive && (
-                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#00FF87] shadow-[0_0_6px_#00FF87]" />
+                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#6366F1]" />
               )}
             </Link>
           );

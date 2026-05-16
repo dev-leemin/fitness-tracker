@@ -88,7 +88,7 @@ export default function GroupDetailPage() {
               onClick={copyInviteCode}
               className={`text-[11px] font-medium px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
                 copied
-                  ? "bg-[#00FF87]/10 text-[#00FF87] border border-[#00FF87]/30"
+                  ? "bg-[#6366F1]/10 text-[#6366F1] border border-[#6366F1]/30"
                   : "bg-white/[0.04] text-white/50 border border-white/[0.08] hover:border-white/[0.15]"
               }`}
             >
@@ -136,7 +136,7 @@ export default function GroupDetailPage() {
                 <tr key={member.userId}>
                   <td className="py-3 pr-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-gradient-to-br from-[#00FF87]/20 to-[#00D4FF]/20 rounded-full flex items-center justify-center text-[10px] font-bold text-[#00FF87]">
+                      <div className="w-7 h-7 bg-gradient-to-br from-[#6366F1]/20 to-[#818CF8]/20 rounded-full flex items-center justify-center text-[10px] font-bold text-[#6366F1]">
                         {member.nickname[0]}
                       </div>
                       <span className="text-sm font-medium text-white/80 whitespace-nowrap">
@@ -166,7 +166,7 @@ export default function GroupDetailPage() {
                     <span
                       className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                         member.workoutCount >= group.weeklyGoal
-                          ? "bg-[#00FF87]/10 text-[#00FF87] border border-[#00FF87]/20"
+                          ? "bg-[#6366F1]/10 text-[#6366F1] border border-[#6366F1]/20"
                           : "bg-white/[0.04] text-white/40 border border-white/[0.06]"
                       }`}
                     >
@@ -186,7 +186,7 @@ export default function GroupDetailPage() {
         <div className="space-y-3">
           {group.weeklyStatus.map((member) => (
             <div key={member.userId} className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-to-br from-[#00FF87]/15 to-[#00D4FF]/15 rounded-full flex items-center justify-center text-xs font-bold text-[#00FF87] border border-[#00FF87]/20">
+              <div className="w-9 h-9 bg-gradient-to-br from-[#6366F1]/15 to-[#818CF8]/15 rounded-full flex items-center justify-center text-xs font-bold text-[#6366F1] border border-[#6366F1]/20">
                 {member.nickname[0]}
               </div>
               <div className="flex-1">
@@ -194,7 +194,7 @@ export default function GroupDetailPage() {
                 <p className="text-xs text-white/30">{member.name}</p>
               </div>
               {member.role === "OWNER" && (
-                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#FF8C00]/10 text-[#FF8C00] border border-[#FF8C00]/20">
+                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/20">
                   방장
                 </span>
               )}

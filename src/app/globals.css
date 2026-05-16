@@ -3,12 +3,14 @@
 @theme {
   --font-sans: var(--font-noto-sans-kr), "Inter", system-ui, sans-serif;
 
-  /* Neon accent palette */
-  --color-neon-green: #00FF87;
-  --color-neon-blue: #00D4FF;
-  --color-neon-purple: #A855F7;
-  --color-neon-pink: #FF006E;
-  --color-neon-orange: #FF8C00;
+  /* Modern accent palette */
+  --color-primary: #6366F1;
+  --color-primary-light: #818CF8;
+  --color-secondary: #8B5CF6;
+  --color-accent-pink: #EC4899;
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+  --color-warning: #F59E0B;
 
   /* Surface colors */
   --color-surface: rgba(255, 255, 255, 0.025);
@@ -18,13 +20,13 @@
 }
 
 html {
-  background: #050508;
+  background: #0c0a14;
   color-scheme: dark;
 }
 
 body {
   font-family: var(--font-sans);
-  background: #050508;
+  background: #0c0a14;
   color: #fff;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -66,8 +68,8 @@ body {
   left: 10%;
   right: 10%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-neon-green), transparent);
-  opacity: 0.5;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  opacity: 0.4;
 }
 
 /* === Buttons === */
@@ -77,18 +79,18 @@ body {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.625rem 1.25rem;
-  background: linear-gradient(135deg, var(--color-neon-green), #00c96b);
-  color: #000;
-  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #fff;
+  font-weight: 600;
   border-radius: 0.75rem;
   font-size: 0.8125rem;
   transition: all 0.2s ease;
-  box-shadow: 0 0 20px rgba(0, 255, 135, 0.12);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
   cursor: pointer;
 }
 
 .btn-glow:hover {
-  box-shadow: 0 0 30px rgba(0, 255, 135, 0.3);
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.35);
   transform: translateY(-1px);
 }
 
@@ -126,9 +128,9 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0.625rem 1.25rem;
-  background: rgba(255, 0, 110, 0.06);
-  border: 1px solid rgba(255, 0, 110, 0.15);
-  color: var(--color-neon-pink);
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  color: var(--color-danger);
   font-weight: 500;
   font-size: 0.8125rem;
   border-radius: 0.75rem;
@@ -137,8 +139,8 @@ body {
 }
 
 .btn-danger:hover {
-  background: rgba(255, 0, 110, 0.12);
-  border-color: rgba(255, 0, 110, 0.3);
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.3);
 }
 
 /* === Input === */
@@ -159,8 +161,8 @@ body {
 }
 
 .input-glass:focus {
-  border-color: var(--color-neon-green);
-  box-shadow: 0 0 0 2px rgba(0, 255, 135, 0.06);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
   background: rgba(255, 255, 255, 0.04);
 }
 
@@ -172,9 +174,9 @@ body {
   font-size: 0.625rem;
   font-weight: 600;
   border-radius: 9999px;
-  background: rgba(0, 255, 135, 0.08);
-  color: var(--color-neon-green);
-  border: 1px solid rgba(0, 255, 135, 0.15);
+  background: rgba(99, 102, 241, 0.08);
+  color: var(--color-primary-light);
+  border: 1px solid rgba(99, 102, 241, 0.15);
   letter-spacing: 0.02em;
 }
 
@@ -186,7 +188,7 @@ body {
 
 /* === Utility === */
 .text-gradient {
-  background: linear-gradient(135deg, var(--color-neon-green), var(--color-neon-blue));
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -197,8 +199,9 @@ a, button, [role="button"] {
   cursor: pointer;
 }
 
-/* Float animation for auth page cards */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+/* Aurora animation for auth page */
+@keyframes aurora {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  33% { transform: translate(30px, -20px) scale(1.05); opacity: 0.8; }
+  66% { transform: translate(-20px, 20px) scale(0.95); opacity: 0.5; }
 }

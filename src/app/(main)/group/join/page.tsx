@@ -53,8 +53,8 @@ function GroupJoinContent() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-8"
       >
-        <div className="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-[#00FF87]/10 to-[#00D4FF]/10 border border-[#00FF87]/20 flex items-center justify-center mb-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF87" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <div className="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-[#6366F1]/10 to-[#818CF8]/10 border border-[#6366F1]/20 flex items-center justify-center mb-4">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
             <circle cx="9" cy="7" r="4"/>
             <line x1="19" y1="8" x2="19" y2="14"/>
@@ -71,8 +71,8 @@ function GroupJoinContent() {
           animate={{ scale: 1, opacity: 1 }}
           className="glass-card text-center py-8"
         >
-          <div className="w-12 h-12 mx-auto rounded-full bg-[#00FF87]/10 border border-[#00FF87]/20 flex items-center justify-center mb-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF87" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <div className="w-12 h-12 mx-auto rounded-full bg-[#6366F1]/10 border border-[#6366F1]/20 flex items-center justify-center mb-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366F1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
           </div>
@@ -82,7 +82,7 @@ function GroupJoinContent() {
       ) : (
         <form onSubmit={handleJoin} className="glass-card space-y-4">
           {error && (
-            <div className="flex items-center gap-2 bg-[#FF006E]/8 border border-[#FF006E]/15 text-[#FF006E] text-[12px] px-3 py-2.5 rounded-lg">
+            <div className="flex items-center gap-2 bg-[#EF4444]/8 border border-[#EF4444]/15 text-[#EF4444] text-[12px] px-3 py-2.5 rounded-lg">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
               </svg>
@@ -98,7 +98,7 @@ function GroupJoinContent() {
               type="text"
               value={code}
               onChange={(e) => setCode(e.target.value.toUpperCase())}
-              className="w-full h-12 px-4 rounded-xl bg-white/[0.03] border border-white/[0.08] text-center text-lg font-mono font-bold text-white tracking-[0.3em] placeholder:text-white/15 placeholder:tracking-[0.3em] focus:outline-none focus:border-[#00FF87]/30 focus:bg-white/[0.04] transition-all"
+              className="w-full h-12 px-4 rounded-xl bg-white/[0.03] border border-white/[0.08] text-center text-lg font-mono font-bold text-white tracking-[0.3em] placeholder:text-white/15 placeholder:tracking-[0.3em] focus:outline-none focus:border-[#6366F1]/30 focus:bg-white/[0.04] transition-all"
               placeholder="ABCD1234"
               maxLength={20}
               autoFocus
@@ -107,7 +107,7 @@ function GroupJoinContent() {
 
           <button
             type="submit"
-            className="w-full h-11 rounded-xl bg-gradient-to-r from-[#00FF87] to-[#00e07a] text-[13px] font-semibold text-black hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50"
+            className="w-full h-11 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-[13px] font-semibold text-black hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50"
             disabled={loading || !code.trim()}
           >
             {loading ? (

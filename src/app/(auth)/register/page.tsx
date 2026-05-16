@@ -75,8 +75,8 @@ export default function RegisterPage() {
       {/* Mobile hero */}
       <div className="lg:hidden mb-8">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00FF87] to-[#00c96b] flex items-center justify-center shadow-[0_0_20px_rgba(0,255,135,0.2)]">
-            <span className="text-base font-black text-black">F</span>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.2)]">
+            <span className="text-base font-black text-white">F</span>
           </div>
           <span className="text-lg font-bold text-white tracking-tight">FitLog</span>
         </div>
@@ -89,8 +89,8 @@ export default function RegisterPage() {
       {/* Desktop header */}
       <div className="hidden lg:block mb-10">
         <div className="flex items-center gap-2.5 mb-8">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#00FF87] to-[#00c96b] flex items-center justify-center shadow-[0_0_20px_rgba(0,255,135,0.15)]">
-            <span className="text-sm font-black text-black">F</span>
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.15)]">
+            <span className="text-sm font-black text-white">F</span>
           </div>
           <span className="text-[15px] font-bold text-white/80">FitLog</span>
         </div>
@@ -159,7 +159,7 @@ export default function RegisterPage() {
       ) : (
         <form onSubmit={handleSubmit} className="space-y-3">
           {error && (
-            <div className="flex items-center gap-2.5 bg-[#FF006E]/[0.06] border border-[#FF006E]/[0.12] text-[#FF006E] text-[13px] px-4 py-3 rounded-xl">
+            <div className="flex items-center gap-2.5 bg-[#EF4444]/[0.06] border border-[#EF4444]/[0.12] text-[#EF4444] text-[13px] px-4 py-3 rounded-xl">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
               </svg>
@@ -173,7 +173,7 @@ export default function RegisterPage() {
               name="name"
               value={form.name}
               onChange={handleChange}
-              className="w-full h-[52px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[14px] text-white placeholder:text-white/20 focus:outline-none focus:border-[#00FF87]/30 focus:bg-white/[0.04] transition-all"
+              className="w-full h-[52px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[14px] text-white placeholder:text-white/20 focus:outline-none focus:border-[#6366F1]/30 focus:bg-white/[0.04] transition-all"
               placeholder="이름"
               required
             />
@@ -182,7 +182,7 @@ export default function RegisterPage() {
               name="nickname"
               value={form.nickname}
               onChange={handleChange}
-              className="w-full h-[52px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[14px] text-white placeholder:text-white/20 focus:outline-none focus:border-[#00FF87]/30 focus:bg-white/[0.04] transition-all"
+              className="w-full h-[52px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[14px] text-white placeholder:text-white/20 focus:outline-none focus:border-[#6366F1]/30 focus:bg-white/[0.04] transition-all"
               placeholder="닉네임"
               required
               maxLength={30}
@@ -194,7 +194,7 @@ export default function RegisterPage() {
             name="email"
             value={form.email}
             onChange={handleChange}
-            className="w-full h-[52px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[14px] text-white placeholder:text-white/20 focus:outline-none focus:border-[#00FF87]/30 focus:bg-white/[0.04] transition-all"
+            className="w-full h-[52px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[14px] text-white placeholder:text-white/20 focus:outline-none focus:border-[#6366F1]/30 focus:bg-white/[0.04] transition-all"
             placeholder="이메일 주소"
             required
           />
@@ -204,7 +204,7 @@ export default function RegisterPage() {
             name="password"
             value={form.password}
             onChange={handleChange}
-            className="w-full h-[52px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[14px] text-white placeholder:text-white/20 focus:outline-none focus:border-[#00FF87]/30 focus:bg-white/[0.04] transition-all"
+            className="w-full h-[52px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[14px] text-white placeholder:text-white/20 focus:outline-none focus:border-[#6366F1]/30 focus:bg-white/[0.04] transition-all"
             placeholder="비밀번호 (6자 이상)"
             required
             minLength={6}
@@ -215,14 +215,14 @@ export default function RegisterPage() {
             name="confirmPassword"
             value={form.confirmPassword}
             onChange={handleChange}
-            className="w-full h-[52px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[14px] text-white placeholder:text-white/20 focus:outline-none focus:border-[#00FF87]/30 focus:bg-white/[0.04] transition-all"
+            className="w-full h-[52px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[14px] text-white placeholder:text-white/20 focus:outline-none focus:border-[#6366F1]/30 focus:bg-white/[0.04] transition-all"
             placeholder="비밀번호 확인"
             required
           />
 
           <button
             type="submit"
-            className="w-full h-[52px] rounded-2xl bg-gradient-to-r from-[#00FF87] to-[#00c96b] text-[14px] font-bold text-black hover:shadow-[0_0_30px_rgba(0,255,135,0.2)] transition-all cursor-pointer disabled:opacity-50 disabled:shadow-none"
+            className="w-full h-[52px] rounded-2xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-[14px] font-bold text-white hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] transition-all cursor-pointer disabled:opacity-50 disabled:shadow-none"
             disabled={loading}
           >
             {loading ? (
@@ -251,7 +251,7 @@ export default function RegisterPage() {
       {/* Footer */}
       <p className="text-center text-[13px] text-white/30 mt-8">
         이미 계정이 있으신가요?{" "}
-        <Link href="/login" className="text-[#00FF87] hover:text-[#00FF87]/80 transition-colors font-semibold">
+        <Link href="/login" className="text-[#A78BFA] hover:text-[#C4B5FD] transition-colors font-medium">
           로그인
         </Link>
       </p>

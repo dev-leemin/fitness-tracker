@@ -81,7 +81,7 @@ export default function WorkoutListPage() {
                   href={`/workout/${workout.id}`}
                   className="glass-card flex items-center gap-4 group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-xl group-hover:border-[#00FF87]/30 transition-colors">
+                  <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-xl group-hover:border-[#6366F1]/30 transition-colors">
                     {workout.exerciseType.icon}
                   </div>
                   <div className="flex-1 min-w-0">
