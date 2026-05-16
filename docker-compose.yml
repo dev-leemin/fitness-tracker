@@ -25,6 +25,7 @@ services:
       DATABASE_URL: postgresql://fitness_user:${POSTGRES_PASSWORD:-changeme}@db:5432/fitness
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-your-secret-key-change-in-production}
       NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3001}
+      AUTH_TRUST_HOST: "true"
       NODE_ENV: production
     volumes:
       - upload_data:/app/uploads
