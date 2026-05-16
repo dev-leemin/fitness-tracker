@@ -2,12 +2,10 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import Kakao from "next-auth/providers/kakao";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import prisma from "./prisma";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma),
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -50,36 +48,66 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider === "google" || account?.provider === "kakao") {
-        const existingUser = await prisma.user.findUnique({
-          where: { email: user.email! },
-        });
+      if (!account || account.provider === "credentials") return true;
 
-        if (!existingUser) {
-          const baseName = user.name || user.email!.split("@")[0];
-          let nickname = baseName.replace(/[^a-zA-Z0-9가-힣]/g, "").slice(0, 20);
+      // OAuth 로그인: ���메일 기반으로 계정 자동 연동
+      const email = user.email!;
+      let dbUser = await prisma.user.findUnique({
+        where: { email },
+        include: { accounts: true },
+      });
 
-          const existing = await prisma.user.findUnique({ where: { nickname } });
-          if (existing) {
-            nickname = `${nickname}${Date.now().toString(36).slice(-4)}`;
-          }
+      if (!dbUser) {
+        // 신��� 유저 생성
+        const baseName = user.name || email.split("@")[0];
+        let nickname = baseName.replace(/[^a-zA-Z0-9가-힣]/g, "").slice(0, 20);
+        if (!nickname) nickname = email.split("@")[0].slice(0, 20);
 
-          await prisma.user.create({
-            data: {
-              email: user.email!,
-              name: user.name || baseName,
-              nickname,
-              profileImage: user.image,
-            },
-          });
+        const existingNickname = await prisma.user.findUnique({ where: { nickname } });
+        if (existingNickname) {
+          nickname = `${nickname}${Date.now().toString(36).slice(-4)}`;
         }
+
+        dbUser = await prisma.user.create({
+          data: {
+            email,
+            name: user.name || baseName,
+            nickname,
+            profileImage: user.image,
+          },
+          include: { accounts: true },
+        });
       }
+
+      // 이 provider의 Account가 아직 없으면 연동
+      const hasAccount = dbUser.accounts.some(
+        (a) => a.provider === account.provider && a.providerAccountId === account.providerAccountId
+      );
+
+      if (!hasAccount) {
+        await prisma.account.create({
+          data: {
+            userId: dbUser.id,
+            type: account.type,
+            provider: account.provider,
+            providerAccountId: account.providerAccountId,
+            refresh_token: account.refresh_token as string | null,
+            access_token: account.access_token as string | null,
+            expires_at: account.expires_at,
+            token_type: account.token_type,
+            scope: account.scope,
+            id_token: account.id_token as string | null,
+            session_state: account.session_state as string | null,
+          },
+        });
+      }
+
       return true;
     },
-    async jwt({ token, user }) {
-      if (user) {
+    async jwt({ token, user, account }) {
+      if (user && user.email) {
         const dbUser = await prisma.user.findUnique({
-          where: { email: user.email! },
+          where: { email: user.email },
         });
         if (dbUser) {
           token.id = dbUser.id;
