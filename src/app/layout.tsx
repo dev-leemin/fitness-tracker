@@ -11,6 +11,9 @@ const notoSansKR = Noto_Sans_KR({
 export const metadata: Metadata = {
   title: "FitLog - 운동 기록",
   description: "개인 운동 기록 및 그룹 관리 웹앱",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
