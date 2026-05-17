@@ -43,7 +43,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { exerciseTypeId, date, durationMin, distanceKm, calories, intensity, memo } = body;
+    const { exerciseTypeId, date, durationMin, distanceKm, calories, intensity, memo, location, link } = body;
 
     if (!exerciseTypeId || !date || !durationMin) {
       return NextResponse.json(
@@ -79,6 +79,8 @@ export async function POST(request: Request) {
         calories: calories ? parseInt(calories) : null,
         intensity: intensity ? parseInt(intensity) : 3,
         memo: memo || null,
+        location: location || null,
+        link: link || null,
       },
       include: {
         exerciseType: true,

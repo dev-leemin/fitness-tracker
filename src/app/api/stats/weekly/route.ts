@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, eachWeekOfInterval } from "date-fns";
+import { startOfWeek, endOfWeek, subWeeks, startOfMonth, endOfMonth, eachWeekOfInterval } from "date-fns";
 
 export async function GET() {
   const session = await auth();
@@ -19,13 +19,26 @@ export async function GET() {
   const weekStart = startOfWeek(now, { weekStartsOn: 1 });
   const weekEnd = endOfWeek(now, { weekStartsOn: 1 });
 
+  // Last week's range
+  const lastWeekStart = subWeeks(weekStart, 1);
+  const lastWeekEnd = subWeeks(weekEnd, 1);
+
   // This week's workouts
   const workouts = await prisma.workout.findMany({
     where: {
       userId: session.user.id,
       date: { gte: weekStart, lte: weekEnd },
     },
-    select: { date: true },
+    select: { date: true, durationMin: true },
+  });
+
+  // Last week's workouts
+  const lastWeekWorkouts = await prisma.workout.findMany({
+    where: {
+      userId: session.user.id,
+      date: { gte: lastWeekStart, lte: lastWeekEnd },
+    },
+    select: { date: true, durationMin: true },
   });
 
   const daysWorkedOut = workouts.map((w) => {
@@ -33,7 +46,10 @@ export async function GET() {
     return String(day === 0 ? 6 : day - 1);
   });
 
-  // Monthly achievement rate: how many weeks this month met the goal
+  const thisWeekMinutes = workouts.reduce((sum, w) => sum + w.durationMin, 0);
+  const lastWeekMinutes = lastWeekWorkouts.reduce((sum, w) => sum + w.durationMin, 0);
+
+  // Monthly stats
   const monthStart = startOfMonth(now);
   const monthEnd = endOfMonth(now);
   const weeksInMonth = eachWeekOfInterval({ start: monthStart, end: monthEnd }, { weekStartsOn: 1 });
@@ -43,7 +59,7 @@ export async function GET() {
       userId: session.user.id,
       date: { gte: monthStart, lte: monthEnd },
     },
-    select: { date: true },
+    select: { date: true, durationMin: true },
   });
 
   let weeksCompleted = 0;
@@ -51,7 +67,6 @@ export async function GET() {
 
   for (const wkStart of weeksInMonth) {
     const wkEnd = endOfWeek(wkStart, { weekStartsOn: 1 });
-    // Only count weeks that have fully passed or are the current week
     if (wkStart > now) break;
     totalWeeksPassed++;
 
@@ -66,6 +81,8 @@ export async function GET() {
   }
 
   const monthlyRate = totalWeeksPassed > 0 ? Math.round((weeksCompleted / totalWeeksPassed) * 100) : 0;
+  const monthTotalMinutes = monthWorkouts.reduce((sum, w) => sum + w.durationMin, 0);
+  const monthTotalWorkouts = monthWorkouts.length;
 
   return NextResponse.json({
     workoutsThisWeek: workouts.length,
@@ -73,8 +90,15 @@ export async function GET() {
     daysWorkedOut,
     weekStart: weekStart.toISOString(),
     weekEnd: weekEnd.toISOString(),
+    // Weekly comparison
+    lastWeekWorkouts: lastWeekWorkouts.length,
+    thisWeekMinutes,
+    lastWeekMinutes,
+    // Monthly
     monthlyRate,
     weeksCompleted,
     totalWeeksPassed,
+    monthTotalMinutes,
+    monthTotalWorkouts,
   });
 }

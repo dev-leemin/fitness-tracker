@@ -87,6 +87,8 @@ model Workout {
   calories       Int?
   intensity      Int?         @default(3)
   memo           String?      @db.Text
+  location       String?      @db.VarChar(200)
+  link           String?      @db.VarChar(500)
   isVerified     Boolean      @default(false)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt

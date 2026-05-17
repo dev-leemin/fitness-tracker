@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { startOfWeek, endOfWeek, subWeeks, format } from "date-fns";
+import { startOfWeek, endOfWeek, format } from "date-fns";
 
 export async function GET(
   request: Request,
@@ -76,5 +76,50 @@ export async function GET(
   return NextResponse.json({
     ...group,
     weeklyStatus,
+    currentUserRole: membership.role,
   });
+}
+
+export async function PUT(
+  request: Request,
+  { params }: { params: Promise<{ groupId: string }> }
+) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { groupId } = await params;
+
+  // OWNER 확인
+  const membership = await prisma.groupMember.findUnique({
+    where: { groupId_userId: { groupId, userId: session.user.id } },
+  });
+
+  if (!membership || membership.role !== "OWNER") {
+    return NextResponse.json({ error: "방장만 그룹 설정을 수정할 수 있습니다." }, { status: 403 });
+  }
+
+  const { name, description, weeklyGoal, finePerMiss } = await request.json();
+
+  if (weeklyGoal !== undefined && (weeklyGoal < 1 || weeklyGoal > 7)) {
+    return NextResponse.json({ error: "주간 목표는 1~7일이어야 합니다." }, { status: 400 });
+  }
+
+  if (finePerMiss !== undefined && finePerMiss < 0) {
+    return NextResponse.json({ error: "벌금은 0원 이상이어야 합니다." }, { status: 400 });
+  }
+
+  const updated = await prisma.group.update({
+    where: { id: groupId },
+    data: {
+      ...(name && { name }),
+      ...(description !== undefined && { description }),
+      ...(weeklyGoal !== undefined && { weeklyGoal }),
+      ...(finePerMiss !== undefined && { finePerMiss }),
+    },
+    select: { id: true, name: true, description: true, weeklyGoal: true, finePerMiss: true },
+  });
+
+  return NextResponse.json(updated);
 }

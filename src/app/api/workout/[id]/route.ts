@@ -48,7 +48,7 @@ export async function PUT(
   }
 
   const body = await request.json();
-  const { exerciseTypeId, durationMin, distanceKm, calories, intensity, memo } = body;
+  const { exerciseTypeId, durationMin, distanceKm, calories, intensity, memo, location, link } = body;
 
   const workout = await prisma.workout.update({
     where: { id },
@@ -59,6 +59,8 @@ export async function PUT(
       calories: calories ? parseInt(calories) : null,
       intensity: intensity ? parseInt(intensity) : existing.intensity,
       memo: memo ?? existing.memo,
+      location: location !== undefined ? (location || null) : existing.location,
+      link: link !== undefined ? (link || null) : existing.link,
     },
     include: { exerciseType: true },
   });

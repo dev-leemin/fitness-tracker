@@ -12,7 +12,9 @@ export const metadata: Metadata = {
   title: "FitLog - 운동 기록",
   description: "개인 운동 기록 및 그룹 관리 웹앱",
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
   },
 };
 

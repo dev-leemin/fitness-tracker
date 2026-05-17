@@ -42,22 +42,41 @@ export const EXERCISE_CATEGORIES = {
 } as const;
 
 export const DEFAULT_EXERCISES = [
+  // 유산소
   { name: "러닝", category: "CARDIO", icon: "🏃" },
   { name: "걷기", category: "CARDIO", icon: "🚶" },
   { name: "자전거", category: "CARDIO", icon: "🚴" },
   { name: "수영", category: "CARDIO", icon: "🏊" },
+  { name: "등산", category: "CARDIO", icon: "⛰️" },
+  { name: "줄넘기", category: "CARDIO", icon: "🪢" },
+  { name: "로잉", category: "CARDIO", icon: "🚣" },
+  { name: "계단오르기", category: "CARDIO", icon: "🪜" },
+  // 근력
   { name: "웨이트", category: "STRENGTH", icon: "🏋️" },
-  { name: "맨몸운동", category: "STRENGTH", icon: "💪" },
+  { name: "맨몸운동", category: "STRENGTH", icon: "��" },
   { name: "크로스핏", category: "STRENGTH", icon: "🔥" },
+  { name: "클라이밍", category: "STRENGTH", icon: "����" },
+  { name: "케틀벨", category: "STRENGTH", icon: "🔔" },
+  { name: "TRX", category: "STRENGTH", icon: "🪝" },
+  // 유연성
   { name: "요가", category: "FLEXIBILITY", icon: "🧘" },
   { name: "스트레칭", category: "FLEXIBILITY", icon: "🤸" },
   { name: "필라테스", category: "FLEXIBILITY", icon: "🩰" },
+  { name: "폼롤러", category: "FLEXIBILITY", icon: "🧴" },
+  // 스포츠
   { name: "축구", category: "SPORTS", icon: "⚽" },
   { name: "농구", category: "SPORTS", icon: "🏀" },
   { name: "배드민턴", category: "SPORTS", icon: "🏸" },
   { name: "테니스", category: "SPORTS", icon: "🎾" },
-  { name: "등산", category: "CARDIO", icon: "⛰️" },
-  { name: "기타", category: "OTHER", icon: "🏅" },
+  { name: "탁구", category: "SPORTS", icon: "����" },
+  { name: "골프", category: "SPORTS", icon: "⛳" },
+  { name: "볼링", category: "SPORTS", icon: "🎳" },
+  { name: "스키/보드", category: "SPORTS", icon: "🏂" },
+  { name: "서핑", category: "SPORTS", icon: "🏄" },
+  { name: "복��", category: "SPORTS", icon: "���" },
+  // 기타
+  { name: "댄스", category: "OTHER", icon: "💃" },
+  { name: "���타", category: "OTHER", icon: "���" },
 ] as const;
 
 export const INTENSITY_LABELS = [
