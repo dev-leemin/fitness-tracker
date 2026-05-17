@@ -1,9 +1,44 @@
 export const EXERCISE_CATEGORIES = {
-  CARDIO: { label: "유산소", color: "#22c55e" },
-  STRENGTH: { label: "근력", color: "#3b82f6" },
-  FLEXIBILITY: { label: "유연성", color: "#a855f7" },
-  SPORTS: { label: "스포츠", color: "#f97316" },
-  OTHER: { label: "기타", color: "#6b7280" },
+  CARDIO: {
+    label: "유산소",
+    color: "#34D399",
+    gradient: "from-emerald-400 to-emerald-600",
+    bgAlpha: "rgba(52, 211, 153, 0.1)",
+    borderAlpha: "rgba(52, 211, 153, 0.2)",
+    shadowAlpha: "rgba(52, 211, 153, 0.15)",
+  },
+  STRENGTH: {
+    label: "근력",
+    color: "#60A5FA",
+    gradient: "from-blue-400 to-blue-600",
+    bgAlpha: "rgba(96, 165, 250, 0.1)",
+    borderAlpha: "rgba(96, 165, 250, 0.2)",
+    shadowAlpha: "rgba(96, 165, 250, 0.15)",
+  },
+  FLEXIBILITY: {
+    label: "유연성",
+    color: "#C084FC",
+    gradient: "from-purple-400 to-purple-600",
+    bgAlpha: "rgba(192, 132, 252, 0.1)",
+    borderAlpha: "rgba(192, 132, 252, 0.2)",
+    shadowAlpha: "rgba(192, 132, 252, 0.15)",
+  },
+  SPORTS: {
+    label: "스포츠",
+    color: "#FB923C",
+    gradient: "from-orange-400 to-orange-600",
+    bgAlpha: "rgba(251, 146, 60, 0.1)",
+    borderAlpha: "rgba(251, 146, 60, 0.2)",
+    shadowAlpha: "rgba(251, 146, 60, 0.15)",
+  },
+  OTHER: {
+    label: "기타",
+    color: "#94A3B8",
+    gradient: "from-slate-400 to-slate-600",
+    bgAlpha: "rgba(148, 163, 184, 0.1)",
+    borderAlpha: "rgba(148, 163, 184, 0.2)",
+    shadowAlpha: "rgba(148, 163, 184, 0.15)",
+  },
 } as const;
 
 export const DEFAULT_EXERCISES = [

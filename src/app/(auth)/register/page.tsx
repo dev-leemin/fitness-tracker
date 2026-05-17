@@ -72,34 +72,15 @@ export default function RegisterPage() {
 
   return (
     <div className="w-full">
-      {/* Mobile header */}
-      <div className="lg:hidden mb-8">
-        <div className="flex items-center gap-2 mb-6">
-          <div className="w-8 h-8 rounded-lg bg-[#6366F1] flex items-center justify-center">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-            </svg>
-          </div>
-          <span className="text-sm font-semibold text-white/60">FitLog</span>
-        </div>
-        <h1 className="text-[24px] font-bold text-white leading-tight">
-          운동 기록을<br />시작하세요
-        </h1>
-        <p className="text-[13px] text-white/30 mt-2">그룹과 함께 목표를 달성하세요</p>
-      </div>
-
-      {/* Desktop header */}
-      <div className="hidden lg:block mb-8">
-        <h1 className="text-[22px] font-bold text-white tracking-tight">계정 만들기</h1>
-        <p className="text-[13px] text-white/30 mt-1.5">FitLog와 함께 운동을 기록하세요</p>
-      </div>
+      <h1 className="text-2xl font-bold text-white tracking-tight">계정 만들기</h1>
+      <p className="text-[13px] text-white/35 mt-1.5">FitLog와 함께 운동을 기록하세요</p>
 
       {step === "social" ? (
         <>
-          <div className="space-y-2.5">
+          <div className="space-y-2.5 mt-7">
             <button
               onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-              className="w-full flex items-center gap-3 h-[48px] px-4 rounded-xl bg-white/[0.03] border border-white/[0.06] text-[13px] font-medium text-white/80 hover:bg-white/[0.06] hover:border-white/[0.1] transition-all group"
+              className="w-full flex items-center gap-3 h-[50px] px-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-[13px] font-medium text-white/80 hover:bg-white/[0.06] hover:border-white/[0.12] hover:translate-y-[-1px] hover:shadow-lg transition-all active:translate-y-[1px]"
             >
               <svg width="18" height="18" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -108,30 +89,28 @@ export default function RegisterPage() {
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
               </svg>
               <span className="flex-1 text-left">Google로 시작하기</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-white/0 group-hover:text-white/20 transition-colors"><path d="M9 18l6-6-6-6"/></svg>
             </button>
 
             <button
               onClick={() => signIn("kakao", { callbackUrl: "/dashboard" })}
-              className="w-full flex items-center gap-3 h-[48px] px-4 rounded-xl bg-[#FEE500]/[0.04] border border-[#FEE500]/[0.08] text-[13px] font-medium text-white/80 hover:bg-[#FEE500]/[0.08] hover:border-[#FEE500]/[0.14] transition-all group"
+              className="w-full flex items-center gap-3 h-[50px] px-4 rounded-2xl bg-[#FEE500]/[0.05] border border-[#FEE500]/[0.1] text-[13px] font-medium text-white/80 hover:bg-[#FEE500]/[0.1] hover:border-[#FEE500]/[0.18] hover:translate-y-[-1px] hover:shadow-lg transition-all active:translate-y-[1px]"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="#FEE500">
                 <path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.57 1.674 4.83 4.2 6.13l-.87 3.22a.3.3 0 00.46.33l3.77-2.5c.78.12 1.58.18 2.43.18 5.523 0 10-3.477 10-7.83S17.523 3 12 3z"/>
               </svg>
               <span className="flex-1 text-left">카카오로 시작하기</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-white/0 group-hover:text-white/20 transition-colors"><path d="M9 18l6-6-6-6"/></svg>
             </button>
           </div>
 
           <div className="flex items-center gap-4 my-6">
-            <div className="flex-1 h-px bg-white/[0.05]" />
-            <span className="text-[10px] text-white/15 font-medium tracking-wider uppercase">또는</span>
-            <div className="flex-1 h-px bg-white/[0.05]" />
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+            <span className="text-[10px] text-white/20 font-medium tracking-wider uppercase">또는</span>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
           </div>
 
           <button
             onClick={() => setStep("email")}
-            className="w-full flex items-center gap-3 h-[48px] px-4 rounded-xl bg-white/[0.02] border border-white/[0.04] text-[13px] text-white/35 hover:bg-white/[0.04] hover:border-white/[0.08] hover:text-white/50 transition-all"
+            className="w-full flex items-center gap-3 h-[50px] px-4 rounded-2xl bg-white/[0.02] border border-white/[0.05] text-[13px] text-white/35 hover:bg-white/[0.04] hover:border-white/[0.08] hover:text-white/50 transition-all"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="opacity-50">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -141,9 +120,9 @@ export default function RegisterPage() {
           </button>
         </>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-2.5">
+        <form onSubmit={handleSubmit} className="space-y-3 mt-7">
           {error && (
-            <div className="bg-[#EF4444]/[0.05] border border-[#EF4444]/[0.1] text-[#F87171] text-[12px] px-3.5 py-2.5 rounded-xl">
+            <div className="bg-[#F87171]/[0.06] border border-[#F87171]/[0.12] text-[#F87171] text-[12px] px-4 py-2.5 rounded-xl backdrop-blur-sm">
               {error}
             </div>
           )}
@@ -154,7 +133,7 @@ export default function RegisterPage() {
               name="name"
               value={form.name}
               onChange={handleChange}
-              className="w-full h-[48px] px-4 rounded-xl bg-white/[0.03] border border-white/[0.06] text-[13px] text-white placeholder:text-white/18 focus:outline-none focus:border-[#6366F1]/30 focus:ring-2 focus:ring-[#6366F1]/[0.06] transition-all"
+              className="input-glass !h-[50px] !rounded-2xl"
               placeholder="이름"
               required
             />
@@ -163,7 +142,7 @@ export default function RegisterPage() {
               name="nickname"
               value={form.nickname}
               onChange={handleChange}
-              className="w-full h-[48px] px-4 rounded-xl bg-white/[0.03] border border-white/[0.06] text-[13px] text-white placeholder:text-white/18 focus:outline-none focus:border-[#6366F1]/30 focus:ring-2 focus:ring-[#6366F1]/[0.06] transition-all"
+              className="input-glass !h-[50px] !rounded-2xl"
               placeholder="닉네임"
               required
               maxLength={30}
@@ -175,7 +154,7 @@ export default function RegisterPage() {
             name="email"
             value={form.email}
             onChange={handleChange}
-            className="w-full h-[48px] px-4 rounded-xl bg-white/[0.03] border border-white/[0.06] text-[13px] text-white placeholder:text-white/18 focus:outline-none focus:border-[#6366F1]/30 focus:ring-2 focus:ring-[#6366F1]/[0.06] transition-all"
+            className="input-glass !h-[50px] !rounded-2xl"
             placeholder="이메일 주소"
             required
           />
@@ -185,7 +164,7 @@ export default function RegisterPage() {
             name="password"
             value={form.password}
             onChange={handleChange}
-            className="w-full h-[48px] px-4 rounded-xl bg-white/[0.03] border border-white/[0.06] text-[13px] text-white placeholder:text-white/18 focus:outline-none focus:border-[#6366F1]/30 focus:ring-2 focus:ring-[#6366F1]/[0.06] transition-all"
+            className="input-glass !h-[50px] !rounded-2xl"
             placeholder="비밀번호 (6자 이상)"
             required
             minLength={6}
@@ -196,14 +175,14 @@ export default function RegisterPage() {
             name="confirmPassword"
             value={form.confirmPassword}
             onChange={handleChange}
-            className="w-full h-[48px] px-4 rounded-xl bg-white/[0.03] border border-white/[0.06] text-[13px] text-white placeholder:text-white/18 focus:outline-none focus:border-[#6366F1]/30 focus:ring-2 focus:ring-[#6366F1]/[0.06] transition-all"
+            className="input-glass !h-[50px] !rounded-2xl"
             placeholder="비밀번호 확인"
             required
           />
 
           <button
             type="submit"
-            className="w-full h-[48px] rounded-xl bg-[#6366F1] text-[13px] font-semibold text-white hover:bg-[#5558E8] transition-all disabled:opacity-40"
+            className="btn-primary w-full !h-[50px] !rounded-2xl !text-[13px]"
             disabled={loading}
           >
             {loading ? (
@@ -222,7 +201,7 @@ export default function RegisterPage() {
           <button
             type="button"
             onClick={() => setStep("social")}
-            className="w-full text-center text-[11px] text-white/18 hover:text-white/35 transition-colors pt-1"
+            className="w-full text-center text-[11px] text-white/20 hover:text-white/40 transition-colors pt-1"
           >
             다른 방법으로 가입
           </button>
@@ -231,7 +210,7 @@ export default function RegisterPage() {
 
       <p className="text-center text-[12px] text-white/25 mt-8">
         이미 계정이 있으신가요?{" "}
-        <Link href="/login" className="text-[#6366F1] hover:text-[#818CF8] transition-colors font-medium">
+        <Link href="/login" className="text-[#A78BFA] hover:text-[#C4B5FD] transition-colors font-medium">
           로그인
         </Link>
       </p>

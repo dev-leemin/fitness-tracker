@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, addMonths, subMonths } from "date-fns";
 import { ko } from "date-fns/locale";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { EXERCISE_CATEGORIES } from "@/lib/constants";
 
 interface CalendarDay {
   date: string;
@@ -21,6 +22,7 @@ export default function CalendarPage() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [calendarData, setCalendarData] = useState<CalendarDay[]>([]);
   const [loading, setLoading] = useState(true);
+  const [direction, setDirection] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -49,105 +51,185 @@ export default function CalendarPage() {
   const workoutCount = calendarData.length;
   const totalDuration = calendarData.reduce((sum, d) => sum + d.durationMin, 0);
 
+  // Count categories
+  const categoryCount: Record<string, number> = {};
+  calendarData.forEach((d) => {
+    categoryCount[d.category] = (categoryCount[d.category] || 0) + 1;
+  });
+
+  const goToPrevMonth = () => {
+    setDirection(-1);
+    setCurrentMonth(subMonths(currentMonth, 1));
+  };
+
+  const goToNextMonth = () => {
+    setDirection(1);
+    setCurrentMonth(addMonths(currentMonth, 1));
+  };
+
   return (
     <div className="space-y-5">
-      {/* Month nav */}
+      {/* Month Navigation */}
       <div className="flex items-center justify-between">
         <button
-          onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
-          className="w-9 h-9 rounded-lg border border-white/[0.06] flex items-center justify-center text-white/40 hover:bg-white/[0.04] hover:text-white/70 transition-all"
+          onClick={goToPrevMonth}
+          className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-white/40 hover:bg-white/[0.06] hover:text-white/70 hover:border-white/[0.1] transition-all active:scale-95"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
-        <h1 className="text-lg font-semibold text-white">
+        <h1 className="text-lg font-bold text-white">
           {format(currentMonth, "yyyy년 M월", { locale: ko })}
         </h1>
         <button
-          onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
-          className="w-9 h-9 rounded-lg border border-white/[0.06] flex items-center justify-center text-white/40 hover:bg-white/[0.04] hover:text-white/70 transition-all"
+          onClick={goToNextMonth}
+          className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-white/40 hover:bg-white/[0.06] hover:text-white/70 hover:border-white/[0.1] transition-all active:scale-95"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
         </button>
       </div>
 
-      {/* Summary */}
-      <div className="grid grid-cols-2 gap-3">
+      {/* Summary Cards */}
+      <div className="grid grid-cols-3 gap-3">
         <motion.div
-          className="bento-card !p-4 text-center"
+          className="card-glass !p-4 text-center"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-2xl font-bold text-[#6366F1]">{workoutCount}</p>
-          <p className="text-[10px] text-white/30 mt-1">이�� 달 운동</p>
+          <p className="text-2xl font-bold text-gradient">{workoutCount}</p>
+          <p className="text-[10px] text-white/30 mt-1">운동일</p>
         </motion.div>
         <motion.div
-          className="bento-card !p-4 text-center"
+          className="card-glass !p-4 text-center"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.04 }}
         >
-          <p className="text-2xl font-bold text-[#06B6D4]">
-            {Math.floor(totalDuration / 60)}h {totalDuration % 60}m
+          <p className="text-2xl font-bold text-[#34D399]">
+            {Math.floor(totalDuration / 60)}<span className="text-sm text-white/30">h </span>{totalDuration % 60}<span className="text-sm text-white/30">m</span>
           </p>
-          <p className="text-[10px] text-white/30 mt-1">총 운동 시간</p>
+          <p className="text-[10px] text-white/30 mt-1">총 시간</p>
+        </motion.div>
+        <motion.div
+          className="card-glass !p-4 text-center"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.08 }}
+        >
+          <p className="text-2xl font-bold text-[#FB923C]">{days.length > 0 ? Math.round((workoutCount / days.length) * 100) : 0}%</p>
+          <p className="text-[10px] text-white/30 mt-1">달성률</p>
         </motion.div>
       </div>
 
-      {/* Calendar Grid */}
-      <div className="bento-card !p-5">
-        {/* Day headers */}
-        <div className="grid grid-cols-7 mb-2">
-          {["월", "화", "수", "목", "금", "토", "일"].map((d) => (
-            <div key={d} className="text-center text-[10px] font-medium text-white/25 py-1.5">
-              {d}
-            </div>
-          ))}
-        </div>
-
-        {/* Day grid */}
-        <div className="grid grid-cols-7 gap-1">
-          {Array.from({ length: emptyDays }).map((_, i) => (
-            <div key={`empty-${i}`} className="aspect-square" />
-          ))}
-
-          {days.map((day) => {
-            const workout = getWorkoutForDay(day);
-            const isToday = format(day, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd");
-
-            return (
-              <div key={day.toISOString()} className="aspect-square p-0.5">
-                {workout ? (
-                  <Link
-                    href={`/workout/${workout.workoutId}`}
-                    className={`w-full h-full rounded-lg flex flex-col items-center justify-center transition-all hover:scale-105 bg-[#6366F1]/[0.06] border ${
-                      isToday ? "border-[#6366F1]/40 shadow-[0_0_8px_rgba(99,102,241,0.15)]" : "border-[#6366F1]/15"
-                    }`}
-                  >
-                    <span className="text-sm">{workout.icon}</span>
-                    <span className="text-[8px] text-[#6366F1]/70 mt-0.5">
-                      {format(day, "d")}
-                    </span>
-                  </Link>
-                ) : (
-                  <Link
-                    href={`/workout/new?date=${format(day, "yyyy-MM-dd")}`}
-                    className={`w-full h-full rounded-lg flex items-center justify-center text-[12px] transition-all hover:bg-white/[0.03] ${
-                      isToday
-                        ? "ring-1 ring-[#6366F1]/40 text-white/70 font-semibold"
-                        : "text-white/20"
-                    }`}
-                  >
-                    {format(day, "d")}
-                  </Link>
-                )}
+      {/* Calendar Grid — Stamp Style */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentMonth.toISOString()}
+          className="card-glass !p-5"
+          initial={{ opacity: 0, x: direction * 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: direction * -30 }}
+          transition={{ duration: 0.25 }}
+        >
+          {/* Day headers */}
+          <div className="grid grid-cols-7 mb-3">
+            {["월", "화", "수", "목", "금", "토", "일"].map((d, i) => (
+              <div key={d} className={`text-center text-[11px] font-medium py-1.5 ${
+                i >= 5 ? "text-[#A78BFA]/40" : "text-white/30"
+              }`}>
+                {d}
               </div>
-            );
-          })}
-        </div>
-      </div>
+            ))}
+          </div>
+
+          {/* Day grid — stamps */}
+          <div className="grid grid-cols-7 gap-1.5">
+            {Array.from({ length: emptyDays }).map((_, i) => (
+              <div key={`empty-${i}`} className="aspect-square" />
+            ))}
+
+            {days.map((day, idx) => {
+              const workout = getWorkoutForDay(day);
+              const isToday = format(day, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd");
+              const category = workout?.category as keyof typeof EXERCISE_CATEGORIES | undefined;
+              const catInfo = category ? EXERCISE_CATEGORIES[category] : null;
+
+              return (
+                <motion.div
+                  key={day.toISOString()}
+                  className="aspect-square p-0.5"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: idx * 0.01, duration: 0.2 }}
+                >
+                  {workout ? (
+                    <Link
+                      href={`/workout/${workout.workoutId}`}
+                      className={`w-full h-full rounded-xl flex flex-col items-center justify-center transition-all hover:scale-110 relative group`}
+                      style={{
+                        background: `linear-gradient(135deg, ${catInfo?.color}15, ${catInfo?.color}08)`,
+                        border: `1.5px solid ${catInfo?.color}30`,
+                        boxShadow: `0 4px 12px ${catInfo?.color}15`,
+                      }}
+                    >
+                      <span className="text-base group-hover:scale-110 transition-transform">{workout.icon}</span>
+                      <span className="text-[8px] font-medium mt-0.5" style={{ color: `${catInfo?.color}90` }}>
+                        {format(day, "d")}
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link
+                      href={`/workout/new?date=${format(day, "yyyy-MM-dd")}`}
+                      className={`w-full h-full rounded-xl flex items-center justify-center text-[12px] transition-all hover:bg-white/[0.04] ${
+                        isToday
+                          ? "today-ring bg-[#7C5CFC]/5 text-[#A78BFA] font-bold"
+                          : "text-white/20 border border-dashed border-white/[0.06] hover:border-white/[0.1]"
+                      }`}
+                    >
+                      {format(day, "d")}
+                    </Link>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Category Legend */}
+      {Object.keys(categoryCount).length > 0 && (
+        <motion.div
+          className="card-glass !p-4"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <p className="text-[10px] text-white/25 font-medium uppercase tracking-wider mb-3">카테고리 분포</p>
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(categoryCount).map(([cat, count]) => {
+              const catInfo = EXERCISE_CATEGORIES[cat as keyof typeof EXERCISE_CATEGORIES];
+              return (
+                <div
+                  key={cat}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg"
+                  style={{
+                    background: catInfo?.bgAlpha,
+                    border: `1px solid ${catInfo?.borderAlpha}`,
+                  }}
+                >
+                  <div className="w-2 h-2 rounded-full" style={{ background: catInfo?.color }} />
+                  <span className="text-[11px] font-medium" style={{ color: catInfo?.color }}>{catInfo?.label}</span>
+                  <span className="text-[10px] text-white/30">{count}</span>
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
+      )}
 
       {loading && (
-        <div className="text-center text-white/20 text-[12px]">불러오는 중...</div>
+        <div className="text-center py-4">
+          <div className="w-6 h-6 mx-auto border-2 border-[#7C5CFC]/30 border-t-[#7C5CFC] rounded-full animate-spin" />
+        </div>
       )}
     </div>
   );
