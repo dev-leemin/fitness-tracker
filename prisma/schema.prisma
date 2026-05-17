@@ -16,6 +16,7 @@ model User {
   nickname     String   @unique @db.VarChar(30)
   passwordHash String?
   profileImage String?
+  weeklyGoal   Int      @default(3)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
