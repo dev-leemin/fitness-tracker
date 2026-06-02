@@ -3,26 +3,26 @@
 @theme {
   --font-sans: var(--font-noto-sans-kr), "Inter", system-ui, sans-serif;
 
-  /* === FitLog Design System — Light Theme === */
+  /* === FitLog — Strava-inspired Warm Theme === */
 
   /* Surfaces */
-  --color-bg: #FAFAF9;
+  --color-bg: #FFFFFF;
   --color-surface: #FFFFFF;
-  --color-surface-elevated: #F5F5F4;
-  --color-border: #E7E5E4;
-  --color-border-hover: #D6D3D1;
+  --color-surface-elevated: #FAFAFA;
+  --color-border: #EEEEEE;
+  --color-border-hover: #E0E0E0;
 
   /* Category Colors */
   --color-cardio: #10B981;
   --color-strength: #3B82F6;
   --color-flexibility: #8B5CF6;
-  --color-sports: #F97316;
+  --color-sports: #FBBF24;
   --color-other: #6B7280;
 
-  /* Accent */
-  --color-accent: #6366F1;
-  --color-accent-hover: #4F46E5;
-  --color-accent-light: #EEF2FF;
+  /* Accent — Strava Orange */
+  --color-accent: #FC5200;
+  --color-accent-hover: #E04800;
+  --color-accent-light: #FFF4ED;
 
   /* Semantic */
   --color-success: #10B981;
@@ -39,7 +39,7 @@ html {
 body {
   font-family: var(--font-sans);
   background: var(--color-bg);
-  color: #1C1917;
+  color: #1A1A1A;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -49,29 +49,15 @@ body {
 /* === Card === */
 .card {
   background: #FFFFFF;
-  border: 1px solid #E7E5E4;
-  border-radius: 12px;
+  border: 1px solid #F0F0F0;
+  border-radius: 14px;
   padding: 1.25rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 4px 12px rgba(0, 0, 0, 0.02);
+  transition: box-shadow 0.2s ease;
 }
 
 .card:hover {
-  border-color: #D6D3D1;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-}
-
-.card-interactive {
-  cursor: pointer;
-}
-
-.card-interactive:hover {
-  border-color: #D6D3D1;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.card-interactive:active {
-  transform: scale(0.99);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* === Buttons === */
@@ -81,21 +67,22 @@ body {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.625rem 1.25rem;
-  background: #6366F1;
+  background: #FC5200;
   color: #FFFFFF;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.8125rem;
-  border-radius: 8px;
-  transition: background 0.15s ease;
+  border-radius: 10px;
+  transition: background 0.15s ease, transform 0.1s ease;
   cursor: pointer;
 }
 
 .btn-primary:hover {
-  background: #4F46E5;
+  background: #E04800;
 }
 
 .btn-primary:active {
-  background: #4338CA;
+  background: #CC4000;
+  transform: scale(0.98);
 }
 
 .btn-primary:disabled {
@@ -103,68 +90,27 @@ body {
   cursor: not-allowed;
 }
 
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  background: #F5F5F4;
-  border: 1px solid #E7E5E4;
-  color: #57534E;
-  font-weight: 500;
-  font-size: 0.8125rem;
-  border-radius: 8px;
-  transition: all 0.15s ease;
-  cursor: pointer;
-}
-
-.btn-ghost:hover {
-  background: #E7E5E4;
-  border-color: #D6D3D1;
-  color: #1C1917;
-}
-
-.btn-danger {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.625rem 1.25rem;
-  background: #FEF2F2;
-  border: 1px solid #FECACA;
-  color: #EF4444;
-  font-weight: 500;
-  font-size: 0.8125rem;
-  border-radius: 8px;
-  transition: all 0.15s ease;
-  cursor: pointer;
-}
-
-.btn-danger:hover {
-  background: #FEE2E2;
-  border-color: #FCA5A5;
-}
-
 /* === Input === */
 .input {
   width: 100%;
   padding: 0.625rem 0.875rem;
-  background: #FFFFFF;
-  border: 1px solid #E7E5E4;
-  border-radius: 8px;
-  color: #1C1917;
+  background: #FAFAFA;
+  border: 1px solid #E5E5E5;
+  border-radius: 10px;
+  color: #1A1A1A;
   font-size: 0.8125rem;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
   outline: none;
 }
 
 .input::placeholder {
-  color: #A8A29E;
+  color: #BFBFBF;
 }
 
 .input:focus {
-  border-color: #6366F1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: #FC5200;
+  box-shadow: 0 0 0 3px rgba(252, 82, 0, 0.08);
+  background: #FFFFFF;
 }
 
 /* === Utility animations === */
@@ -178,7 +124,7 @@ body {
 }
 
 .today-ring {
-  box-shadow: 0 0 0 2px #6366F1;
+  box-shadow: 0 0 0 2px #FC5200;
 }
 
 /* === Skeleton === */
@@ -188,36 +134,19 @@ body {
 }
 
 .skeleton {
-  background: linear-gradient(90deg, #F5F5F4 25%, #E7E5E4 50%, #F5F5F4 75%);
+  background: linear-gradient(90deg, #F5F5F5 25%, #EEEEEE 50%, #F5F5F5 75%);
   background-size: 200% 100%;
   animation: shimmer 2s ease-in-out infinite;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 /* === Scrollbar === */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #D6D3D1; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #A8A29E; }
+::-webkit-scrollbar-thumb { background: #E0E0E0; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #BFBFBF; }
 
 /* === Global === */
 a, button, [role="button"] {
   cursor: pointer;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.625rem;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  border-radius: 6px;
-  background: #F5F5F4;
-  color: #57534E;
-  border: 1px solid #E7E5E4;
-}
-
-.divider {
-  height: 1px;
-  background: #E7E5E4;
 }

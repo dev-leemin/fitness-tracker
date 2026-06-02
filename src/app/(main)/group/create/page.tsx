@@ -55,7 +55,7 @@ export default function CreateGroupPage() {
             type="text"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-all"
+            className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-all"
             placeholder="예: 운동 인증방"
             required
             maxLength={100}
@@ -69,7 +69,7 @@ export default function CreateGroupPage() {
           <textarea
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
-            className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-all resize-none"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-all resize-none"
             placeholder="그룹 설명을 입력하세요"
             rows={3}
             maxLength={500}

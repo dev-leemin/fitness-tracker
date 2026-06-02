@@ -53,8 +53,8 @@ function GroupJoinContent() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-8"
       >
-        <div className="w-14 h-14 mx-auto rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <div className="w-14 h-14 mx-auto rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center mb-4">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FC5200" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
             <circle cx="9" cy="7" r="4"/>
             <line x1="19" y1="8" x2="19" y2="14"/>
@@ -71,8 +71,8 @@ function GroupJoinContent() {
           animate={{ scale: 1, opacity: 1 }}
           className="bg-white border border-stone-200 rounded-xl shadow-sm p-5 text-center py-8"
         >
-          <div className="w-12 h-12 mx-auto rounded-full bg-indigo-50 border border-indigo-200 flex items-center justify-center mb-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366F1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <div className="w-12 h-12 mx-auto rounded-full bg-orange-50 border border-orange-200 flex items-center justify-center mb-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FC5200" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
           </div>
@@ -98,7 +98,7 @@ function GroupJoinContent() {
               type="text"
               value={code}
               onChange={(e) => setCode(e.target.value.toUpperCase())}
-              className="w-full h-12 px-4 rounded-xl bg-stone-50 border border-stone-300 text-center text-lg font-mono font-bold text-stone-900 tracking-[0.3em] placeholder:text-stone-300 placeholder:tracking-[0.3em] focus:outline-none focus:border-indigo-400 transition-all"
+              className="w-full h-12 px-4 rounded-xl bg-stone-50 border border-stone-300 text-center text-lg font-mono font-bold text-stone-900 tracking-[0.3em] placeholder:text-stone-300 placeholder:tracking-[0.3em] focus:outline-none focus:border-orange-400 transition-all"
               placeholder="ABCD1234"
               maxLength={20}
               autoFocus

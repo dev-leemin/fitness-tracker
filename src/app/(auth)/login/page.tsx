@@ -105,7 +105,7 @@ export default function LoginPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-colors"
+            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-colors"
             placeholder="이메일 주소"
             required
             autoFocus
@@ -115,14 +115,14 @@ export default function LoginPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-colors"
+            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-colors"
             placeholder="비밀번호"
             required
           />
 
           <button
             type="submit"
-            className="w-full h-11 rounded-lg bg-indigo-500 text-white text-[13px] font-medium hover:bg-indigo-600 transition-colors disabled:opacity-50"
+            className="w-full h-11 rounded-lg bg-orange-500 text-white text-[13px] font-medium hover:bg-orange-600 transition-colors disabled:opacity-50"
             disabled={loading}
           >
             {loading ? (
@@ -151,7 +151,7 @@ export default function LoginPage() {
       {/* Footer */}
       <p className="text-center text-[11px] text-stone-400 mt-7">
         계정이 없으신가요?{" "}
-        <Link href="/register" className="text-indigo-500 hover:text-indigo-600 transition-colors font-medium">
+        <Link href="/register" className="text-orange-500 hover:text-orange-600 transition-colors font-medium">
           가입하기
         </Link>
       </p>

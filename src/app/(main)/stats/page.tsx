@@ -29,7 +29,7 @@ interface StatsData {
   longestStreak: number;
 }
 
-const COLORS = ["#6366F1", "#10B981", "#3B82F6", "#F97316", "#EF4444", "#8B5CF6"];
+const COLORS = ["#FC5200", "#10B981", "#3B82F6", "#FBBF24", "#EF4444", "#8B5CF6"];
 
 export default function StatsPage() {
   const [stats, setStats] = useState<StatsData | null>(null);
@@ -73,7 +73,7 @@ export default function StatsPage() {
       {/* Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { value: stats.totalWorkouts, label: "총 운동", color: "#6366F1", suffix: "회" },
+          { value: stats.totalWorkouts, label: "총 운동", color: "#FC5200", suffix: "회" },
           { value: Math.floor(stats.totalDuration / 60), label: "총 시간", color: "#10B981", suffix: "h" },
           { value: stats.totalDistance.toFixed(1), label: "총 거리", color: "#3B82F6", suffix: "km" },
           { value: stats.currentStreak, label: "연속 달성", color: "#F97316", suffix: "주" },
@@ -105,8 +105,8 @@ export default function StatsPage() {
           <BarChart data={stats.weeklyData}>
             <defs>
               <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#6366F1" stopOpacity={0.9} />
-                <stop offset="100%" stopColor="#818CF8" stopOpacity={0.5} />
+                <stop offset="0%" stopColor="#FC5200" stopOpacity={0.9} />
+                <stop offset="100%" stopColor="#FB923C" stopOpacity={0.5} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#F5F5F4" />

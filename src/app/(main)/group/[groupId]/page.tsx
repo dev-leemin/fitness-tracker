@@ -126,7 +126,7 @@ export default function GroupDetailPage() {
               onClick={copyInviteCode}
               className={`text-[11px] font-medium px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
                 copied
-                  ? "bg-indigo-50 text-indigo-600 border border-indigo-200"
+                  ? "bg-orange-50 text-orange-600 border border-orange-200"
                   : "bg-stone-50 text-stone-500 border border-stone-200 hover:border-stone-300"
               }`}
             >
@@ -181,7 +181,7 @@ export default function GroupDetailPage() {
                     type="text"
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-sm text-stone-900 placeholder-stone-300 focus:outline-none focus:border-indigo-400"
+                    className="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-sm text-stone-900 placeholder-stone-300 focus:outline-none focus:border-orange-400"
                   />
                 </div>
 
@@ -192,7 +192,7 @@ export default function GroupDetailPage() {
                     value={editDescription}
                     onChange={(e) => setEditDescription(e.target.value)}
                     placeholder="그룹 설명 (선택)"
-                    className="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-sm text-stone-900 placeholder-stone-300 focus:outline-none focus:border-indigo-400"
+                    className="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-sm text-stone-900 placeholder-stone-300 focus:outline-none focus:border-orange-400"
                   />
                 </div>
               </div>
@@ -207,7 +207,7 @@ export default function GroupDetailPage() {
                 <button
                   onClick={saveSettings}
                   disabled={saving || !editName.trim()}
-                  className="flex-1 py-2.5 rounded-xl text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-600 disabled:opacity-40 transition-all cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 disabled:opacity-40 transition-all cursor-pointer"
                 >
                   {saving ? "저장 중..." : "저장"}
                 </button>
@@ -273,7 +273,7 @@ export default function GroupDetailPage() {
                     );
                   })}
                   <td className="text-center py-3 pl-4">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-600 border border-indigo-100">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-orange-50 text-orange-600 border border-orange-100">
                       {member.workoutCount}회
                     </span>
                   </td>

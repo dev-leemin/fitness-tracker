@@ -37,13 +37,13 @@ export default function ProfilePage() {
 
       <div className="bg-white border border-stone-200 rounded-xl shadow-sm p-5 space-y-5">
         {message && (
-          <div className="bg-indigo-50 border border-indigo-200 text-indigo-600 text-[12px] px-4 py-2.5 rounded-xl">
+          <div className="bg-orange-50 border border-orange-200 text-orange-600 text-[12px] px-4 py-2.5 rounded-xl">
             {message}
           </div>
         )}
 
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 bg-indigo-50 border border-indigo-100 rounded-full flex items-center justify-center text-lg font-bold text-indigo-500">
+          <div className="w-14 h-14 bg-orange-50 border border-orange-100 rounded-full flex items-center justify-center text-lg font-bold text-orange-500">
             {session?.user?.nickname?.[0] || "?"}
           </div>
           <div>
@@ -62,7 +62,7 @@ export default function ProfilePage() {
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-all"
+                className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-all"
               />
             </div>
             <div>
@@ -71,7 +71,7 @@ export default function ProfilePage() {
                 type="text"
                 value={form.nickname}
                 onChange={(e) => setForm({ ...form, nickname: e.target.value })}
-                className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-all"
+                className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-all"
               />
             </div>
             <div className="flex gap-2">

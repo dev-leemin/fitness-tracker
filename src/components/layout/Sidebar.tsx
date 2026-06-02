@@ -40,11 +40,11 @@ export default function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
                 isActive
-                  ? "bg-indigo-50 text-indigo-700"
+                  ? "bg-orange-50 text-orange-700"
                   : "text-stone-500 hover:text-stone-700 hover:bg-stone-50"
               }`}
             >
-              <span className={isActive ? "text-indigo-600" : "text-stone-400"}>
+              <span className={isActive ? "text-orange-600" : "text-stone-400"}>
                 {item.icon}
               </span>
               <span className="text-[12px] font-medium">{item.label}</span>
@@ -65,7 +65,7 @@ export default function Sidebar() {
         ) : (
           <Link
             href="/login"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-indigo-600 hover:bg-indigo-50 transition-colors"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-orange-600 hover:bg-orange-50 transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
             <span className="text-[12px] font-medium">로그인</span>

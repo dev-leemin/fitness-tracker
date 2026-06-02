@@ -76,7 +76,7 @@ export default function GroupListPage() {
           </button>
           <Link
             href="/group/create"
-            className="h-8 px-3 rounded-lg text-[12px] font-medium bg-[#6366F1]/10 border border-[#6366F1]/20 text-[#6366F1] hover:bg-[#6366F1]/15 transition-all flex items-center gap-1.5 cursor-pointer"
+            className="h-8 px-3 rounded-lg text-[12px] font-medium bg-[#FC5200]/10 border border-[#FC5200]/20 text-[#FC5200] hover:bg-[#FC5200]/15 transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             만들기
@@ -97,7 +97,7 @@ export default function GroupListPage() {
             type="text"
             value={joinCode}
             onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
-            className="flex-1 h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 font-mono tracking-wider placeholder:text-stone-300 focus:outline-none focus:border-[#6366F1]/30 transition-all"
+            className="flex-1 h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 font-mono tracking-wider placeholder:text-stone-300 focus:outline-none focus:border-[#FC5200]/30 transition-all"
             placeholder="초대 코드 입력"
             maxLength={20}
             autoFocus
@@ -105,7 +105,7 @@ export default function GroupListPage() {
           <button
             type="submit"
             disabled={joinLoading || !joinCode.trim()}
-            className="h-10 px-4 rounded-xl bg-[#6366F1] text-[12px] font-semibold text-white hover:bg-[#5558E8] transition-colors cursor-pointer disabled:opacity-40"
+            className="h-10 px-4 rounded-xl bg-[#FC5200] text-[12px] font-semibold text-white hover:bg-[#E04800] transition-colors cursor-pointer disabled:opacity-40"
           >
             {joinLoading ? "..." : "참여"}
           </button>
@@ -142,8 +142,8 @@ export default function GroupListPage() {
                 href={`/group/${group.id}`}
                 className="flex items-center gap-3.5 px-4 py-3.5 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 hover:border-stone-300 transition-all cursor-pointer group"
               >
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6366F1]/8 to-[#818CF8]/8 border border-[#6366F1]/15 flex items-center justify-center group-hover:border-[#6366F1]/30 transition-colors">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366F1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="opacity-60">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FC5200]/8 to-[#FB923C]/8 border border-[#FC5200]/15 flex items-center justify-center group-hover:border-[#FC5200]/30 transition-colors">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FC5200" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="opacity-60">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
                     <circle cx="9" cy="7" r="4"/>
                     <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>

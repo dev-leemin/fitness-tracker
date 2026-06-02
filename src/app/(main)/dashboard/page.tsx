@@ -93,16 +93,16 @@ function PublicFeed() {
     <motion.div className="space-y-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       {/* CTA Banner */}
       <motion.div
-        className="rounded-2xl p-6 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg shadow-indigo-500/20"
+        className="rounded-2xl p-6 bg-gradient-to-br from-orange-500 to-red-500 text-white shadow-lg shadow-orange-500/20"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
       >
         <h1 className="text-lg font-bold">운동을 기록하고 공유해보세요</h1>
-        <p className="text-indigo-100 text-[13px] mt-1">매일의 운동 기록을 쌓아가며 성장하세요</p>
+        <p className="text-orange-100 text-[13px] mt-1">매일의 운동 기록을 쌓아가며 성장하세요</p>
         <div className="flex gap-2 mt-4">
           <Link
             href="/register"
-            className="text-[12px] font-medium bg-white text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-50 transition-colors"
+            className="text-[12px] font-medium bg-white text-orange-600 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors"
           >
             시작하기
           </Link>
@@ -329,7 +329,7 @@ export default function DashboardPage() {
                 {format(new Date(), "M월 d일 EEEE", { locale: ko })}
               </span>
               {streak > 0 && (
-                <span className="text-[10px] font-medium text-indigo-600 bg-indigo-50 border border-indigo-100 px-1.5 py-0.5 rounded">
+                <span className="text-[10px] font-medium text-orange-600 bg-orange-50 border border-orange-100 px-1.5 py-0.5 rounded">
                   {streak}일 연속
                 </span>
               )}
@@ -349,7 +349,7 @@ export default function DashboardPage() {
             </div>
             <Link
               href="/workout/new"
-              className="flex items-center gap-1.5 text-[12px] font-medium text-white bg-indigo-500 px-3.5 py-2 rounded-lg hover:bg-indigo-600 transition-colors shadow-sm"
+              className="flex items-center gap-1.5 text-[12px] font-medium text-white bg-orange-500 px-3.5 py-2 rounded-lg hover:bg-orange-600 transition-colors shadow-sm"
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               기록
@@ -423,7 +423,7 @@ export default function DashboardPage() {
 
               return (
                 <div key={i} className="flex flex-col items-center gap-1">
-                  <span className={`text-[8px] font-medium ${isToday ? "text-indigo-600" : "text-stone-400"}`}>
+                  <span className={`text-[8px] font-medium ${isToday ? "text-orange-600" : "text-stone-400"}`}>
                     {dayLabel}
                   </span>
                   <div
@@ -432,7 +432,7 @@ export default function DashboardPage() {
                       background: `${catColor}12`,
                       border: `1px solid ${catColor}30`,
                     } : isToday ? {
-                      border: "1px solid #6366F1",
+                      border: "1px solid #FC5200",
                       background: "#EEF2FF",
                     } : {
                       border: "1px dashed #E7E5E4",
@@ -519,8 +519,8 @@ export default function DashboardPage() {
                       color: catColor || undefined,
                       fontWeight: 600,
                     } : isToday ? {
-                      border: "1px solid #6366F1",
-                      color: "#6366F1",
+                      border: "1px solid #FC5200",
+                      color: "#FC5200",
                       fontWeight: 600,
                     } : {
                       color: "#A8A29E",
@@ -568,7 +568,7 @@ export default function DashboardPage() {
                   </div>
                   <Link
                     href={`/workout/${selectedDay.workoutId}`}
-                    className="mt-2 block text-center text-[9px] font-medium text-indigo-600 bg-indigo-50 border border-indigo-100 rounded-md py-1.5 hover:bg-indigo-100 transition-all"
+                    className="mt-2 block text-center text-[9px] font-medium text-orange-600 bg-orange-50 border border-orange-100 rounded-md py-1.5 hover:bg-orange-100 transition-all"
                     onClick={() => { setSelectedDay(null); setPopupPos(null); }}
                   >
                     상세 보기
@@ -637,7 +637,7 @@ export default function DashboardPage() {
                 <p className="text-stone-700 text-[12px] font-medium">첫 운동을 기록해보세요</p>
                 <p className="text-stone-400 text-[10px] mt-0.5">캘린더에 스탬프가 쌓입니다</p>
               </div>
-              <Link href="/workout/new" className="text-[10px] font-medium text-white bg-indigo-500 px-2.5 py-1.5 rounded-md hover:bg-indigo-600 transition-colors shrink-0">
+              <Link href="/workout/new" className="text-[10px] font-medium text-white bg-orange-500 px-2.5 py-1.5 rounded-md hover:bg-orange-600 transition-colors shrink-0">
                 기록
               </Link>
             </div>

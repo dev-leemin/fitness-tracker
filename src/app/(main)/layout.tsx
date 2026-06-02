@@ -1,6 +1,5 @@
 import SessionProvider from "@/components/layout/SessionProvider";
-import Header from "@/components/layout/Header";
-import Sidebar from "@/components/layout/Sidebar";
+import MobileHeader from "@/components/layout/MobileHeader";
 import MobileBottomNav from "@/components/layout/MobileBottomNav";
 
 export default function MainLayout({
@@ -10,14 +9,15 @@ export default function MainLayout({
 }) {
   return (
     <SessionProvider>
-      <Header />
-      <Sidebar />
-      <main className="relative pt-14 pb-24 lg:pb-6 lg:pl-56 bg-stone-50 min-h-screen">
-        <div className="relative max-w-3xl mx-auto px-4 py-5 sm:px-6">
-          {children}
+      <div className="min-h-screen bg-white flex justify-center">
+        <div className="w-full max-w-[480px] relative bg-white">
+          <MobileHeader />
+          <main className="pt-14 pb-20 px-4 py-4">
+            {children}
+          </main>
+          <MobileBottomNav />
         </div>
-      </main>
-      <MobileBottomNav />
+      </div>
     </SessionProvider>
   );
 }

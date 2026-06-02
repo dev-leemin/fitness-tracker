@@ -25,7 +25,7 @@ export default function MobileBottomNav() {
   const { data: session } = useSession();
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-50">
       <div className="absolute inset-0 bg-white/90 backdrop-blur-xl border-t border-stone-200" />
 
       <div className="relative flex items-center justify-around h-[60px] px-2">
@@ -45,7 +45,7 @@ export default function MobileBottomNav() {
                 href={actionHref}
                 className="flex items-center justify-center -mt-3"
               >
-                <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 transition-transform active:scale-90">
+                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-lg shadow-orange-500/30 transition-transform active:scale-90">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </div>
               </Link>
@@ -57,10 +57,10 @@ export default function MobileBottomNav() {
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center justify-center gap-0.5 py-1 px-3 transition-colors ${
-                isActive ? "text-indigo-600" : "text-stone-400"
+                isActive ? "text-orange-600" : "text-stone-400"
               }`}
             >
-              <span className={isActive ? "text-indigo-600" : "text-stone-400"}>
+              <span className={isActive ? "text-orange-600" : "text-stone-400"}>
                 {item.icon}
               </span>
               <span className="text-[9px] font-medium">{item.label}</span>

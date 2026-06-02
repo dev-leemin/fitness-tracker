@@ -38,8 +38,8 @@ export default function Header() {
                 onClick={() => setShowMenu(!showMenu)}
                 className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-stone-100 transition-colors"
               >
-                <div className="w-7 h-7 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center">
-                  <span className="text-[10px] font-medium text-indigo-600">
+                <div className="w-7 h-7 rounded-full bg-orange-50 border border-orange-100 flex items-center justify-center">
+                  <span className="text-[10px] font-medium text-orange-600">
                     {session.user.nickname?.[0] || session.user.name?.[0]}
                   </span>
                 </div>
@@ -90,7 +90,7 @@ export default function Header() {
               </Link>
               <Link
                 href="/register"
-                className="text-[12px] font-medium text-white bg-indigo-500 hover:bg-indigo-600 transition-colors px-3.5 py-1.5 rounded-lg"
+                className="text-[12px] font-medium text-white bg-orange-500 hover:bg-orange-600 transition-colors px-3.5 py-1.5 rounded-lg"
               >
                 시작하기
               </Link>

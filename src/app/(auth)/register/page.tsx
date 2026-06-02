@@ -144,7 +144,7 @@ export default function RegisterPage() {
               name="name"
               value={form.name}
               onChange={handleChange}
-              className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-colors"
+              className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-colors"
               placeholder="이름"
               required
             />
@@ -153,7 +153,7 @@ export default function RegisterPage() {
               name="nickname"
               value={form.nickname}
               onChange={handleChange}
-              className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-colors"
+              className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-colors"
               placeholder="닉네임"
               required
               maxLength={30}
@@ -165,7 +165,7 @@ export default function RegisterPage() {
             name="email"
             value={form.email}
             onChange={handleChange}
-            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-colors"
+            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-colors"
             placeholder="이메일 주소"
             required
           />
@@ -175,7 +175,7 @@ export default function RegisterPage() {
             name="password"
             value={form.password}
             onChange={handleChange}
-            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-colors"
+            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-colors"
             placeholder="비밀번호 (6자 이상)"
             required
             minLength={6}
@@ -186,14 +186,14 @@ export default function RegisterPage() {
             name="confirmPassword"
             value={form.confirmPassword}
             onChange={handleChange}
-            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-colors"
+            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-colors"
             placeholder="비밀번호 확인"
             required
           />
 
           <button
             type="submit"
-            className="w-full h-11 rounded-lg bg-indigo-500 text-white text-[13px] font-medium hover:bg-indigo-600 transition-colors disabled:opacity-50"
+            className="w-full h-11 rounded-lg bg-orange-500 text-white text-[13px] font-medium hover:bg-orange-600 transition-colors disabled:opacity-50"
             disabled={loading}
           >
             {loading ? (
@@ -221,7 +221,7 @@ export default function RegisterPage() {
 
       <p className="text-center text-[11px] text-stone-400 mt-7">
         이미 계정이 있으신가요?{" "}
-        <Link href="/login" className="text-indigo-500 hover:text-indigo-600 transition-colors font-medium">
+        <Link href="/login" className="text-orange-500 hover:text-orange-600 transition-colors font-medium">
           로그인
         </Link>
       </p>

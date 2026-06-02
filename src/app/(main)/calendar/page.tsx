@@ -134,7 +134,7 @@ export default function CalendarPage() {
           <div className="grid grid-cols-7 mb-3">
             {["월", "화", "수", "목", "금", "토", "일"].map((d, i) => (
               <div key={d} className={`text-center text-[11px] font-medium py-1.5 ${
-                i >= 5 ? "text-indigo-500/40" : "text-stone-400"
+                i >= 5 ? "text-orange-500/40" : "text-stone-400"
               }`}>
                 {d}
               </div>
@@ -181,7 +181,7 @@ export default function CalendarPage() {
                       href={`/workout/new?date=${format(day, "yyyy-MM-dd")}`}
                       className={`w-full h-full rounded-xl flex items-center justify-center text-[12px] transition-all hover:bg-stone-100 ${
                         isToday
-                          ? "today-ring bg-indigo-500/5 text-indigo-500 font-bold"
+                          ? "today-ring bg-orange-500/5 text-orange-500 font-bold"
                           : "text-stone-300 border border-dashed border-stone-200 hover:border-stone-300"
                       }`}
                     >
@@ -228,7 +228,7 @@ export default function CalendarPage() {
 
       {loading && (
         <div className="text-center py-4">
-          <div className="w-6 h-6 mx-auto border-2 border-indigo-400/30 border-t-[#7C5CFC] rounded-full animate-spin" />
+          <div className="w-6 h-6 mx-auto border-2 border-orange-400/30 border-t-[#7C5CFC] rounded-full animate-spin" />
         </div>
       )}
     </div>

@@ -59,7 +59,7 @@ export default function WorkoutListPage() {
         </div>
       ) : workouts.length === 0 ? (
         <div className="bg-white border border-stone-200 rounded-xl shadow-sm text-center py-16">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-4">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center mb-4">
             <span className="text-2xl">💪</span>
           </div>
           <p className="text-stone-500 text-sm font-medium">아직 운동 기록이 없습니다</p>
@@ -101,7 +101,7 @@ export default function WorkoutListPage() {
                           {workout.exerciseType.name}
                         </p>
                         {workout.isVerified && (
-                          <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-500 border border-indigo-100">인증</span>
+                          <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-orange-50 text-orange-500 border border-orange-100">인증</span>
                         )}
                       </div>
                       <p className="text-[11px] text-stone-400 mt-0.5">

@@ -22,10 +22,10 @@ export const EXERCISE_CATEGORIES = {
   },
   SPORTS: {
     label: "스포츠",
-    color: "#F97316",
-    bgAlpha: "rgba(249, 115, 22, 0.08)",
-    borderAlpha: "rgba(249, 115, 22, 0.2)",
-    shadowAlpha: "rgba(249, 115, 22, 0.1)",
+    color: "#FBBF24",
+    bgAlpha: "rgba(251, 191, 36, 0.08)",
+    borderAlpha: "rgba(251, 191, 36, 0.2)",
+    shadowAlpha: "rgba(251, 191, 36, 0.1)",
   },
   OTHER: {
     label: "기타",

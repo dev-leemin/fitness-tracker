@@ -197,7 +197,7 @@ function NewWorkoutContent() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="운동 검색..."
-                className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-indigo-400"
+                className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-orange-400"
               />
             </div>
 
@@ -284,7 +284,7 @@ function NewWorkoutContent() {
                   type="date"
                   value={form.date}
                   onChange={(e) => setForm({ ...form, date: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-indigo-400"
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-orange-400"
                   max={new Date().toISOString().split("T")[0]}
                   required
                 />
@@ -314,7 +314,7 @@ function NewWorkoutContent() {
                     type="number"
                     value={form.durationMin}
                     onChange={(e) => setForm({ ...form, durationMin: e.target.value })}
-                    className="flex-1 px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-indigo-400"
+                    className="flex-1 px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-orange-400"
                     min="1"
                     max="480"
                     required
@@ -338,7 +338,7 @@ function NewWorkoutContent() {
                       step="0.1"
                       value={form.distanceKm}
                       onChange={(e) => setForm({ ...form, distanceKm: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-indigo-400"
+                      className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-orange-400"
                       placeholder="3.0"
                       min="0"
                     />
@@ -382,7 +382,7 @@ function NewWorkoutContent() {
                   type="number"
                   value={form.calories}
                   onChange={(e) => setForm({ ...form, calories: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-indigo-400"
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-orange-400"
                   placeholder="예: 300"
                   min="0"
                 />
@@ -400,7 +400,7 @@ function NewWorkoutContent() {
                       type="text"
                       value={form.location}
                       onChange={(e) => setForm({ ...form, location: e.target.value })}
-                      className="w-full pl-8 pr-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-indigo-400"
+                      className="w-full pl-8 pr-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-orange-400"
                       placeholder="예: 강남 헬스장"
                     />
                   </div>
@@ -415,7 +415,7 @@ function NewWorkoutContent() {
                       type="url"
                       value={form.link}
                       onChange={(e) => setForm({ ...form, link: e.target.value })}
-                      className="w-full pl-8 pr-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-indigo-400"
+                      className="w-full pl-8 pr-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-orange-400"
                       placeholder="관련 링크 (네이버지도, 유튜브 등)"
                     />
                   </div>
@@ -428,7 +428,7 @@ function NewWorkoutContent() {
                 <textarea
                   value={form.memo}
                   onChange={(e) => setForm({ ...form, memo: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-indigo-400 min-h-[60px] resize-none"
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-orange-400 min-h-[60px] resize-none"
                   placeholder="오늘 운동 어땠나요?"
                   rows={2}
                 />
@@ -473,7 +473,7 @@ function NewWorkoutContent() {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl text-[13px] font-semibold text-white bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:opacity-90 disabled:opacity-40 transition-all shadow-lg shadow-[#6366F1]/20 active:scale-[0.98]"
+                className="w-full py-3.5 rounded-xl text-[13px] font-semibold text-white bg-gradient-to-r from-[#FC5200] to-[#8B5CF6] hover:opacity-90 disabled:opacity-40 transition-all shadow-lg shadow-[#FC5200]/20 active:scale-[0.98]"
                 disabled={loading || !form.exerciseTypeId}
               >
                 {loading ? (

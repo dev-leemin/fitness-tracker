@@ -52,7 +52,7 @@ export default function NewPostPage() {
             type="text"
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
-            className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-all"
+            className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-all"
             placeholder="오늘 운동 후기"
             required
             maxLength={200}
@@ -66,7 +66,7 @@ export default function NewPostPage() {
           <textarea
             value={form.content}
             onChange={(e) => setForm({ ...form, content: e.target.value })}
-            className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-all min-h-[200px] resize-none"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-all min-h-[200px] resize-none"
             placeholder="오늘의 운동을 기록해보세요..."
             required
           />
@@ -77,7 +77,7 @@ export default function NewPostPage() {
             type="button"
             onClick={() => setForm({ ...form, isPublic: !form.isPublic })}
             className={`relative w-10 h-5 rounded-full transition-colors ${
-              form.isPublic ? "bg-indigo-500" : "bg-stone-200"
+              form.isPublic ? "bg-orange-500" : "bg-stone-200"
             }`}
           >
             <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${
