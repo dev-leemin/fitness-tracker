@@ -17,21 +17,21 @@ export default function MobileHeader() {
   }, [session]);
 
   return (
-    <header className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] h-12 z-40 bg-white/80 backdrop-blur-xl border-b border-stone-200">
-      <div className="flex items-center justify-between h-full px-4">
-        <Link href="/dashboard" className="flex items-center gap-1.5">
-          <span className="text-[14px] font-bold text-stone-900 tracking-tight">FitLog</span>
+    <header className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] h-12 z-40 bg-white">
+      <div className="flex items-center justify-between h-full px-5">
+        <Link href="/dashboard" className="flex items-center">
+          <span className="text-[16px] font-extrabold text-stone-900 tracking-tight">FitLog</span>
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {session?.user && streak > 0 && (
-            <span className="text-[10px] font-medium text-stone-400">{streak}일 연속</span>
+            <span className="text-[11px] font-semibold text-[#FC5200]">🔥 {streak}일</span>
           )}
 
           {session?.user ? (
             <Link href="/profile" className="flex items-center">
-              <div className="w-7 h-7 rounded-full bg-orange-50 border border-orange-100 flex items-center justify-center">
-                <span className="text-[10px] font-medium text-orange-600">
+              <div className="w-8 h-8 rounded-full bg-[#FFF4ED] flex items-center justify-center">
+                <span className="text-[11px] font-bold text-[#FC5200]">
                   {session.user.nickname?.[0] || session.user.name?.[0]}
                 </span>
               </div>
@@ -39,13 +39,14 @@ export default function MobileHeader() {
           ) : (
             <Link
               href="/login"
-              className="text-[11px] font-medium text-orange-500 hover:text-orange-600 transition-colors"
+              className="text-[13px] font-semibold text-[#FC5200] hover:text-[#E04800] transition-colors"
             >
               로그인
             </Link>
           )}
         </div>
       </div>
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-stone-200 to-transparent" />
     </header>
   );
 }

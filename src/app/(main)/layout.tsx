@@ -12,7 +12,7 @@ export default function MainLayout({
       <div className="min-h-screen bg-white flex justify-center">
         <div className="w-full max-w-[480px] relative bg-white">
           <MobileHeader />
-          <main className="pt-14 pb-20 px-4 py-4">
+          <main className="pt-16 pb-24 px-5">
             {children}
           </main>
           <MobileBottomNav />
