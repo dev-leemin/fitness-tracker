@@ -53,7 +53,7 @@ function GroupJoinContent() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-8"
       >
-        <div className="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-[#6366F1]/10 to-[#818CF8]/10 border border-[#6366F1]/20 flex items-center justify-center mb-4">
+        <div className="w-14 h-14 mx-auto rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-4">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
             <circle cx="9" cy="7" r="4"/>
@@ -61,28 +61,28 @@ function GroupJoinContent() {
             <line x1="22" y1="11" x2="16" y2="11"/>
           </svg>
         </div>
-        <h1 className="text-xl font-semibold text-white">그룹 참여</h1>
-        <p className="text-[13px] text-white/35 mt-1.5">초대 코드를 입력하여 그룹에 참여하세요</p>
+        <h1 className="text-xl font-semibold text-stone-900">그룹 참여</h1>
+        <p className="text-[13px] text-stone-400 mt-1.5">초대 코드를 입력하여 그룹에 참여하세요</p>
       </motion.div>
 
       {success ? (
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="glass-card text-center py-8"
+          className="bg-white border border-stone-200 rounded-xl shadow-sm p-5 text-center py-8"
         >
-          <div className="w-12 h-12 mx-auto rounded-full bg-[#6366F1]/10 border border-[#6366F1]/20 flex items-center justify-center mb-3">
+          <div className="w-12 h-12 mx-auto rounded-full bg-indigo-50 border border-indigo-200 flex items-center justify-center mb-3">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366F1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
           </div>
-          <p className="text-white font-medium">참여 완료!</p>
-          <p className="text-[12px] text-white/35 mt-1">그룹 페이지로 이동합니다...</p>
+          <p className="text-stone-900 font-medium">참여 완료!</p>
+          <p className="text-[12px] text-stone-400 mt-1">그룹 페이지로 이동합니다...</p>
         </motion.div>
       ) : (
-        <form onSubmit={handleJoin} className="glass-card space-y-4">
+        <form onSubmit={handleJoin} className="bg-white border border-stone-200 rounded-xl shadow-sm p-5 space-y-4">
           {error && (
-            <div className="flex items-center gap-2 bg-[#EF4444]/8 border border-[#EF4444]/15 text-[#EF4444] text-[12px] px-3 py-2.5 rounded-lg">
+            <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-[12px] px-3 py-2.5 rounded-lg">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
               </svg>
@@ -91,14 +91,14 @@ function GroupJoinContent() {
           )}
 
           <div>
-            <label className="block text-[11px] font-medium text-white/40 mb-2 uppercase tracking-wider">
+            <label className="block text-[11px] font-medium text-stone-400 mb-2 uppercase tracking-wider">
               초대 코드
             </label>
             <input
               type="text"
               value={code}
               onChange={(e) => setCode(e.target.value.toUpperCase())}
-              className="w-full h-12 px-4 rounded-xl bg-white/[0.03] border border-white/[0.08] text-center text-lg font-mono font-bold text-white tracking-[0.3em] placeholder:text-white/15 placeholder:tracking-[0.3em] focus:outline-none focus:border-[#6366F1]/30 focus:bg-white/[0.04] transition-all"
+              className="w-full h-12 px-4 rounded-xl bg-stone-50 border border-stone-300 text-center text-lg font-mono font-bold text-stone-900 tracking-[0.3em] placeholder:text-stone-300 placeholder:tracking-[0.3em] focus:outline-none focus:border-indigo-400 transition-all"
               placeholder="ABCD1234"
               maxLength={20}
               autoFocus
@@ -107,7 +107,7 @@ function GroupJoinContent() {
 
           <button
             type="submit"
-            className="w-full h-11 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-[13px] font-semibold text-black hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50"
+            className="btn-primary w-full"
             disabled={loading || !code.trim()}
           >
             {loading ? (
@@ -130,7 +130,7 @@ function GroupJoinContent() {
 
 export default function GroupJoinPage() {
   return (
-    <Suspense fallback={<div className="glass-card animate-pulse max-w-sm mx-auto mt-12"><div className="h-40 bg-white/[0.02] rounded-lg" /></div>}>
+    <Suspense fallback={<div className="bg-white border border-stone-200 rounded-xl shadow-sm animate-pulse max-w-sm mx-auto mt-12"><div className="h-40 bg-stone-50 rounded-lg" /></div>}>
       <GroupJoinContent />
     </Suspense>
   );

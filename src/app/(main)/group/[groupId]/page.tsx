@@ -34,8 +34,6 @@ export default function GroupDetailPage() {
   const [showSettings, setShowSettings] = useState(false);
   const [editName, setEditName] = useState("");
   const [editDescription, setEditDescription] = useState("");
-  const [editGoal, setEditGoal] = useState(3);
-  const [editFine, setEditFine] = useState(5000);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -71,8 +69,6 @@ export default function GroupDetailPage() {
     if (group) {
       setEditName(group.name);
       setEditDescription(group.description || "");
-      setEditGoal(group.weeklyGoal);
-      setEditFine(group.finePerMiss);
       setShowSettings(true);
     }
   };
@@ -86,13 +82,11 @@ export default function GroupDetailPage() {
         body: JSON.stringify({
           name: editName,
           description: editDescription,
-          weeklyGoal: editGoal,
-          finePerMiss: editFine,
         }),
       });
       if (res.ok) {
         setGroup((prev) =>
-          prev ? { ...prev, name: editName, description: editDescription || null, weeklyGoal: editGoal, finePerMiss: editFine } : prev
+          prev ? { ...prev, name: editName, description: editDescription || null } : prev
         );
         setShowSettings(false);
       }
@@ -104,11 +98,11 @@ export default function GroupDetailPage() {
   };
 
   if (loading) {
-    return <div className="space-y-3"><div className="skeleton h-24" /><div className="skeleton h-48" /></div>;
+    return <div className="space-y-3"><div className="h-24 bg-white border border-stone-200 rounded-xl animate-pulse" /><div className="h-48 bg-white border border-stone-200 rounded-xl animate-pulse" /></div>;
   }
 
   if (!group) {
-    return <div className="bento-card text-center py-10 text-white/30 text-sm">그룹을 찾을 수 없습니다.</div>;
+    return <div className="bg-white border border-stone-200 rounded-xl shadow-sm text-center py-10 text-stone-400 text-sm">그룹을 찾을 수 없습니다.</div>;
   }
 
   const dayLabels = ["월", "화", "수", "목", "금", "토", "일"];
@@ -116,15 +110,15 @@ export default function GroupDetailPage() {
   return (
     <div className="space-y-4">
       {/* 그룹 헤더 */}
-      <div className="bento-card">
+      <div className="bg-white border border-stone-200 rounded-xl shadow-sm p-5">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-lg font-semibold text-white">{group.name}</h1>
+            <h1 className="text-lg font-semibold text-stone-900">{group.name}</h1>
             {group.description && (
-              <p className="text-sm text-white/40 mt-1">{group.description}</p>
+              <p className="text-sm text-stone-500 mt-1">{group.description}</p>
             )}
-            <p className="text-sm text-white/25 mt-2">
-              주 {group.weeklyGoal}회 목표 · {group.weeklyStatus.length}명 · 미달성 벌금 {group.finePerMiss.toLocaleString()}원
+            <p className="text-sm text-stone-400 mt-2">
+              {group.weeklyStatus.length}명 참여 중
             </p>
           </div>
           <div className="flex items-center gap-1.5">
@@ -132,15 +126,15 @@ export default function GroupDetailPage() {
               onClick={copyInviteCode}
               className={`text-[11px] font-medium px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
                 copied
-                  ? "bg-[#6366F1]/10 text-[#6366F1] border border-[#6366F1]/30"
-                  : "bg-white/[0.04] text-white/50 border border-white/[0.08] hover:border-white/[0.15]"
+                  ? "bg-indigo-50 text-indigo-600 border border-indigo-200"
+                  : "bg-stone-50 text-stone-500 border border-stone-200 hover:border-stone-300"
               }`}
             >
               {copied ? "복사됨!" : group.inviteCode}
             </button>
             <button
               onClick={shareInviteLink}
-              className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] hover:border-white/[0.15] flex items-center justify-center text-white/40 hover:text-white/60 transition-all cursor-pointer"
+              className="w-7 h-7 rounded-lg bg-stone-50 border border-stone-200 hover:border-stone-300 flex items-center justify-center text-stone-400 hover:text-stone-600 transition-all cursor-pointer"
               title="초대 링크 공유"
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -150,7 +144,7 @@ export default function GroupDetailPage() {
             {group.currentUserRole === "OWNER" && (
               <button
                 onClick={openSettings}
-                className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] hover:border-white/[0.15] flex items-center justify-center text-white/40 hover:text-white/60 transition-all cursor-pointer"
+                className="w-7 h-7 rounded-lg bg-stone-50 border border-stone-200 hover:border-stone-300 flex items-center justify-center text-stone-400 hover:text-stone-600 transition-all cursor-pointer"
                 title="그룹 설정"
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -171,65 +165,34 @@ export default function GroupDetailPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowSettings(false)} />
+            <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setShowSettings(false)} />
             <motion.div
-              className="relative w-full max-w-sm bg-[#161618] border border-white/[0.08] rounded-2xl p-6 space-y-5"
+              className="relative w-full max-w-sm bg-white border border-stone-200 rounded-2xl shadow-xl p-6 space-y-5"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
             >
-              <h3 className="text-base font-semibold text-white">그룹 설정</h3>
+              <h3 className="text-base font-semibold text-stone-900">그룹 설정</h3>
 
               <div className="space-y-4">
                 <div>
-                  <label className="text-xs text-white/40 mb-1.5 block">그룹 이름</label>
+                  <label className="text-xs text-stone-400 mb-1.5 block">그룹 이름</label>
                   <input
                     type="text"
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#6366F1]/50"
+                    className="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-sm text-stone-900 placeholder-stone-300 focus:outline-none focus:border-indigo-400"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs text-white/40 mb-1.5 block">설명</label>
+                  <label className="text-xs text-stone-400 mb-1.5 block">설명</label>
                   <input
                     type="text"
                     value={editDescription}
                     onChange={(e) => setEditDescription(e.target.value)}
                     placeholder="그룹 설명 (선택)"
-                    className="w-full px-3 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#6366F1]/50"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-xs text-white/40 mb-1.5 block">주간 목표 (회/주)</label>
-                  <div className="flex gap-1.5">
-                    {[1, 2, 3, 4, 5, 6, 7].map((n) => (
-                      <button
-                        key={n}
-                        onClick={() => setEditGoal(n)}
-                        className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
-                          editGoal === n
-                            ? "bg-[#6366F1] text-white shadow-lg shadow-[#6366F1]/20"
-                            : "bg-white/[0.04] text-white/40 border border-white/[0.06] hover:border-white/[0.12]"
-                        }`}
-                      >
-                        {n}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-xs text-white/40 mb-1.5 block">미달성 벌금 (원)</label>
-                  <input
-                    type="number"
-                    value={editFine}
-                    onChange={(e) => setEditFine(Number(e.target.value))}
-                    min={0}
-                    step={1000}
-                    className="w-full px-3 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#6366F1]/50"
+                    className="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-sm text-stone-900 placeholder-stone-300 focus:outline-none focus:border-indigo-400"
                   />
                 </div>
               </div>
@@ -237,14 +200,14 @@ export default function GroupDetailPage() {
               <div className="flex gap-2 pt-2">
                 <button
                   onClick={() => setShowSettings(false)}
-                  className="flex-1 py-2.5 rounded-xl text-sm font-medium text-white/50 bg-white/[0.04] border border-white/[0.08] hover:border-white/[0.15] transition-all cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl text-sm font-medium text-stone-600 bg-stone-50 border border-stone-300 hover:bg-stone-100 transition-all cursor-pointer"
                 >
                   취소
                 </button>
                 <button
                   onClick={saveSettings}
                   disabled={saving || !editName.trim()}
-                  className="flex-1 py-2.5 rounded-xl text-sm font-medium text-white bg-[#6366F1] hover:bg-[#5558E6] disabled:opacity-40 transition-all cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-600 disabled:opacity-40 transition-all cursor-pointer"
                 >
                   {saving ? "저장 중..." : "저장"}
                 </button>
@@ -256,37 +219,37 @@ export default function GroupDetailPage() {
 
       {/* 이번 주 현황 테이블 */}
       <motion.div
-        className="bento-card"
+        className="bg-white border border-stone-200 rounded-xl shadow-sm p-5"
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h2 className="text-[13px] font-medium text-white/70 mb-4">이번 주 현황</h2>
+        <h2 className="text-[13px] font-medium text-stone-600 mb-4">이번 주 현황</h2>
         <div className="overflow-x-auto -mx-5 px-5">
           <table className="w-full">
             <thead>
               <tr>
-                <th className="text-left text-xs font-medium text-white/30 pb-3 pr-4 uppercase tracking-wider">
+                <th className="text-left text-xs font-medium text-stone-400 pb-3 pr-4 uppercase tracking-wider">
                   멤버
                 </th>
                 {dayLabels.map((d) => (
-                  <th key={d} className="text-center text-xs font-medium text-white/30 pb-3 w-10">
+                  <th key={d} className="text-center text-xs font-medium text-stone-400 pb-3 w-10">
                     {d}
                   </th>
                 ))}
-                <th className="text-center text-xs font-medium text-white/30 pb-3 pl-4">
+                <th className="text-center text-xs font-medium text-stone-400 pb-3 pl-4">
                   합계
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.04]">
+            <tbody className="divide-y divide-stone-100">
               {group.weeklyStatus.map((member) => (
                 <tr key={member.userId}>
                   <td className="py-3 pr-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-white/[0.04] border border-white/[0.06] rounded-md flex items-center justify-center text-[9px] font-bold text-white/40">
+                      <div className="w-6 h-6 bg-stone-100 border border-stone-200 rounded-md flex items-center justify-center text-[9px] font-bold text-stone-500">
                         {member.nickname[0]}
                       </div>
-                      <span className="text-sm font-medium text-white/80 whitespace-nowrap">
+                      <span className="text-sm font-medium text-stone-800 whitespace-nowrap">
                         {member.nickname}
                       </span>
                     </div>
@@ -304,20 +267,14 @@ export default function GroupDetailPage() {
                             {workout?.icon || "✓"}
                           </span>
                         ) : (
-                          <span className="text-white/10">·</span>
+                          <span className="text-stone-200">·</span>
                         )}
                       </td>
                     );
                   })}
                   <td className="text-center py-3 pl-4">
-                    <span
-                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                        member.workoutCount >= group.weeklyGoal
-                          ? "bg-[#6366F1]/10 text-[#6366F1] border border-[#6366F1]/20"
-                          : "bg-white/[0.04] text-white/40 border border-white/[0.06]"
-                      }`}
-                    >
-                      {member.workoutCount}/{group.weeklyGoal}
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-600 border border-indigo-100">
+                      {member.workoutCount}회
                     </span>
                   </td>
                 </tr>
@@ -328,20 +285,20 @@ export default function GroupDetailPage() {
       </motion.div>
 
       {/* 멤버 목록 */}
-      <div className="bento-card">
-        <h2 className="text-[13px] font-medium text-white/70 mb-4">멤버</h2>
+      <div className="bg-white border border-stone-200 rounded-xl shadow-sm p-5">
+        <h2 className="text-[13px] font-medium text-stone-600 mb-4">멤버</h2>
         <div className="space-y-3">
           {group.weeklyStatus.map((member) => (
             <div key={member.userId} className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-white/[0.04] border border-white/[0.06] rounded-lg flex items-center justify-center text-[10px] font-bold text-white/40">
+              <div className="w-8 h-8 bg-stone-100 border border-stone-200 rounded-lg flex items-center justify-center text-[10px] font-bold text-stone-500">
                 {member.nickname[0]}
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium text-white/80">{member.nickname}</p>
-                <p className="text-xs text-white/30">{member.name}</p>
+                <p className="text-sm font-medium text-stone-800">{member.nickname}</p>
+                <p className="text-xs text-stone-400">{member.name}</p>
               </div>
               {member.role === "OWNER" && (
-                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/20">
+                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 border border-amber-200">
                   방장
                 </span>
               )}

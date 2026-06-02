@@ -4,23 +4,19 @@ import prisma from "@/lib/prisma";
 
 export async function GET(request: Request) {
   const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
 
   const { searchParams } = new URL(request.url);
   const page = parseInt(searchParams.get("page") || "1");
   const limit = parseInt(searchParams.get("limit") || "10");
   const skip = (page - 1) * limit;
 
+  const where = session?.user?.id
+    ? { OR: [{ userId: session.user.id }, { isPublic: true }] }
+    : { isPublic: true };
+
   const [posts, total] = await Promise.all([
     prisma.post.findMany({
-      where: {
-        OR: [
-          { userId: session.user.id },
-          { isPublic: true },
-        ],
-      },
+      where,
       include: {
         user: { select: { nickname: true, profileImage: true } },
       },
@@ -28,14 +24,7 @@ export async function GET(request: Request) {
       skip,
       take: limit,
     }),
-    prisma.post.count({
-      where: {
-        OR: [
-          { userId: session.user.id },
-          { isPublic: true },
-        ],
-      },
-    }),
+    prisma.post.count({ where }),
   ]);
 
   return NextResponse.json({ posts, total, page, totalPages: Math.ceil(total / limit) });

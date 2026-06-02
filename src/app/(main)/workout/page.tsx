@@ -44,7 +44,7 @@ export default function WorkoutListPage() {
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <h1 className="text-lg font-bold text-white">운동 기록</h1>
+        <h1 className="text-lg font-bold text-stone-900">운동 기록</h1>
         <Link href="/workout/new" className="btn-primary !py-2.5 !px-4 !text-[12px] !rounded-xl">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           기록하기
@@ -54,15 +54,15 @@ export default function WorkoutListPage() {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="skeleton h-[72px] rounded-2xl" />
+            <div key={i} className="h-[72px] bg-white border border-stone-200 rounded-2xl animate-pulse" />
           ))}
         </div>
       ) : workouts.length === 0 ? (
-        <div className="card-glass text-center py-16">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-[#7C5CFC]/5 border border-[#7C5CFC]/10 flex items-center justify-center mb-4 float-element">
+        <div className="bg-white border border-stone-200 rounded-xl shadow-sm text-center py-16">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-4">
             <span className="text-2xl">💪</span>
           </div>
-          <p className="text-white/40 text-sm font-medium">아직 운동 기록이 없습니다</p>
+          <p className="text-stone-500 text-sm font-medium">아직 운동 기록이 없습니다</p>
           <Link href="/workout/new" className="btn-primary inline-flex mt-5 !text-xs">
             첫 운동을 기록해보세요
           </Link>
@@ -82,7 +82,7 @@ export default function WorkoutListPage() {
                 >
                   <Link
                     href={`/workout/${workout.id}`}
-                    className="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] hover:border-white/[0.08] transition-all group"
+                    className="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl bg-white border border-stone-200 hover:bg-stone-50 hover:border-stone-300 transition-all group shadow-sm"
                   >
                     {/* Category colored icon */}
                     <div
@@ -97,21 +97,21 @@ export default function WorkoutListPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <p className="text-[13px] font-medium text-white/80">
+                        <p className="text-[13px] font-medium text-stone-800">
                           {workout.exerciseType.name}
                         </p>
                         {workout.isVerified && (
-                          <span className="badge-glow">인증</span>
+                          <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-500 border border-indigo-100">인증</span>
                         )}
                       </div>
-                      <p className="text-[11px] text-white/30 mt-0.5">
+                      <p className="text-[11px] text-stone-400 mt-0.5">
                         {format(new Date(workout.date), "M월 d일 (E)", { locale: ko })} · {workout.durationMin}분
                         {workout.distanceKm && ` · ${workout.distanceKm}km`}
                       </p>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       {workout.photos.length > 0 && (
-                        <span className="text-[10px] text-white/25 bg-white/[0.03] px-1.5 py-0.5 rounded">📷 {workout.photos.length}</span>
+                        <span className="text-[10px] text-stone-400 bg-stone-50 px-1.5 py-0.5 rounded border border-stone-200">📷 {workout.photos.length}</span>
                       )}
                       {/* Category color bar */}
                       <div
@@ -130,17 +130,17 @@ export default function WorkoutListPage() {
               <button
                 onClick={() => setPage(Math.max(1, page - 1))}
                 disabled={page === 1}
-                className="btn-ghost !py-2 !px-4 text-[12px] disabled:opacity-20"
+                className="py-2 px-4 text-[12px] rounded-lg bg-stone-50 border border-stone-200 text-stone-600 hover:bg-stone-100 transition-all cursor-pointer disabled:opacity-20"
               >
                 ← 이전
               </button>
-              <span className="text-[12px] text-white/30">
+              <span className="text-[12px] text-stone-400">
                 {page} / {totalPages}
               </span>
               <button
                 onClick={() => setPage(Math.min(totalPages, page + 1))}
                 disabled={page === totalPages}
-                className="btn-ghost !py-2 !px-4 text-[12px] disabled:opacity-20"
+                className="py-2 px-4 text-[12px] rounded-lg bg-stone-50 border border-stone-200 text-stone-600 hover:bg-stone-100 transition-all cursor-pointer disabled:opacity-20"
               >
                 다음 →
               </button>

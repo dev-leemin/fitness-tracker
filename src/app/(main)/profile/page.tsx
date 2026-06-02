@@ -33,66 +33,71 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-lg mx-auto space-y-5">
-      <h1 className="text-lg font-semibold text-white">프로필 설정</h1>
+      <h1 className="text-lg font-semibold text-stone-900">프로필 설정</h1>
 
-      <div className="bento-card space-y-5">
+      <div className="bg-white border border-stone-200 rounded-xl shadow-sm p-5 space-y-5">
         {message && (
-          <div className="bg-[#6366F1]/[0.06] border border-[#6366F1]/15 text-[#6366F1] text-[12px] px-4 py-2.5 rounded-xl">
+          <div className="bg-indigo-50 border border-indigo-200 text-indigo-600 text-[12px] px-4 py-2.5 rounded-xl">
             {message}
           </div>
         )}
 
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 bg-white/[0.04] border border-white/[0.06] rounded-full flex items-center justify-center text-lg font-bold text-white/40">
+          <div className="w-14 h-14 bg-indigo-50 border border-indigo-100 rounded-full flex items-center justify-center text-lg font-bold text-indigo-500">
             {session?.user?.nickname?.[0] || "?"}
           </div>
           <div>
-            <p className="text-[14px] font-medium text-white/80">{session?.user?.nickname}</p>
-            <p className="text-[12px] text-white/30">{session?.user?.email}</p>
+            <p className="text-[14px] font-medium text-stone-800">{session?.user?.nickname}</p>
+            <p className="text-[12px] text-stone-400">{session?.user?.email}</p>
           </div>
         </div>
 
-        <hr className="border-white/[0.04]" />
+        <hr className="border-stone-200" />
 
         {editing ? (
           <>
             <div>
-              <label className="block text-[10px] font-medium text-white/30 mb-1.5 uppercase tracking-wider">이름</label>
+              <label className="block text-[10px] font-medium text-stone-400 mb-1.5 uppercase tracking-wider">이름</label>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="input-glass"
+                className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-all"
               />
             </div>
             <div>
-              <label className="block text-[10px] font-medium text-white/30 mb-1.5 uppercase tracking-wider">닉네임</label>
+              <label className="block text-[10px] font-medium text-stone-400 mb-1.5 uppercase tracking-wider">닉네임</label>
               <input
                 type="text"
                 value={form.nickname}
                 onChange={(e) => setForm({ ...form, nickname: e.target.value })}
-                className="input-glass"
+                className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-indigo-400 transition-all"
               />
             </div>
             <div className="flex gap-2">
               <button onClick={handleSave} className="btn-primary flex-1">저장</button>
-              <button onClick={() => setEditing(false)} className="btn-ghost flex-1">취소</button>
+              <button
+                onClick={() => setEditing(false)}
+                className="flex-1 h-10 rounded-xl text-[13px] font-medium bg-stone-50 border border-stone-300 text-stone-600 hover:bg-stone-100 transition-all cursor-pointer"
+              >
+                취소
+              </button>
             </div>
           </>
         ) : (
           <>
             <div className="space-y-3.5">
               <div>
-                <p className="text-[10px] text-white/25 uppercase tracking-wider font-medium">이름</p>
-                <p className="text-[13px] text-white/70 mt-1">{session?.user?.name}</p>
+                <p className="text-[10px] text-stone-400 uppercase tracking-wider font-medium">이름</p>
+                <p className="text-[13px] text-stone-700 mt-1">{session?.user?.name}</p>
               </div>
               <div>
-                <p className="text-[10px] text-white/25 uppercase tracking-wider font-medium">닉네임</p>
-                <p className="text-[13px] text-white/70 mt-1">{session?.user?.nickname}</p>
+                <p className="text-[10px] text-stone-400 uppercase tracking-wider font-medium">닉네임</p>
+                <p className="text-[13px] text-stone-700 mt-1">{session?.user?.nickname}</p>
               </div>
               <div>
-                <p className="text-[10px] text-white/25 uppercase tracking-wider font-medium">이메일</p>
-                <p className="text-[13px] text-white/70 mt-1">{session?.user?.email}</p>
+                <p className="text-[10px] text-stone-400 uppercase tracking-wider font-medium">이메일</p>
+                <p className="text-[13px] text-stone-700 mt-1">{session?.user?.email}</p>
               </div>
             </div>
             <button
@@ -100,7 +105,7 @@ export default function ProfilePage() {
                 setForm({ name: session?.user?.name || "", nickname: session?.user?.nickname || "" });
                 setEditing(true);
               }}
-              className="btn-ghost w-full"
+              className="w-full h-10 rounded-xl text-[13px] font-medium bg-stone-50 border border-stone-300 text-stone-600 hover:bg-stone-100 transition-all cursor-pointer"
             >
               프로필 수정
             </button>
@@ -109,8 +114,8 @@ export default function ProfilePage() {
       </div>
 
       <button
-        onClick={() => signOut({ callbackUrl: "/login" })}
-        className="btn-danger w-full"
+        onClick={() => signOut({ callbackUrl: "/" })}
+        className="w-full h-10 rounded-xl text-[13px] font-medium bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 transition-all cursor-pointer"
       >
         로그아웃
       </button>

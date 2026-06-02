@@ -73,16 +73,16 @@ export default function CalendarPage() {
       <div className="flex items-center justify-between">
         <button
           onClick={goToPrevMonth}
-          className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-white/40 hover:bg-white/[0.06] hover:text-white/70 hover:border-white/[0.1] transition-all active:scale-95"
+          className="w-10 h-10 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-100 hover:text-stone-700 hover:border-stone-300 transition-all active:scale-95"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
-        <h1 className="text-lg font-bold text-white">
+        <h1 className="text-lg font-bold text-stone-900">
           {format(currentMonth, "yyyy년 M월", { locale: ko })}
         </h1>
         <button
           onClick={goToNextMonth}
-          className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-white/40 hover:bg-white/[0.06] hover:text-white/70 hover:border-white/[0.1] transition-all active:scale-95"
+          className="w-10 h-10 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-100 hover:text-stone-700 hover:border-stone-300 transition-all active:scale-95"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
         </button>
@@ -91,32 +91,32 @@ export default function CalendarPage() {
       {/* Summary Cards */}
       <div className="grid grid-cols-3 gap-3">
         <motion.div
-          className="card-glass !p-4 text-center"
+          className="bg-white border border-stone-200 rounded-xl shadow-sm !p-4 text-center"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <p className="text-2xl font-bold text-gradient">{workoutCount}</p>
-          <p className="text-[10px] text-white/30 mt-1">운동일</p>
+          <p className="text-2xl font-bold text-stone-800">{workoutCount}</p>
+          <p className="text-[10px] text-stone-400 mt-1">운동일</p>
         </motion.div>
         <motion.div
-          className="card-glass !p-4 text-center"
+          className="bg-white border border-stone-200 rounded-xl shadow-sm !p-4 text-center"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.04 }}
         >
-          <p className="text-2xl font-bold text-[#34D399]">
-            {Math.floor(totalDuration / 60)}<span className="text-sm text-white/30">h </span>{totalDuration % 60}<span className="text-sm text-white/30">m</span>
+          <p className="text-2xl font-bold text-emerald-500">
+            {Math.floor(totalDuration / 60)}<span className="text-sm text-stone-400">h </span>{totalDuration % 60}<span className="text-sm text-stone-400">m</span>
           </p>
-          <p className="text-[10px] text-white/30 mt-1">총 시간</p>
+          <p className="text-[10px] text-stone-400 mt-1">총 시간</p>
         </motion.div>
         <motion.div
-          className="card-glass !p-4 text-center"
+          className="bg-white border border-stone-200 rounded-xl shadow-sm !p-4 text-center"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.08 }}
         >
-          <p className="text-2xl font-bold text-[#FB923C]">{days.length > 0 ? Math.round((workoutCount / days.length) * 100) : 0}%</p>
-          <p className="text-[10px] text-white/30 mt-1">달성률</p>
+          <p className="text-2xl font-bold text-orange-500">{days.length > 0 ? Math.round((workoutCount / days.length) * 100) : 0}%</p>
+          <p className="text-[10px] text-stone-400 mt-1">달성률</p>
         </motion.div>
       </div>
 
@@ -124,7 +124,7 @@ export default function CalendarPage() {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentMonth.toISOString()}
-          className="card-glass !p-5"
+          className="bg-white border border-stone-200 rounded-xl shadow-sm !p-5"
           initial={{ opacity: 0, x: direction * 30 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: direction * -30 }}
@@ -134,7 +134,7 @@ export default function CalendarPage() {
           <div className="grid grid-cols-7 mb-3">
             {["월", "화", "수", "목", "금", "토", "일"].map((d, i) => (
               <div key={d} className={`text-center text-[11px] font-medium py-1.5 ${
-                i >= 5 ? "text-[#A78BFA]/40" : "text-white/30"
+                i >= 5 ? "text-indigo-500/40" : "text-stone-400"
               }`}>
                 {d}
               </div>
@@ -179,10 +179,10 @@ export default function CalendarPage() {
                   ) : (
                     <Link
                       href={`/workout/new?date=${format(day, "yyyy-MM-dd")}`}
-                      className={`w-full h-full rounded-xl flex items-center justify-center text-[12px] transition-all hover:bg-white/[0.04] ${
+                      className={`w-full h-full rounded-xl flex items-center justify-center text-[12px] transition-all hover:bg-stone-100 ${
                         isToday
-                          ? "today-ring bg-[#7C5CFC]/5 text-[#A78BFA] font-bold"
-                          : "text-white/20 border border-dashed border-white/[0.06] hover:border-white/[0.1]"
+                          ? "today-ring bg-indigo-500/5 text-indigo-500 font-bold"
+                          : "text-stone-300 border border-dashed border-stone-200 hover:border-stone-300"
                       }`}
                     >
                       {format(day, "d")}
@@ -198,12 +198,12 @@ export default function CalendarPage() {
       {/* Category Legend */}
       {Object.keys(categoryCount).length > 0 && (
         <motion.div
-          className="card-glass !p-4"
+          className="bg-white border border-stone-200 rounded-xl shadow-sm !p-4"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <p className="text-[10px] text-white/25 font-medium uppercase tracking-wider mb-3">카테고리 분포</p>
+          <p className="text-[10px] text-stone-400 font-medium uppercase tracking-wider mb-3">카테고리 분포</p>
           <div className="flex flex-wrap gap-2">
             {Object.entries(categoryCount).map(([cat, count]) => {
               const catInfo = EXERCISE_CATEGORIES[cat as keyof typeof EXERCISE_CATEGORIES];
@@ -218,7 +218,7 @@ export default function CalendarPage() {
                 >
                   <div className="w-2 h-2 rounded-full" style={{ background: catInfo?.color }} />
                   <span className="text-[11px] font-medium" style={{ color: catInfo?.color }}>{catInfo?.label}</span>
-                  <span className="text-[10px] text-white/30">{count}</span>
+                  <span className="text-[10px] text-stone-400">{count}</span>
                 </div>
               );
             })}
@@ -228,7 +228,7 @@ export default function CalendarPage() {
 
       {loading && (
         <div className="text-center py-4">
-          <div className="w-6 h-6 mx-auto border-2 border-[#7C5CFC]/30 border-t-[#7C5CFC] rounded-full animate-spin" />
+          <div className="w-6 h-6 mx-auto border-2 border-indigo-400/30 border-t-[#7C5CFC] rounded-full animate-spin" />
         </div>
       )}
     </div>

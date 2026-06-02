@@ -16,7 +16,7 @@ interface ExerciseType {
 
 export default function NewWorkoutPage() {
   return (
-    <Suspense fallback={<div className="max-w-lg mx-auto"><div className="h-40 rounded-xl bg-white/[0.02] border border-white/[0.04] animate-pulse" /></div>}>
+    <Suspense fallback={<div className="max-w-lg mx-auto"><div className="h-40 rounded-xl bg-white border border-stone-200 animate-pulse" /></div>}>
       <NewWorkoutContent />
     </Suspense>
   );
@@ -145,16 +145,16 @@ function NewWorkoutContent() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => step === 1 ? router.back() : setStep(1)}
-            className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-neutral-400 hover:text-neutral-200 hover:bg-white/[0.06] transition-all"
+            className="w-8 h-8 rounded-lg bg-stone-100 border border-stone-200 flex items-center justify-center text-stone-500 hover:text-stone-800 hover:bg-stone-100 transition-all"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
           <div>
-            <h1 className="text-[15px] font-semibold text-neutral-200">
+            <h1 className="text-[15px] font-semibold text-stone-800">
               {step === 1 ? "운동 선택" : "운동 기록"}
             </h1>
             {dateParam && (
-              <p className="text-[10px] text-neutral-500">
+              <p className="text-[10px] text-stone-400">
                 {format(new Date(dateParam), "M월 d일 (E)", { locale: ko })}
               </p>
             )}
@@ -162,8 +162,8 @@ function NewWorkoutContent() {
         </div>
         {/* Step indicator */}
         <div className="flex items-center gap-1.5">
-          <div className={`w-5 h-1 rounded-full transition-all ${step >= 1 ? "bg-white/30" : "bg-white/[0.06]"}`} />
-          <div className={`w-5 h-1 rounded-full transition-all ${step >= 2 ? "bg-white/30" : "bg-white/[0.06]"}`} />
+          <div className={`w-5 h-1 rounded-full transition-all ${step >= 1 ? "bg-indigo-200" : "bg-stone-100"}`} />
+          <div className={`w-5 h-1 rounded-full transition-all ${step >= 2 ? "bg-indigo-200" : "bg-stone-100"}`} />
         </div>
       </div>
 
@@ -171,7 +171,7 @@ function NewWorkoutContent() {
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-red-500/[0.06] border border-red-500/15 text-red-400 text-[12px] px-3.5 py-2.5 rounded-xl mb-4"
+          className="bg-red-50 border border-red-200 text-red-500 text-[12px] px-3.5 py-2.5 rounded-xl mb-4"
         >
           {error}
         </motion.div>
@@ -189,7 +189,7 @@ function NewWorkoutContent() {
           >
             {/* Search */}
             <div className="relative mb-4">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-600">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400">
                 <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
               </svg>
               <input
@@ -197,7 +197,7 @@ function NewWorkoutContent() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="운동 검색..."
-                className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-white/[0.12]"
+                className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-indigo-400"
               />
             </div>
 
@@ -222,7 +222,7 @@ function NewWorkoutContent() {
                             className={`flex flex-col items-center py-3 px-1 rounded-xl border transition-all active:scale-95 ${
                               isSelected
                                 ? "shadow-lg"
-                                : "border-white/[0.04] hover:border-white/[0.1] hover:bg-white/[0.02]"
+                                : "border-stone-200 hover:border-stone-300 hover:bg-white"
                             }`}
                             style={isSelected ? {
                               background: `${catInfo?.color}12`,
@@ -232,7 +232,7 @@ function NewWorkoutContent() {
                           >
                             <span className="text-xl mb-0.5">{type.icon}</span>
                             <span className={`text-[9px] leading-tight text-center ${
-                              isSelected ? "font-medium" : "text-white/40"
+                              isSelected ? "font-medium" : "text-stone-400"
                             }`} style={isSelected ? { color: catInfo?.color } : undefined}>{type.name}</span>
                           </button>
                         );
@@ -264,13 +264,13 @@ function NewWorkoutContent() {
                 >
                   <span className="text-lg">{selectedType.icon}</span>
                   <div className="flex-1">
-                    <p className="text-[12px] font-medium text-neutral-200">{selectedType.name}</p>
+                    <p className="text-[12px] font-medium text-stone-800">{selectedType.name}</p>
                     <p className="text-[9px]" style={{ color: selectedCatInfo?.color }}>{selectedCatInfo?.label}</p>
                   </div>
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="text-[10px] text-neutral-500 hover:text-neutral-300 px-2 py-1 rounded-md hover:bg-white/[0.04] transition-all"
+                    className="text-[10px] text-stone-400 hover:text-stone-600 px-2 py-1 rounded-md hover:bg-stone-100 transition-all"
                   >
                     변경
                   </button>
@@ -278,21 +278,21 @@ function NewWorkoutContent() {
               )}
 
               {/* Date */}
-              <div className="rounded-xl p-3.5 bg-white/[0.015] border border-white/[0.04]">
-                <label className="block text-[10px] font-medium text-neutral-500 mb-2">날짜</label>
+              <div className="rounded-xl p-3.5 bg-white border border-stone-200">
+                <label className="block text-[10px] font-medium text-stone-400 mb-2">날짜</label>
                 <input
                   type="date"
                   value={form.date}
                   onChange={(e) => setForm({ ...form, date: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] text-sm text-neutral-200 focus:outline-none focus:border-white/[0.12]"
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-indigo-400"
                   max={new Date().toISOString().split("T")[0]}
                   required
                 />
               </div>
 
               {/* Duration — preset buttons + custom input */}
-              <div className="rounded-xl p-3.5 bg-white/[0.015] border border-white/[0.04]">
-                <label className="block text-[10px] font-medium text-neutral-500 mb-2">운동 시간</label>
+              <div className="rounded-xl p-3.5 bg-white border border-stone-200">
+                <label className="block text-[10px] font-medium text-stone-400 mb-2">운동 시간</label>
                 <div className="grid grid-cols-6 gap-1.5 mb-2">
                   {durationPresets.map((mins) => (
                     <button
@@ -301,8 +301,8 @@ function NewWorkoutContent() {
                       onClick={() => setForm({ ...form, durationMin: String(mins) })}
                       className={`py-2 rounded-lg text-[11px] font-medium transition-all ${
                         form.durationMin === String(mins)
-                          ? "bg-white/[0.1] text-neutral-200 border border-white/[0.15]"
-                          : "bg-white/[0.03] text-neutral-500 border border-white/[0.04] hover:border-white/[0.08]"
+                          ? "bg-stone-200 text-stone-800 border border-stone-300"
+                          : "bg-stone-50 text-stone-400 border border-stone-200 hover:border-stone-300"
                       }`}
                     >
                       {mins}분
@@ -314,12 +314,12 @@ function NewWorkoutContent() {
                     type="number"
                     value={form.durationMin}
                     onChange={(e) => setForm({ ...form, durationMin: e.target.value })}
-                    className="flex-1 px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] text-sm text-neutral-200 focus:outline-none focus:border-white/[0.12]"
+                    className="flex-1 px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-indigo-400"
                     min="1"
                     max="480"
                     required
                   />
-                  <span className="text-[11px] text-neutral-500">분</span>
+                  <span className="text-[11px] text-stone-400">분</span>
                 </div>
               </div>
 
@@ -330,15 +330,15 @@ function NewWorkoutContent() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="rounded-xl p-3.5 bg-white/[0.015] border border-white/[0.04]"
+                    className="rounded-xl p-3.5 bg-white border border-stone-200"
                   >
-                    <label className="block text-[10px] font-medium text-neutral-500 mb-2">거리 (km)</label>
+                    <label className="block text-[10px] font-medium text-stone-400 mb-2">거리 (km)</label>
                     <input
                       type="number"
                       step="0.1"
                       value={form.distanceKm}
                       onChange={(e) => setForm({ ...form, distanceKm: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] text-sm text-neutral-200 focus:outline-none focus:border-white/[0.12]"
+                      className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-indigo-400"
                       placeholder="3.0"
                       min="0"
                     />
@@ -347,8 +347,8 @@ function NewWorkoutContent() {
               </AnimatePresence>
 
               {/* Intensity — compact emoji bar */}
-              <div className="rounded-xl p-3.5 bg-white/[0.015] border border-white/[0.04]">
-                <label className="block text-[10px] font-medium text-neutral-500 mb-2">운동 강도</label>
+              <div className="rounded-xl p-3.5 bg-white border border-stone-200">
+                <label className="block text-[10px] font-medium text-stone-400 mb-2">운동 강도</label>
                 <div className="flex justify-between gap-1">
                   {INTENSITY_LABELS.map((level) => {
                     const isSelected = form.intensity === String(level.value);
@@ -368,7 +368,7 @@ function NewWorkoutContent() {
                         } : undefined}
                       >
                         <span className="text-base">{level.emoji}</span>
-                        <span className="text-[8px] mt-0.5 text-neutral-400">{level.label}</span>
+                        <span className="text-[8px] mt-0.5 text-stone-500">{level.label}</span>
                       </button>
                     );
                   })}
@@ -376,46 +376,46 @@ function NewWorkoutContent() {
               </div>
 
               {/* Calories (optional) */}
-              <div className="rounded-xl p-3.5 bg-white/[0.015] border border-white/[0.04]">
-                <label className="block text-[10px] font-medium text-neutral-500 mb-2">칼로리 (선택)</label>
+              <div className="rounded-xl p-3.5 bg-white border border-stone-200">
+                <label className="block text-[10px] font-medium text-stone-400 mb-2">칼로리 (선택)</label>
                 <input
                   type="number"
                   value={form.calories}
                   onChange={(e) => setForm({ ...form, calories: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] text-sm text-neutral-200 focus:outline-none focus:border-white/[0.12]"
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 focus:outline-none focus:border-indigo-400"
                   placeholder="예: 300"
                   min="0"
                 />
               </div>
 
               {/* Location & Link */}
-              <div className="rounded-xl p-3.5 bg-white/[0.015] border border-white/[0.04] space-y-3">
+              <div className="rounded-xl p-3.5 bg-white border border-stone-200 space-y-3">
                 <div>
-                  <label className="block text-[10px] font-medium text-neutral-500 mb-2">장소 (선택)</label>
+                  <label className="block text-[10px] font-medium text-stone-400 mb-2">장소 (선택)</label>
                   <div className="relative">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-600">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
                     </svg>
                     <input
                       type="text"
                       value={form.location}
                       onChange={(e) => setForm({ ...form, location: e.target.value })}
-                      className="w-full pl-8 pr-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-white/[0.12]"
+                      className="w-full pl-8 pr-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-indigo-400"
                       placeholder="예: 강남 헬스장"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-medium text-neutral-500 mb-2">링크 (선택)</label>
+                  <label className="block text-[10px] font-medium text-stone-400 mb-2">링크 (선택)</label>
                   <div className="relative">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-600">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400">
                       <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
                     </svg>
                     <input
                       type="url"
                       value={form.link}
                       onChange={(e) => setForm({ ...form, link: e.target.value })}
-                      className="w-full pl-8 pr-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-white/[0.12]"
+                      className="w-full pl-8 pr-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-indigo-400"
                       placeholder="관련 링크 (네이버지도, 유튜브 등)"
                     />
                   </div>
@@ -423,25 +423,25 @@ function NewWorkoutContent() {
               </div>
 
               {/* Memo */}
-              <div className="rounded-xl p-3.5 bg-white/[0.015] border border-white/[0.04]">
-                <label className="block text-[10px] font-medium text-neutral-500 mb-2">메모</label>
+              <div className="rounded-xl p-3.5 bg-white border border-stone-200">
+                <label className="block text-[10px] font-medium text-stone-400 mb-2">메모</label>
                 <textarea
                   value={form.memo}
                   onChange={(e) => setForm({ ...form, memo: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-white/[0.12] min-h-[60px] resize-none"
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-indigo-400 min-h-[60px] resize-none"
                   placeholder="오늘 운동 어땠나요?"
                   rows={2}
                 />
               </div>
 
               {/* Photos */}
-              <div className="rounded-xl p-3.5 bg-white/[0.015] border border-white/[0.04]">
-                <label className="block text-[10px] font-medium text-neutral-500 mb-2">인증 사진</label>
+              <div className="rounded-xl p-3.5 bg-white border border-stone-200">
+                <label className="block text-[10px] font-medium text-stone-400 mb-2">인증 사진</label>
 
                 {previews.length > 0 && (
                   <div className="grid grid-cols-4 gap-1.5 mb-2.5">
                     {previews.map((src, i) => (
-                      <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-white/[0.08]">
+                      <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-stone-200">
                         <img src={src} alt={`preview-${i}`} className="w-full h-full object-cover" />
                         <button
                           type="button"
@@ -456,9 +456,9 @@ function NewWorkoutContent() {
                 )}
 
                 {files.length < 5 && (
-                  <label className="flex items-center justify-center gap-2 h-14 border border-dashed border-white/[0.06] rounded-xl cursor-pointer hover:border-white/[0.12] hover:bg-white/[0.015] transition-all">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-neutral-500"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                    <span className="text-[10px] text-neutral-500">사진 추가 ({files.length}/5)</span>
+                  <label className="flex items-center justify-center gap-2 h-14 border border-dashed border-stone-200 rounded-xl cursor-pointer hover:border-indigo-300 hover:bg-white transition-all">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-stone-400"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <span className="text-[10px] text-stone-400">사진 추가 ({files.length}/5)</span>
                     <input
                       type="file"
                       accept="image/*"

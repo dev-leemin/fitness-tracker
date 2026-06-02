@@ -28,7 +28,6 @@ export async function GET() {
     weeklyData.push({
       week: `${weekStart.getMonth() + 1}/${weekStart.getDate()}`,
       count,
-      goal: 3,
     });
   }
 

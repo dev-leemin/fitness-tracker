@@ -10,7 +10,6 @@ interface Group {
   name: string;
   description: string | null;
   inviteCode: string;
-  weeklyGoal: number;
   _count: { members: number };
 }
 
@@ -56,7 +55,7 @@ export default function GroupListPage() {
     return (
       <div className="space-y-3">
         {[1, 2].map((i) => (
-          <div key={i} className="glass-card animate-pulse"><div className="h-16 bg-white/[0.02] rounded-lg" /></div>
+          <div key={i} className="bg-white border border-stone-200 rounded-xl shadow-sm animate-pulse"><div className="h-16 bg-white rounded-lg" /></div>
         ))}
       </div>
     );
@@ -66,12 +65,12 @@ export default function GroupListPage() {
     <div className="space-y-5">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-lg font-semibold text-white">그룹</h1>
+        <h1 className="text-lg font-semibold text-stone-900">그룹</h1>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowJoinInput(!showJoinInput)}
-            className="h-8 px-3 rounded-lg text-[12px] font-medium bg-white/[0.03] border border-white/[0.08] text-white/50 hover:text-white/70 hover:border-white/[0.12] transition-all cursor-pointer"
+            className="h-8 px-3 rounded-lg text-[12px] font-medium bg-stone-50 border border-stone-300 text-stone-900/50 hover:text-stone-700 hover:border-stone-300 transition-all cursor-pointer"
           >
             코드로 참여
           </button>
@@ -98,7 +97,7 @@ export default function GroupListPage() {
             type="text"
             value={joinCode}
             onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
-            className="flex-1 h-10 px-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-[13px] text-white font-mono tracking-wider placeholder:text-white/20 focus:outline-none focus:border-[#6366F1]/30 transition-all"
+            className="flex-1 h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-[13px] text-stone-900 font-mono tracking-wider placeholder:text-stone-300 focus:outline-none focus:border-[#6366F1]/30 transition-all"
             placeholder="초대 코드 입력"
             maxLength={20}
             autoFocus
@@ -118,17 +117,17 @@ export default function GroupListPage() {
 
       {/* Group List */}
       {groups.length === 0 ? (
-        <div className="glass-card text-center py-14">
-          <div className="w-14 h-14 mx-auto rounded-2xl bg-white/[0.02] border border-white/[0.04] flex items-center justify-center mb-4">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-20">
+        <div className="bg-white border border-stone-200 rounded-xl shadow-sm text-center py-14">
+          <div className="w-14 h-14 mx-auto rounded-2xl bg-white border border-stone-200 flex items-center justify-center mb-4">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-20">
               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
               <circle cx="9" cy="7" r="4"/>
               <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
               <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
           </div>
-          <p className="text-[13px] text-white/40">참여 중인 그룹이 없습니다</p>
-          <p className="text-[11px] text-white/20 mt-1">그룹을 만들거나 초대 코드로 참여하세요</p>
+          <p className="text-[13px] text-stone-500">참여 중인 그룹이 없습니다</p>
+          <p className="text-[11px] text-stone-300 mt-1">그룹을 만들거나 초대 코드로 참여하세요</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -141,7 +140,7 @@ export default function GroupListPage() {
             >
               <Link
                 href={`/group/${group.id}`}
-                className="flex items-center gap-3.5 px-4 py-3.5 rounded-xl bg-white/[0.015] border border-white/[0.04] hover:bg-white/[0.03] hover:border-white/[0.08] transition-all cursor-pointer group"
+                className="flex items-center gap-3.5 px-4 py-3.5 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 hover:border-stone-300 transition-all cursor-pointer group"
               >
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6366F1]/8 to-[#818CF8]/8 border border-[#6366F1]/15 flex items-center justify-center group-hover:border-[#6366F1]/30 transition-colors">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366F1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="opacity-60">
@@ -152,12 +151,12 @@ export default function GroupListPage() {
                   </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-medium text-white/80 truncate">{group.name}</p>
-                  <p className="text-[11px] text-white/30 mt-0.5">
-                    {group._count.members}명 · 주 {group.weeklyGoal}회
+                  <p className="text-[13px] font-medium text-stone-800 truncate">{group.name}</p>
+                  <p className="text-[11px] text-stone-400 mt-0.5">
+                    {group._count.members}명
                   </p>
                 </div>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-white/15 group-hover:text-white/40 transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-stone-900/15 group-hover:text-stone-500 transition-colors">
                   <path d="M9 18l6-6-6-6"/>
                 </svg>
               </Link>

@@ -1,43 +1,38 @@
 export const EXERCISE_CATEGORIES = {
   CARDIO: {
     label: "유산소",
-    color: "#34D399",
-    gradient: "from-emerald-400 to-emerald-600",
-    bgAlpha: "rgba(52, 211, 153, 0.1)",
-    borderAlpha: "rgba(52, 211, 153, 0.2)",
-    shadowAlpha: "rgba(52, 211, 153, 0.15)",
+    color: "#10B981",
+    bgAlpha: "rgba(16, 185, 129, 0.08)",
+    borderAlpha: "rgba(16, 185, 129, 0.2)",
+    shadowAlpha: "rgba(16, 185, 129, 0.1)",
   },
   STRENGTH: {
     label: "근력",
-    color: "#60A5FA",
-    gradient: "from-blue-400 to-blue-600",
-    bgAlpha: "rgba(96, 165, 250, 0.1)",
-    borderAlpha: "rgba(96, 165, 250, 0.2)",
-    shadowAlpha: "rgba(96, 165, 250, 0.15)",
+    color: "#3B82F6",
+    bgAlpha: "rgba(59, 130, 246, 0.08)",
+    borderAlpha: "rgba(59, 130, 246, 0.2)",
+    shadowAlpha: "rgba(59, 130, 246, 0.1)",
   },
   FLEXIBILITY: {
     label: "유연성",
-    color: "#C084FC",
-    gradient: "from-purple-400 to-purple-600",
-    bgAlpha: "rgba(192, 132, 252, 0.1)",
-    borderAlpha: "rgba(192, 132, 252, 0.2)",
-    shadowAlpha: "rgba(192, 132, 252, 0.15)",
+    color: "#8B5CF6",
+    bgAlpha: "rgba(139, 92, 246, 0.08)",
+    borderAlpha: "rgba(139, 92, 246, 0.2)",
+    shadowAlpha: "rgba(139, 92, 246, 0.1)",
   },
   SPORTS: {
     label: "스포츠",
-    color: "#FB923C",
-    gradient: "from-orange-400 to-orange-600",
-    bgAlpha: "rgba(251, 146, 60, 0.1)",
-    borderAlpha: "rgba(251, 146, 60, 0.2)",
-    shadowAlpha: "rgba(251, 146, 60, 0.15)",
+    color: "#F97316",
+    bgAlpha: "rgba(249, 115, 22, 0.08)",
+    borderAlpha: "rgba(249, 115, 22, 0.2)",
+    shadowAlpha: "rgba(249, 115, 22, 0.1)",
   },
   OTHER: {
     label: "기타",
-    color: "#94A3B8",
-    gradient: "from-slate-400 to-slate-600",
-    bgAlpha: "rgba(148, 163, 184, 0.1)",
-    borderAlpha: "rgba(148, 163, 184, 0.2)",
-    shadowAlpha: "rgba(148, 163, 184, 0.15)",
+    color: "#6B7280",
+    bgAlpha: "rgba(107, 114, 128, 0.08)",
+    borderAlpha: "rgba(107, 114, 128, 0.2)",
+    shadowAlpha: "rgba(107, 114, 128, 0.1)",
   },
 } as const;
 
@@ -53,9 +48,9 @@ export const DEFAULT_EXERCISES = [
   { name: "계단오르기", category: "CARDIO", icon: "🪜" },
   // 근력
   { name: "웨이트", category: "STRENGTH", icon: "🏋️" },
-  { name: "맨몸운동", category: "STRENGTH", icon: "��" },
+  { name: "맨몸운동", category: "STRENGTH", icon: "💪" },
   { name: "크로스핏", category: "STRENGTH", icon: "🔥" },
-  { name: "클라이밍", category: "STRENGTH", icon: "����" },
+  { name: "클라이밍", category: "STRENGTH", icon: "🧗" },
   { name: "케틀벨", category: "STRENGTH", icon: "🔔" },
   { name: "TRX", category: "STRENGTH", icon: "🪝" },
   // 유연성
@@ -68,15 +63,15 @@ export const DEFAULT_EXERCISES = [
   { name: "농구", category: "SPORTS", icon: "🏀" },
   { name: "배드민턴", category: "SPORTS", icon: "🏸" },
   { name: "테니스", category: "SPORTS", icon: "🎾" },
-  { name: "탁구", category: "SPORTS", icon: "����" },
+  { name: "탁구", category: "SPORTS", icon: "🏓" },
   { name: "골프", category: "SPORTS", icon: "⛳" },
   { name: "볼링", category: "SPORTS", icon: "🎳" },
   { name: "스키/보드", category: "SPORTS", icon: "🏂" },
   { name: "서핑", category: "SPORTS", icon: "🏄" },
-  { name: "복��", category: "SPORTS", icon: "���" },
+  { name: "복싱", category: "SPORTS", icon: "🥊" },
   // 기타
   { name: "댄스", category: "OTHER", icon: "💃" },
-  { name: "���타", category: "OTHER", icon: "���" },
+  { name: "기타", category: "OTHER", icon: "🏅" },
 ] as const;
 
 export const INTENSITY_LABELS = [
@@ -87,6 +82,4 @@ export const INTENSITY_LABELS = [
   { value: 5, label: "매우 힘듦", emoji: "🥵" },
 ] as const;
 
-export const FINE_PER_MISS = 5000; // KRW
-export const WEEKLY_GOAL = 3;
 export const MIN_CARDIO_DISTANCE_KM = 3.0;

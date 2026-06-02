@@ -10,7 +10,7 @@ export async function GET() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { id: true, email: true, name: true, nickname: true, profileImage: true, weeklyGoal: true, createdAt: true },
+    select: { id: true, email: true, name: true, nickname: true, profileImage: true, createdAt: true },
   });
 
   return NextResponse.json(user);
@@ -22,7 +22,7 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { name, nickname, weeklyGoal } = await request.json();
+  const { name, nickname } = await request.json();
 
   if (nickname) {
     const existing = await prisma.user.findFirst({
@@ -33,18 +33,13 @@ export async function PUT(request: Request) {
     }
   }
 
-  if (weeklyGoal !== undefined && (weeklyGoal < 1 || weeklyGoal > 7)) {
-    return NextResponse.json({ error: "주간 목표는 1~7 ��이여야 합니다." }, { status: 400 });
-  }
-
   const user = await prisma.user.update({
     where: { id: session.user.id },
     data: {
       ...(name && { name }),
       ...(nickname && { nickname }),
-      ...(weeklyGoal !== undefined && { weeklyGoal }),
     },
-    select: { id: true, email: true, name: true, nickname: true, weeklyGoal: true },
+    select: { id: true, email: true, name: true, nickname: true },
   });
 
   return NextResponse.json(user);
