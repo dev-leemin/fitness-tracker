@@ -65,118 +65,203 @@ function getGreeting(): string {
   return "오늘 하루 고생했어요";
 }
 
-// ===== Public Feed (unauthenticated) =====
-function PublicFeed() {
+// ===== Public Landing (unauthenticated) =====
+function PublicLanding() {
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/feed?limit=20")
+    fetch("/api/feed?limit=10")
       .then((r) => r.json())
       .then((data) => setFeed(data.workouts || []))
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return (
-      <div className="space-y-4 px-1">
-        <div className="h-40 rounded-2xl bg-gradient-to-br from-stone-100 to-stone-50 animate-pulse" />
-        {[...Array(4)].map((_, i) => (
-          <div key={i} className="h-16 rounded-2xl bg-stone-50 animate-pulse" />
-        ))}
-      </div>
-    );
-  }
-
   return (
-    <motion.div className="space-y-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      {/* CTA Banner */}
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
+      {/* Hero */}
       <motion.div
-        className="rounded-2xl p-6 bg-gradient-to-br from-[#FC5200] to-[#FF6B2B] relative overflow-hidden"
-        initial={{ opacity: 0, y: 16 }}
+        className="pt-4 pb-2"
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-1/2 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-20 h-20 rounded-full bg-white/5 translate-y-1/2 -translate-x-1/4" />
-        <div className="relative">
-          <h1 className="text-[20px] font-bold text-white leading-tight">
-            운동을 기록하고<br />공유해보세요
-          </h1>
-          <p className="text-white/70 text-[13px] mt-2">매일의 기록이 쌓여 성장이 됩니다</p>
-          <div className="flex gap-2.5 mt-5">
-            <Link
-              href="/register"
-              className="text-[13px] font-semibold bg-white text-[#FC5200] px-5 py-2.5 rounded-xl hover:bg-white/90 transition-colors"
-            >
-              시작하기
-            </Link>
-            <Link
-              href="/login"
-              className="text-[13px] font-medium text-white/90 border border-white/30 px-5 py-2.5 rounded-xl hover:bg-white/10 transition-colors"
-            >
-              로그인
-            </Link>
-          </div>
+        <h1 className="text-[28px] font-extrabold text-stone-900 leading-tight tracking-tight">
+          운동을 기록하고<br />성장을 확인하세요
+        </h1>
+        <p className="text-[14px] text-stone-400 mt-3 leading-relaxed">
+          매일의 운동 기록이 쌓여 나만의 루틴이 됩니다
+        </p>
+        <div className="flex gap-3 mt-6">
+          <Link
+            href="/register"
+            className="text-[14px] font-semibold bg-[#FC5200] text-white px-6 py-3 rounded-full hover:bg-[#E04800] transition-colors"
+          >
+            시작하기
+          </Link>
+          <Link
+            href="/login"
+            className="text-[14px] font-medium text-stone-500 px-6 py-3 rounded-full border border-stone-200 hover:bg-stone-50 transition-colors"
+          >
+            로그인
+          </Link>
         </div>
       </motion.div>
 
-      {/* Community Feed */}
-      {feed.length > 0 && (
-        <div>
-          <h2 className="text-[15px] font-semibold text-stone-800 mb-3 px-1">최근 활동</h2>
-          <div className="space-y-2.5">
+      {/* Preview features */}
+      <motion.div
+        className="space-y-3"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+      >
+        {[
+          { icon: "📅", title: "캘린더 스탬프", desc: "운동한 날마다 스탬프가 쌓여요" },
+          { icon: "📊", title: "통계 분석", desc: "운동 패턴과 변화를 한눈에" },
+          { icon: "👥", title: "그룹 챌린지", desc: "친구들과 함께 동기부여" },
+        ].map((f, i) => (
+          <motion.div
+            key={f.title}
+            className="flex items-center gap-4 py-3"
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15 + i * 0.05 }}
+          >
+            <span className="text-[24px] w-10 text-center">{f.icon}</span>
+            <div>
+              <p className="text-[14px] font-semibold text-stone-800">{f.title}</p>
+              <p className="text-[12px] text-stone-400 mt-0.5">{f.desc}</p>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Community feed */}
+      {!loading && feed.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-[13px] font-medium text-stone-500">실시간 커뮤니티</span>
+          </div>
+          <div className="space-y-1">
             {feed.map((item, idx) => {
               const category = item.exerciseType.category as keyof typeof EXERCISE_CATEGORIES;
               const catInfo = EXERCISE_CATEGORIES[category];
               return (
                 <motion.div
                   key={item.id}
-                  className="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl bg-stone-50 hover:bg-stone-100 transition-colors"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.03 }}
+                  className="flex items-center gap-3 py-3 border-b border-stone-100 last:border-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 + idx * 0.03 }}
                 >
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-[15px] shrink-0"
-                    style={{ background: `${catInfo?.color}15`, color: catInfo?.color }}
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-[13px] shrink-0"
+                    style={{ background: `${catInfo?.color}12` }}
                   >
                     {item.exerciseType.icon || "🏅"}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[13px] font-semibold text-stone-800">{item.userName}</span>
-                      <span className="text-[11px] text-stone-400">
-                        {format(new Date(item.date), "M.d", { locale: ko })}
-                      </span>
-                    </div>
-                    <p className="text-[12px] text-stone-500 mt-0.5">
+                    <span className="text-[13px] font-medium text-stone-700">{item.userName}</span>
+                    <span className="text-[12px] text-stone-400 ml-2">
                       {item.exerciseType.name} · {item.durationMin}분
-                      {item.distanceKm ? ` · ${item.distanceKm}km` : ""}
-                    </p>
+                    </span>
                   </div>
-                  <span className="text-[13px] font-semibold text-stone-600 shrink-0">
-                    {item.durationMin}분
+                  <span className="text-[11px] text-stone-300 shrink-0">
+                    {format(new Date(item.date), "M.d")}
                   </span>
                 </motion.div>
               );
             })}
           </div>
-        </div>
-      )}
-
-      {feed.length === 0 && (
-        <div className="rounded-2xl bg-stone-50 p-10 text-center">
-          <div className="text-[32px] mb-3">🏋️</div>
-          <p className="text-stone-600 text-[14px] font-medium">아직 운동 기록이 없어요</p>
-          <p className="text-stone-400 text-[12px] mt-1">첫 번째 기록을 남겨보세요!</p>
-        </div>
+        </motion.div>
       )}
     </motion.div>
   );
 }
 
-// ===== Personal Dashboard (authenticated) =====
+// ===== Welcome Screen (authenticated, no data) =====
+function WelcomeScreen({ userName }: { userName: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-col items-center pt-12 pb-8"
+    >
+      <motion.div
+        className="text-[56px] mb-6"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: "spring", damping: 12, delay: 0.1 }}
+      >
+        🏋️‍♀️
+      </motion.div>
+
+      <motion.h1
+        className="text-[22px] font-bold text-stone-900 text-center"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+      >
+        {userName}님, 환영해요
+      </motion.h1>
+
+      <motion.p
+        className="text-[14px] text-stone-400 text-center mt-2 leading-relaxed"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        첫 운동을 기록하고<br />캘린더에 스탬프를 모아보세요
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25 }}
+      >
+        <Link
+          href="/workout/new"
+          className="mt-8 inline-flex items-center gap-2 text-[14px] font-semibold bg-[#FC5200] text-white px-7 py-3.5 rounded-full hover:bg-[#E04800] transition-colors shadow-lg shadow-[#FC5200]/20"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          첫 운동 기록하기
+        </Link>
+      </motion.div>
+
+      {/* How it works */}
+      <motion.div
+        className="w-full mt-14 space-y-6"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35 }}
+      >
+        <p className="text-[12px] font-semibold text-stone-400 tracking-wider uppercase">이렇게 사용해요</p>
+        <div className="space-y-5">
+          {[
+            { step: "01", title: "운동을 기록하면", desc: "캘린더에 스탬프가 하나씩 쌓여요" },
+            { step: "02", title: "연속으로 기록하면", desc: "연속 기록이 올라가요 🔥" },
+            { step: "03", title: "통계에서 확인하면", desc: "나의 운동 패턴을 분석해드려요" },
+          ].map((item) => (
+            <div key={item.step} className="flex gap-4">
+              <span className="text-[12px] font-bold text-[#FC5200] tabular-nums mt-0.5">{item.step}</span>
+              <div>
+                <p className="text-[14px] font-semibold text-stone-800">{item.title}</p>
+                <p className="text-[12px] text-stone-400 mt-0.5">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ===== Personal Dashboard (authenticated, has data) =====
 export default function DashboardPage() {
   const { data: session, status } = useSession();
   const [recentWorkouts, setRecentWorkouts] = useState<Workout[]>([]);
@@ -202,7 +287,7 @@ export default function DashboardPage() {
     const now = new Date();
     Promise.all([
       fetch("/api/user").then((r) => r.json()),
-      fetch("/api/workout?limit=3").then((r) => r.json()),
+      fetch("/api/workout?limit=5").then((r) => r.json()),
       fetch("/api/stats/weekly").then((r) => r.json()),
       fetch(`/api/calendar?year=${now.getFullYear()}&month=${now.getMonth() + 1}`).then((r) => r.json()),
       fetch("/api/workout/streak").then((r) => r.json()),
@@ -249,25 +334,33 @@ export default function DashboardPage() {
     }
   };
 
-  // Loading skeleton
-  if (status === "loading") {
+  // Loading
+  if (status === "loading" || loading) {
     return (
-      <div className="space-y-5 px-1">
-        <div className="h-16 rounded-2xl bg-stone-50 animate-pulse" />
-        <div className="grid grid-cols-2 gap-3">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-24 rounded-2xl bg-stone-50 animate-pulse" />
+      <div className="space-y-6 pt-2">
+        <div className="h-12 w-48 rounded-lg bg-stone-100 animate-pulse" />
+        <div className="h-6 w-64 rounded-lg bg-stone-50 animate-pulse" />
+        <div className="flex gap-6 pt-4">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="h-10 w-16 rounded-lg bg-stone-50 animate-pulse" />
           ))}
         </div>
       </div>
     );
   }
 
+  // Not logged in → Public landing
   if (!isLoggedIn) {
-    return <PublicFeed />;
+    return <PublicLanding />;
   }
 
-  // ===== Authenticated Dashboard =====
+  // Logged in but no data → Welcome
+  const hasData = recentWorkouts.length > 0 || (weeklyStatus?.monthTotalWorkouts ?? 0) > 0;
+  if (!hasData) {
+    return <WelcomeScreen userName={userName} />;
+  }
+
+  // ===== Dashboard with data =====
   const weekStart = startOfWeek(new Date(), { weekStartsOn: 1 });
   const weekDays = Array.from({ length: 7 }, (_, i) => {
     const day = addDays(weekStart, i);
@@ -280,126 +373,71 @@ export default function DashboardPage() {
   const monthEndDate = endOfMonth(calMonth);
   const calDays = eachDayOfInterval({ start: monthStartDate, end: monthEndDate });
   const startDayOfWeek = getDay(monthStartDate);
-  const offset = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
-
-  const weekDiff = weeklyStatus ? weeklyStatus.workoutsThisWeek - weeklyStatus.lastWeekWorkouts : 0;
-
-  if (loading) {
-    return (
-      <div className="space-y-5 px-1">
-        <div className="h-16 rounded-2xl bg-stone-50 animate-pulse" />
-        <div className="grid grid-cols-2 gap-3">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-24 rounded-2xl bg-stone-50 animate-pulse" />
-          ))}
-        </div>
-        <div className="h-32 rounded-2xl bg-stone-50 animate-pulse" />
-      </div>
-    );
-  }
+  const calOffset = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
 
   return (
     <motion.div
-      className="space-y-6"
+      className="space-y-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
       {/* Greeting */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        className="pt-1"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <p className="text-[13px] text-stone-400">
+          {format(new Date(), "M월 d일 EEEE", { locale: ko })}
+        </p>
+        <h1 className="text-[20px] font-bold text-stone-900 mt-0.5 tracking-tight">
+          {userName}님, {getGreeting()}
+        </h1>
+      </motion.div>
+
+      {/* Stats Row - single row, no colored cards */}
+      <motion.div
+        className="flex items-end gap-6"
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
       >
-        <h1 className="text-[22px] font-bold text-stone-900 tracking-tight leading-tight">
-          {userName}님,<br />{getGreeting()}
-        </h1>
-        <div className="flex items-center gap-2.5 mt-2">
-          <span className="text-[13px] text-stone-400">
-            {format(new Date(), "M월 d일 EEEE", { locale: ko })}
+        <div>
+          <span className="text-[32px] font-extrabold text-stone-900 leading-none tabular-nums">
+            {weeklyStatus?.workoutsThisWeek || 0}
           </span>
-          {streak > 0 && (
-            <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#FC5200] bg-orange-50 px-2.5 py-0.5 rounded-full">
-              🔥 {streak}일 연속
-            </span>
-          )}
+          <span className="text-[13px] text-stone-400 ml-1">회</span>
+          <p className="text-[11px] text-stone-400 mt-1">이번 주</p>
         </div>
+        <div className="w-px h-8 bg-stone-200" />
+        <div>
+          <span className="text-[32px] font-extrabold text-stone-900 leading-none tabular-nums">
+            {weeklyStatus?.thisWeekMinutes || 0}
+          </span>
+          <span className="text-[13px] text-stone-400 ml-1">분</span>
+          <p className="text-[11px] text-stone-400 mt-1">운동 시간</p>
+        </div>
+        {streak > 0 && (
+          <>
+            <div className="w-px h-8 bg-stone-200" />
+            <div>
+              <span className="text-[32px] font-extrabold text-[#FC5200] leading-none tabular-nums">
+                {streak}
+              </span>
+              <span className="text-[13px] text-[#FC5200] ml-1">일</span>
+              <p className="text-[11px] text-[#FC5200]/60 mt-1">연속 🔥</p>
+            </div>
+          </>
+        )}
       </motion.div>
 
-      {/* Stats Grid */}
+      {/* This Week */}
       <motion.div
-        className="grid grid-cols-2 gap-3"
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <div className="rounded-2xl p-4 bg-[#FFF4ED]">
-          <span className="text-[11px] text-[#FC5200]/60 font-semibold tracking-wide uppercase">이번 주</span>
-          <div className="flex items-baseline gap-1 mt-2">
-            <span className="text-[30px] font-extrabold text-[#FC5200] leading-none tabular-nums">
-              {weeklyStatus?.workoutsThisWeek || 0}
-            </span>
-            <span className="text-[13px] font-medium text-[#FC5200]/50">회</span>
-          </div>
-          {weekDiff !== 0 && (
-            <span className={`text-[11px] font-medium mt-1 block ${weekDiff > 0 ? "text-emerald-500" : "text-red-400"}`}>
-              지난주 대비 {weekDiff > 0 ? "+" : ""}{weekDiff}
-            </span>
-          )}
-        </div>
-
-        <div className="rounded-2xl p-4 bg-blue-50">
-          <span className="text-[11px] text-blue-500/60 font-semibold tracking-wide uppercase">운동 시간</span>
-          <div className="flex items-baseline gap-1 mt-2">
-            <span className="text-[30px] font-extrabold text-blue-600 leading-none tabular-nums">
-              {weeklyStatus?.thisWeekMinutes || 0}
-            </span>
-            <span className="text-[13px] font-medium text-blue-500/50">분</span>
-          </div>
-        </div>
-
-        <div className="rounded-2xl p-4 bg-emerald-50">
-          <span className="text-[11px] text-emerald-500/60 font-semibold tracking-wide uppercase">이번 달</span>
-          <div className="flex items-baseline gap-1 mt-2">
-            <span className="text-[30px] font-extrabold text-emerald-600 leading-none tabular-nums">
-              {weeklyStatus?.monthTotalWorkouts || 0}
-            </span>
-            <span className="text-[13px] font-medium text-emerald-500/50">회</span>
-          </div>
-        </div>
-
-        <div className="rounded-2xl p-4 bg-amber-50">
-          <span className="text-[11px] text-amber-500/60 font-semibold tracking-wide uppercase">연속 기록</span>
-          <div className="flex items-baseline gap-1 mt-2">
-            <span className="text-[30px] font-extrabold text-amber-600 leading-none tabular-nums">
-              {streak}
-            </span>
-            <span className="text-[13px] font-medium text-amber-500/50">일</span>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* This Week Activity */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.15 }}
-      >
-        <div className="flex items-center justify-between mb-4 px-1">
-          <h2 className="text-[15px] font-semibold text-stone-800">이번 주</h2>
-          <div className="relative group">
-            <button className="text-[12px] text-stone-400 hover:text-stone-600 transition-colors flex items-center gap-1">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
-              </svg>
-              공유
-            </button>
-            <div className="absolute right-0 top-full mt-1 py-1 w-28 bg-white rounded-xl shadow-lg border border-stone-100 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all z-20">
-              <button onClick={() => handleShare("week")} className="w-full text-left px-3 py-2 text-[12px] text-stone-600 hover:bg-stone-50 transition-all">이번 주</button>
-              <button onClick={() => handleShare("month")} className="w-full text-left px-3 py-2 text-[12px] text-stone-600 hover:bg-stone-50 transition-all">이번 달</button>
-            </div>
-          </div>
-        </div>
         <div className="flex justify-between">
           {weekDays.map(({ day, workout }, i) => {
             const dayLabel = ["월", "화", "수", "목", "금", "토", "일"][i];
@@ -408,25 +446,25 @@ export default function DashboardPage() {
             const catColor = category ? EXERCISE_CATEGORIES[category]?.color : null;
 
             return (
-              <div key={i} className="flex flex-col items-center gap-2">
-                <span className={`text-[11px] font-semibold ${isToday ? "text-[#FC5200]" : "text-stone-400"}`}>
+              <div key={i} className="flex flex-col items-center gap-2 flex-1">
+                <span className={`text-[11px] font-medium ${isToday ? "text-[#FC5200]" : "text-stone-400"}`}>
                   {dayLabel}
                 </span>
                 <div
-                  className="w-11 h-11 rounded-full flex items-center justify-center transition-all"
+                  className="w-10 h-10 rounded-full flex items-center justify-center"
                   style={workout ? {
-                    background: `${catColor}18`,
-                    boxShadow: `inset 0 0 0 2.5px ${catColor}50`,
+                    background: `${catColor}15`,
+                    boxShadow: `inset 0 0 0 2px ${catColor}40`,
                   } : isToday ? {
-                    boxShadow: "inset 0 0 0 2.5px #FC5200",
+                    boxShadow: "inset 0 0 0 2px #FC5200",
                   } : {
                     background: "#F5F5F4",
                   }}
                 >
                   {workout ? (
-                    <span className="text-[16px]">{workout.icon || "✓"}</span>
+                    <span className="text-[15px]">{workout.icon || "✓"}</span>
                   ) : isToday ? (
-                    <div className="w-2 h-2 rounded-full bg-[#FC5200]" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#FC5200]" />
                   ) : null}
                 </div>
               </div>
@@ -435,40 +473,40 @@ export default function DashboardPage() {
         </div>
       </motion.div>
 
-      {/* Mini Calendar */}
+      {/* Calendar */}
       <motion.div
         ref={calRef}
         className="relative"
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.15 }}
       >
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => setCalMonth(subMonths(calMonth, 1))}
             className="w-8 h-8 rounded-full flex items-center justify-center text-stone-400 hover:text-stone-600 hover:bg-stone-100 transition-all"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
-          <span className="text-[15px] font-semibold text-stone-800">
-            {format(calMonth, "yyyy년 M월", { locale: ko })}
+          <span className="text-[15px] font-bold text-stone-800 tracking-tight">
+            {format(calMonth, "yyyy년 M월")}
           </span>
           <button
             onClick={() => setCalMonth(addMonths(calMonth, 1))}
             className="w-8 h-8 rounded-full flex items-center justify-center text-stone-400 hover:text-stone-600 hover:bg-stone-100 transition-all"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
           </button>
         </div>
 
-        <div className="grid grid-cols-7 mb-1">
+        <div className="grid grid-cols-7 mb-2">
           {["월", "화", "수", "목", "금", "토", "일"].map((d) => (
-            <div key={d} className="text-center text-[11px] text-stone-400 font-medium py-1.5">{d}</div>
+            <div key={d} className="text-center text-[11px] text-stone-400 font-medium py-1">{d}</div>
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-y-0.5">
-          {Array.from({ length: offset }).map((_, i) => (
+        <div className="grid grid-cols-7">
+          {Array.from({ length: calOffset }).map((_, i) => (
             <div key={`e-${i}`} className="aspect-square" />
           ))}
           {calDays.map((day) => {
@@ -480,7 +518,7 @@ export default function DashboardPage() {
             const catColor = category ? EXERCISE_CATEGORIES[category]?.color : null;
 
             return (
-              <div key={dateStr} className="flex items-center justify-center py-0.5">
+              <div key={dateStr} className="aspect-square flex items-center justify-center p-0.5">
                 <button
                   onClick={(e) => {
                     if (isFuture) return;
@@ -495,8 +533,8 @@ export default function DashboardPage() {
                       router.push(`/workout/new?date=${dateStr}`);
                     }
                   }}
-                  className={`w-9 h-9 rounded-full flex items-center justify-center text-[12px] transition-all ${
-                    isFuture ? "cursor-default" : "cursor-pointer hover:scale-110"
+                  className={`w-full h-full max-w-[36px] max-h-[36px] rounded-full flex items-center justify-center text-[12px] transition-all ${
+                    isFuture ? "cursor-default" : "cursor-pointer hover:scale-105"
                   }`}
                   style={workout ? {
                     background: `${catColor}15`,
@@ -518,7 +556,7 @@ export default function DashboardPage() {
           })}
         </div>
 
-        {/* Calendar popup */}
+        {/* Popup */}
         <AnimatePresence>
           {selectedDay && popupPos && (
             <motion.div
@@ -529,7 +567,7 @@ export default function DashboardPage() {
               exit={{ opacity: 0, y: 4, scale: 0.95 }}
               transition={{ duration: 0.15 }}
             >
-              <div className="bg-white rounded-2xl p-3.5 shadow-xl border border-stone-100 min-w-[160px]">
+              <div className="bg-white rounded-2xl p-4 shadow-xl border border-stone-100 min-w-[160px]">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[11px] text-stone-400 font-medium">
                     {format(new Date(selectedDay.date), "M월 d일 (E)", { locale: ko })}
@@ -541,22 +579,21 @@ export default function DashboardPage() {
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
                   </button>
                 </div>
-                <div className="flex items-center gap-2.5">
-                  <span className="text-[18px]">{selectedDay.icon || "🏋️"}</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-[20px]">{selectedDay.icon || "🏋️"}</span>
                   <div>
                     <p className="text-[13px] font-semibold text-stone-800">{selectedDay.exerciseType}</p>
                     <p className="text-[11px] text-stone-400">
-                      {selectedDay.durationMin}분
-                      {selectedDay.distanceKm && ` · ${selectedDay.distanceKm}km`}
+                      {selectedDay.durationMin}분{selectedDay.distanceKm && ` · ${selectedDay.distanceKm}km`}
                     </p>
                   </div>
                 </div>
                 <Link
                   href={`/workout/${selectedDay.workoutId}`}
-                  className="mt-3 block text-center text-[12px] font-semibold text-[#FC5200] bg-orange-50 rounded-xl py-2 hover:bg-orange-100 transition-all"
+                  className="mt-3 block text-center text-[12px] font-semibold text-[#FC5200] py-2 rounded-lg hover:bg-orange-50 transition-all"
                   onClick={() => { setSelectedDay(null); setPopupPos(null); }}
                 >
-                  상세 보기
+                  상세 보기 →
                 </Link>
               </div>
               <div className="absolute left-1/2 -translate-x-1/2 bottom-[-5px] w-2.5 h-2.5 bg-white border-b border-r border-stone-100 rotate-45" />
@@ -567,66 +604,78 @@ export default function DashboardPage() {
 
       {/* Recent Workouts */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.25 }}
+        transition={{ delay: 0.2 }}
       >
-        {recentWorkouts.length > 0 ? (
-          <>
-            <div className="flex items-center justify-between mb-3 px-1">
-              <h2 className="text-[15px] font-semibold text-stone-800">최근 기록</h2>
-              <Link href="/workout" className="text-[12px] text-stone-400 hover:text-stone-600 transition-colors">
-                전체 보기
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-[15px] font-bold text-stone-800 tracking-tight">최근 기록</h2>
+          <Link href="/workout" className="text-[12px] text-stone-400 hover:text-stone-600 transition-colors">
+            전체 →
+          </Link>
+        </div>
+        <div className="space-y-1">
+          {recentWorkouts.map((workout) => {
+            const category = workout.exerciseType.category as keyof typeof EXERCISE_CATEGORIES;
+            const catInfo = EXERCISE_CATEGORIES[category];
+            return (
+              <Link
+                key={workout.id}
+                href={`/workout/${workout.id}`}
+                className="flex items-center gap-3 py-3 border-b border-stone-100 last:border-0 hover:bg-stone-50 -mx-2 px-2 rounded-lg transition-colors"
+              >
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-[16px] shrink-0"
+                  style={{ background: `${catInfo?.color}12` }}
+                >
+                  {workout.exerciseType.icon}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[14px] font-semibold text-stone-800">{workout.exerciseType.name}</p>
+                  <p className="text-[12px] text-stone-400 mt-0.5">
+                    {format(new Date(workout.date), "M월 d일 (E)", { locale: ko })}
+                    {workout.distanceKm && ` · ${workout.distanceKm}km`}
+                  </p>
+                </div>
+                <span className="text-[15px] font-bold text-stone-700 tabular-nums shrink-0">
+                  {workout.durationMin}<span className="text-[11px] font-normal text-stone-400">분</span>
+                </span>
               </Link>
-            </div>
-            <div className="space-y-2">
-              {recentWorkouts.map((workout) => {
-                const category = workout.exerciseType.category as keyof typeof EXERCISE_CATEGORIES;
-                const catInfo = EXERCISE_CATEGORIES[category];
-                return (
-                  <Link
-                    key={workout.id}
-                    href={`/workout/${workout.id}`}
-                    className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-stone-50 hover:bg-stone-100 transition-colors"
-                  >
-                    <div
-                      className="w-11 h-11 rounded-xl flex items-center justify-center text-[18px] shrink-0"
-                      style={{
-                        background: catInfo?.bgAlpha,
-                        border: `1px solid ${catInfo?.borderAlpha}`,
-                      }}
-                    >
-                      {workout.exerciseType.icon}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[14px] font-semibold text-stone-800">{workout.exerciseType.name}</p>
-                      <p className="text-[12px] text-stone-400 mt-0.5">
-                        {format(new Date(workout.date), "M월 d일 (E)", { locale: ko })}
-                      </p>
-                    </div>
-                    <div className="text-right shrink-0">
-                      <p className="text-[14px] font-bold text-stone-700">{workout.durationMin}분</p>
-                      {workout.distanceKm && (
-                        <p className="text-[12px] text-stone-400">{workout.distanceKm}km</p>
-                      )}
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </>
-        ) : (
-          <div className="rounded-2xl bg-stone-50 p-8 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center mx-auto mb-4 shadow-sm">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D6D3D1" strokeWidth="1.5" strokeLinecap="round">
-                <path d="M6.5 6.5h11M6.5 17.5h11M2 12h2m16 0h2M6 12H4.5a2.5 2.5 0 0 1 0-5H6m0 10h-.5a2.5 2.5 0 0 0 0 5H6m12-10h.5a2.5 2.5 0 0 0 0-5H18m0 10h.5a2.5 2.5 0 0 1 0 5H18"/>
-              </svg>
-            </div>
-            <p className="text-[15px] font-semibold text-stone-700">첫 운동을 기록해보세요</p>
-            <p className="text-[12px] text-stone-400 mt-1">아래 + 버튼으로 시작할 수 있어요</p>
-          </div>
-        )}
+            );
+          })}
+        </div>
       </motion.div>
+
+      {/* Monthly Summary */}
+      {(weeklyStatus?.monthTotalWorkouts ?? 0) > 0 && (
+        <motion.div
+          className="bg-stone-50 -mx-5 px-5 py-5"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.25 }}
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[12px] text-stone-400 font-medium">이번 달</p>
+              <p className="text-[13px] font-semibold text-stone-700 mt-0.5">
+                {weeklyStatus?.monthTotalWorkouts}회 · {weeklyStatus?.monthTotalMinutes}분
+              </p>
+            </div>
+            <div className="relative group">
+              <button className="text-[12px] text-stone-400 hover:text-stone-600 transition-colors flex items-center gap-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
+                </svg>
+                공유
+              </button>
+              <div className="absolute right-0 bottom-full mb-1 py-1 w-24 bg-white rounded-lg shadow-lg border border-stone-100 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all z-20">
+                <button onClick={() => handleShare("week")} className="w-full text-left px-3 py-2 text-[12px] text-stone-600 hover:bg-stone-50">주간</button>
+                <button onClick={() => handleShare("month")} className="w-full text-left px-3 py-2 text-[12px] text-stone-600 hover:bg-stone-50">월간</button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       {/* Share toast */}
       {shareToast && (
