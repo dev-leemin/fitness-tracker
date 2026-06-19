@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 const navItems = [
-  { href: "/dashboard", label: "대시보드", icon: (
+  { href: "/", label: "대시보드", icon: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
   )},
   { href: "/workout", label: "운동 기록", icon: (

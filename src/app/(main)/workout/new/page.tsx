@@ -123,7 +123,7 @@ function NewWorkoutContent() {
         await fetch("/api/upload", { method: "POST", body: formData });
       }
 
-      router.push("/dashboard");
+      router.push("/");
     } catch {
       setError("저장에 실패했습니다.");
       setLoading(false);

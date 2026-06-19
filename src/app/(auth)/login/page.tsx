@@ -1,12 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="w-8 h-8 rounded-full border-2 border-stone-200 border-t-[#FC5200] animate-spin" /></div>}>
+      <LoginContent />
+    </Suspense>
+  );
+}
+
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -28,133 +38,139 @@ export default function LoginPage() {
       setError("이메일 또는 비밀번호가 올바르지 않습니다.");
       setLoading(false);
     } else {
-      router.push("/dashboard");
+      router.push(callbackUrl);
     }
   };
 
   return (
-    <div className="w-full">
-      {/* Back button */}
-      <Link
-        href="/"
-        className="inline-flex items-center gap-1.5 text-[11px] text-stone-400 hover:text-stone-600 transition-colors mb-5"
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </svg>
-        돌아가기
-      </Link>
-
-      <h1 className="text-xl font-bold text-stone-900 tracking-tight">로그인</h1>
-      <p className="text-[12px] text-stone-400 mt-1">계정에 로그인하여 운동을 기록하세요</p>
-
-      {/* Social Login */}
-      <div className="space-y-2 mt-6">
-        <button
-          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-          className="w-full flex items-center gap-3 h-11 px-4 rounded-lg bg-stone-50 border border-stone-200 text-[12px] font-medium text-stone-700 hover:bg-stone-100 hover:border-stone-300 transition-all"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24">
-            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-          </svg>
-          <span className="flex-1 text-left">Google로 계속하기</span>
-        </button>
-
-        <button
-          onClick={() => signIn("kakao", { callbackUrl: "/dashboard" })}
-          className="w-full flex items-center gap-3 h-11 px-4 rounded-lg bg-[#FEE500]/10 border border-[#FEE500]/30 text-[12px] font-medium text-stone-700 hover:bg-[#FEE500]/20 hover:border-[#FEE500]/40 transition-all"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="#3C1E1E">
-            <path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.57 1.674 4.83 4.2 6.13l-.87 3.22a.3.3 0 00.46.33l3.77-2.5c.78.12 1.58.18 2.43.18 5.523 0 10-3.477 10-7.83S17.523 3 12 3z"/>
-          </svg>
-          <span className="flex-1 text-left">카카오로 계속하기</span>
-        </button>
+    <div className="flex flex-col min-h-screen pt-20 pb-8">
+      {/* Branding */}
+      <div className="text-center">
+        <h1 className="text-[32px] font-extrabold text-stone-900 tracking-tight">FitLog</h1>
+        <p className="text-[14px] text-stone-400 mt-2">매일의 기록이 나를 바꿉니다</p>
       </div>
 
-      {/* Divider */}
-      <div className="flex items-center gap-3 my-5">
-        <div className="flex-1 h-px bg-stone-200" />
-        <span className="text-[10px] text-stone-400 font-medium">또는</span>
-        <div className="flex-1 h-px bg-stone-200" />
-      </div>
+      {/* Login area */}
+      <div className="flex-1 flex flex-col items-center justify-center py-10">
+        {!showEmailForm ? (
+          <>
+            {/* Social login - round icons */}
+            <div className="flex gap-6">
+              <button
+                onClick={() => signIn("kakao", { callbackUrl })}
+                className="flex flex-col items-center gap-2"
+              >
+                <div className="w-14 h-14 rounded-full bg-[#FEE500] flex items-center justify-center shadow-sm hover:shadow-md active:scale-95 transition-all">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#3C1E1E">
+                    <path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.57 1.674 4.83 4.2 6.13l-.87 3.22a.3.3 0 00.46.33l3.77-2.5c.78.12 1.58.18 2.43.18 5.523 0 10-3.477 10-7.83S17.523 3 12 3z"/>
+                  </svg>
+                </div>
+                <span className="text-[11px] text-stone-400">카카오</span>
+              </button>
 
-      {/* Email Login */}
-      {!showEmailForm ? (
-        <button
-          onClick={() => setShowEmailForm(true)}
-          className="w-full flex items-center gap-3 h-11 px-4 rounded-lg bg-stone-50 border border-stone-200 text-[12px] text-stone-500 hover:bg-stone-100 hover:border-stone-300 hover:text-stone-600 transition-all"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-50">
-            <rect x="2" y="4" width="20" height="16" rx="2"/>
-            <path d="M22 7l-10 6L2 7"/>
-          </svg>
-          <span>이메일로 로그인</span>
-        </button>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-2.5">
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 text-[11px] px-3 py-2 rounded-lg">
-              {error}
+              <button
+                onClick={() => signIn("google", { callbackUrl })}
+                className="flex flex-col items-center gap-2"
+              >
+                <div className="w-14 h-14 rounded-full bg-white border border-stone-200 flex items-center justify-center shadow-sm hover:shadow-md active:scale-95 transition-all">
+                  <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                  </svg>
+                </div>
+                <span className="text-[11px] text-stone-400">구글</span>
+              </button>
             </div>
-          )}
 
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-colors"
-            placeholder="이메일 주소"
-            required
-            autoFocus
-          />
+            {/* Divider */}
+            <div className="flex items-center gap-4 my-8 w-full">
+              <div className="flex-1 h-px bg-stone-100" />
+              <span className="text-[11px] text-stone-300">또는</span>
+              <div className="flex-1 h-px bg-stone-100" />
+            </div>
 
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full h-11 px-3.5 rounded-lg bg-stone-50 border border-stone-300 text-[13px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-orange-400 transition-colors"
-            placeholder="비밀번호"
-            required
-          />
-
-          <button
-            type="submit"
-            className="w-full h-11 rounded-lg bg-orange-500 text-white text-[13px] font-medium hover:bg-orange-600 transition-colors disabled:opacity-50"
-            disabled={loading}
-          >
-            {loading ? (
-              <span className="flex items-center justify-center gap-2">
-                <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-                로그인 중...
-              </span>
-            ) : (
-              "로그인"
+            {/* Email button */}
+            <button
+              onClick={() => setShowEmailForm(true)}
+              className="w-full h-[50px] rounded-full border border-stone-200 text-[14px] text-stone-600 font-medium hover:bg-stone-50 active:scale-[0.98] transition-all"
+            >
+              이메일로 시작하기
+            </button>
+          </>
+        ) : (
+          <form onSubmit={handleSubmit} className="w-full space-y-3">
+            {error && (
+              <div className="bg-red-50 text-red-500 text-[13px] px-4 py-3 rounded-xl text-center">
+                {error}
+              </div>
             )}
-          </button>
 
-          <button
-            type="button"
-            onClick={() => setShowEmailForm(false)}
-            className="w-full text-center text-[11px] text-stone-400 hover:text-stone-600 transition-colors pt-1"
-          >
-            다른 방법으로 로그인
-          </button>
-        </form>
-      )}
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full h-[50px] px-4 rounded-xl bg-stone-50 border border-stone-200 text-[14px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-[#FC5200] focus:bg-white transition-all"
+              placeholder="이메일"
+              required
+              autoFocus
+            />
 
-      {/* Footer */}
-      <p className="text-center text-[11px] text-stone-400 mt-7">
-        계정이 없으신가요?{" "}
-        <Link href="/register" className="text-orange-500 hover:text-orange-600 transition-colors font-medium">
-          가입하기
-        </Link>
-      </p>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full h-[50px] px-4 rounded-xl bg-stone-50 border border-stone-200 text-[14px] text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-[#FC5200] focus:bg-white transition-all"
+              placeholder="비밀번호"
+              required
+            />
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full h-[50px] rounded-full bg-[#FC5200] text-white text-[14px] font-semibold hover:bg-[#E04800] active:scale-[0.98] transition-all disabled:opacity-50"
+            >
+              {loading ? "로그인 중..." : "로그인"}
+            </button>
+
+            <div className="flex justify-between items-center pt-2 px-1">
+              <button
+                type="button"
+                onClick={() => setShowEmailForm(false)}
+                className="text-[13px] text-stone-400 hover:text-stone-600 transition-colors"
+              >
+                ← 돌아가기
+              </button>
+              <Link
+                href="/forgot-password"
+                className="text-[13px] text-stone-400 hover:text-stone-600 transition-colors"
+              >
+                비밀번호를 잊으셨나요?
+              </Link>
+            </div>
+          </form>
+        )}
+
+        {/* Sign up */}
+        <p className="text-[13px] text-stone-400 mt-10">
+          회원이 아니신가요?{" "}
+          <Link href="/register" className="text-[#FC5200] font-semibold">
+            가입하기
+          </Link>
+        </p>
+      </div>
+
+      {/* Terms */}
+      <div className="text-center">
+        <p className="text-[11px] text-stone-300 leading-relaxed">
+          계속하면{" "}
+          <Link href="/terms" className="underline hover:text-stone-400 transition-colors">이용약관</Link>
+          {" "}및{" "}
+          <Link href="/privacy" className="underline hover:text-stone-400 transition-colors">개인정보처리방침</Link>
+          에 동의합니다
+        </p>
+      </div>
     </div>
   );
 }

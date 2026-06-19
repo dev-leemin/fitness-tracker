@@ -19,7 +19,7 @@ export default function MobileHeader() {
   return (
     <header className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] h-12 z-40 bg-white">
       <div className="flex items-center justify-between h-full px-5">
-        <Link href="/dashboard" className="flex items-center">
+        <Link href="/" className="flex items-center">
           <span className="text-[16px] font-extrabold text-stone-900 tracking-tight">FitLog</span>
         </Link>
 

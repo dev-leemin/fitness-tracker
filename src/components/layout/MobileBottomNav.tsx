@@ -5,18 +5,18 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 const navItems = [
-  { href: "/dashboard", label: "홈", icon: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  { href: "/", label: "홈", icon: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9.5L12 3l9 6.5V20a2 2 0 01-2 2H5a2 2 0 01-2-2V9.5z"/><path d="M9 22V12h6v10"/></svg>
   )},
-  { href: "/workout", label: "운동", icon: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6.5 6.5h11M6.5 17.5h11M2 12h2m16 0h2M6 12H4.5a2.5 2.5 0 0 1 0-5H6m0 10h-.5a2.5 2.5 0 0 0 0 5H6m12-10h.5a2.5 2.5 0 0 0 0-5H18m0 10h.5a2.5 2.5 0 0 1 0 5H18"/></svg>
-  )},
-  { href: "/workout/new", label: "", icon: null, isAction: true },
   { href: "/calendar", label: "캘린더", icon: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
   )},
-  { href: "/group", label: "그룹", icon: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+  { href: "/workout/new", label: "", icon: null, isAction: true },
+  { href: "/more", label: "더보기", icon: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+  )},
+  { href: "/profile", label: "프로필", icon: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
   )},
 ];
 
@@ -30,8 +30,10 @@ export default function MobileBottomNav() {
         <div className="flex items-center justify-around h-[58px] px-1">
           {navItems.map((item) => {
             const isActive = item.isAction
-              ? pathname === item.href
-              : pathname.startsWith(item.href);
+              ? false
+              : item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href);
 
             if (item.isAction) {
               const actionHref = session?.user
@@ -59,9 +61,7 @@ export default function MobileBottomNav() {
                   isActive ? "text-[#FC5200]" : "text-stone-400"
                 }`}
               >
-                <span className={isActive ? "text-[#FC5200]" : "text-stone-400"}>
-                  {item.icon}
-                </span>
+                <span>{item.icon}</span>
                 <span className="text-[10px] font-medium">{item.label}</span>
                 {isActive && (
                   <div className="w-1 h-1 rounded-full bg-[#FC5200] -mt-0.5" />
@@ -70,7 +70,6 @@ export default function MobileBottomNav() {
             );
           })}
         </div>
-        {/* Safe area for notch phones */}
         <div className="h-[env(safe-area-inset-bottom,0px)]" />
       </div>
     </nav>

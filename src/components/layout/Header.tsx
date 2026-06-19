@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 h-14 z-40 bg-white/80 backdrop-blur-xl border-b border-stone-200">
       <div className="flex items-center justify-between h-full px-4 lg:px-6">
-        <Link href="/dashboard" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <span className="text-[13px] font-semibold text-stone-900 tracking-tight">FitLog</span>
         </Link>
 

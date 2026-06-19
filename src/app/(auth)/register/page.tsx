@@ -66,7 +66,7 @@ export default function RegisterPage() {
     if (result?.error) {
       router.push("/login");
     } else {
-      router.push("/dashboard");
+      router.push("/");
     }
   };
 
@@ -90,7 +90,7 @@ export default function RegisterPage() {
         <>
           <div className="space-y-2 mt-6">
             <button
-              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+              onClick={() => signIn("google", { callbackUrl: "/" })}
               className="w-full flex items-center gap-3 h-11 px-4 rounded-lg bg-stone-50 border border-stone-200 text-[12px] font-medium text-stone-700 hover:bg-stone-100 hover:border-stone-300 transition-all"
             >
               <svg width="16" height="16" viewBox="0 0 24 24">
@@ -103,7 +103,7 @@ export default function RegisterPage() {
             </button>
 
             <button
-              onClick={() => signIn("kakao", { callbackUrl: "/dashboard" })}
+              onClick={() => signIn("kakao", { callbackUrl: "/" })}
               className="w-full flex items-center gap-3 h-11 px-4 rounded-lg bg-[#FEE500]/10 border border-[#FEE500]/30 text-[12px] font-medium text-stone-700 hover:bg-[#FEE500]/20 hover:border-[#FEE500]/40 transition-all"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="#3C1E1E">
